@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "net.dillon.lib.mixin.main",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "fix.BeehiveBlockMixin",
+    "fix.BlockEntityTypeMixin",
+    "fix.MatchToolLootConditionMixin",
+    "fix.PumpkinBlockMixin",
+    "fix.RegistryEntryListDirectAccessor",
+    "fix.SheepEntityMixin",
+    "fix.SnowGolemEntityMixin",
+    "fix.TripwireBlockMixin",
+    "player.PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

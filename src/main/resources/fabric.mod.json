@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "dillonlib",
+  "version": "base",
+  "name": "Dillon Lib",
+  "description": "A library mod for some of Dillon's mods.",
+  "accessWidener": "dillonlib.accessWidener",
+  "authors": [
+    "Dillon8775"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "All rights reserved.",
+  "icon": "assets/dillonlib/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.dillon.lib.DillonLib"
+    ],
+    "client": [
+      "net.dillon.lib.DillonLibClient"
+    ]
+  },
+  "mixins": [
+    "dillonlib.mixins.json",
+    {
+      "config": "dillonlib.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": ">=1.21.6",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

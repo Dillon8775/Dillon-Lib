@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.dillon.lib.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "fix.AbstractClientPlayerEntityMixin",
+    "fix.HeldItemRendererMixin",
+    "fix.PlayerEntityRendererMixin",
+    "MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

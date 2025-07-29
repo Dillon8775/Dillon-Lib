@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "dillonlibtest",
+  "version": "$version",
+  "name": "Dillon Lib test mod.",
+  "entrypoints": {
+    "main": [
+      "net.dillon.lib.LibraryTest"
+    ],
+    "client": [
+      "net.dillon.lib.LibraryTestClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.4"
+  }
+}
