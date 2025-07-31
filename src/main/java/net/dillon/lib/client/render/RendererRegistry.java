@@ -1,5 +1,7 @@
 package net.dillon.lib.client.render;
 
+import com.mojang.serialization.MapCodec;
+import net.dillon.lib.annotation.PrivateUse;
 import net.dillon.lib.registry.DillonsRegistry;
 import net.dillon.lib.registry.data.BoatData;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
@@ -9,8 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.*;
+import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
@@ -19,6 +22,7 @@ import net.minecraft.util.Identifier;
 /**
  * Registers all custom renderers.
  */
+@PrivateUse
 public class RendererRegistry {
 
     /**
@@ -45,6 +49,35 @@ public class RendererRegistry {
             registerBoatRenderer(boatData.entityType(),
                     boatModelLayer(namespace, id), false);
         }
+    }
+
+    /**
+     * @return a {@code shield factory renderer} based on a registered shield factory.
+     */
+    public static SpecialModelRenderer.Unbaked createShieldRenderer(SpriteIdentifier base, SpriteIdentifier baseNoPattern) {
+        return new SpecialModelRenderer.Unbaked() {
+            @Override
+            public MapCodec<? extends SpecialModelRenderer.Unbaked> getCodec() {
+                return MapCodec.unit(this);
+            }
+
+            @Override
+            public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
+                ShieldEntityModel model = new ShieldEntityModel(entityModels.getModelPart(EntityModelLayers.SHIELD));
+
+                return new AbstractShieldModelRenderer(model) {
+                    @Override
+                    protected SpriteIdentifier getBaseSprite() {
+                        return base;
+                    }
+
+                    @Override
+                    protected SpriteIdentifier getBaseNoPatternSprite() {
+                        return baseNoPattern;
+                    }
+                };
+            }
+        };
     }
 
     /**

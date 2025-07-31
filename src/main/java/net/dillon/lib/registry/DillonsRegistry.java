@@ -4,6 +4,7 @@ import net.dillon.lib.DillonLib;
 import net.dillon.lib.annotation.GlobalUse;
 import net.dillon.lib.annotation.PrivateUse;
 import net.dillon.lib.registry.data.BoatData;
+import net.dillon.lib.registry.data.ShieldData;
 import net.dillon.lib.registry.item.BowFactory;
 import net.dillon.lib.registry.item.CrossbowFactory;
 import net.dillon.lib.registry.sign.CustomSignBlock;
@@ -36,12 +37,14 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+import static net.dillon.lib.DillonLib.id;
+
 /**
  * A registry class, which registers certain items to a list to register in other parts of the game to behave correctly.
  */
 @GlobalUse
 public class DillonsRegistry {
-    private static final Map<ShieldItem, Integer> SHIELD_FACTORIES = new HashMap<>();
+    private static final Set<ShieldData> SHIELD_FACTORIES = new HashSet<>();
     private static final Map<BowFactory, Float> BOW_FACTORIES = new HashMap<>();
     private static final Map<Identifier, WoodType> WOOD_TYPE_CACHE = new ConcurrentHashMap<>();
     private static final Set<CrossbowFactory> CROSSBOW_FACTORIES = new HashSet<>();
@@ -76,13 +79,15 @@ public class DillonsRegistry {
                         )
                 )
                 .equippableUnswappable(EquipmentSlot.OFFHAND));
-        if (!(item instanceof ShieldItem)) {
+        if (!(item instanceof ShieldItem shieldItem)) {
             throw new IllegalArgumentException("Item is not a shield item!");
         }
-        SHIELD_FACTORIES.put((ShieldItem)item, cooldown);
+        SHIELD_FACTORIES.add(new ShieldData(id, shieldItem, cooldown));
         DillonLib.debug("Registered shield factory " + id + " with cooldown of " + cooldown + ".");
-        return (ShieldItem)item;
+        return shieldItem;
     }
+
+    public static final Item TEST_SHIELD = DillonsRegistry.registerShieldFactory(id("test_shield"), ShieldItem::new, new Item.Settings(), 50);
 
     /**
      * Registers a {@code shears factory} into the game.
@@ -263,10 +268,10 @@ public class DillonsRegistry {
     }
 
     /**
-     * @return the map of {@code shield factories.}
+     * @return the set of {@code shield factories.}
      */
     @PrivateUse
-    public static Map<ShieldItem, Integer> getShieldFactories() {
+    public static Set<ShieldData> getShieldFactories() {
         return SHIELD_FACTORIES;
     }
 

@@ -1,4 +1,7 @@
-package net.dillon.lib.option;
+package net.dillon.lib.main;
+
+import net.dillon.lib.option.BaseOptions;
+import net.dillon.lib.option.OptionValue;
 
 public class TestModOptions {
     public static final TestModOptions.Handler INSTANCE = new TestModOptions.Handler();

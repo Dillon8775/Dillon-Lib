@@ -21,6 +21,9 @@
     ],
     "client": [
       "net.dillon.lib.DillonLibClient"
+    ],
+    "fabric-datagen": [
+      "net.dillon.lib.client.data.DillonLibDataGenerator"
     ]
   },
   "mixins": [

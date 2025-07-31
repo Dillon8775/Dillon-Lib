@@ -14,7 +14,7 @@ import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
-import static net.dillon.lib.LibraryTest.id;
+import static net.dillon.lib.DillonLib.id;
 
 public class LibTest {
     public static final Item TEST_SHIELD = DillonsRegistry.registerShieldFactory(id("test_shield"), ShieldItem::new, new Item.Settings(), 50);

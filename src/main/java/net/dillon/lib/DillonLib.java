@@ -2,6 +2,7 @@ package net.dillon.lib;
 
 import net.dillon.lib.registry.DillonsRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,10 @@ public class DillonLib implements ModInitializer {
 	public void onInitialize() {
 		safeBoot = false;
 		DillonsRegistry.init();
+	}
+
+	public static Identifier id(String path) {
+		return Identifier.of("dillonlibtest", path);
 	}
 
 	/**
