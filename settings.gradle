@@ -1,4 +1,5 @@
 pluginManagement {
+	rootProject.name = 'dillonlib'
 	repositories {
 		maven {
 			name = 'Fabric'

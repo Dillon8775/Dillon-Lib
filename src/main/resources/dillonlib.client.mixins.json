@@ -6,6 +6,7 @@
     "fix.AbstractClientPlayerEntityMixin",
     "fix.HeldItemRendererMixin",
     "fix.PlayerEntityRendererMixin",
+    "render.SpecialModeTypesMixin",
     "MinecraftClientMixin"
   ],
   "injectors": {

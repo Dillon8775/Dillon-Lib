@@ -1,5 +1,6 @@
 package net.dillon.lib.registry.item;
 
+import net.dillon.lib.annotation.GlobalUse;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 /**
  * A crossbow item factory.
  */
+@GlobalUse
 public class CrossbowFactory extends CrossbowItem {
     private final float baseChargeTime;
     private final float defaultChargeSpeed;

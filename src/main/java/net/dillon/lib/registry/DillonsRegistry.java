@@ -11,10 +11,14 @@ import net.dillon.lib.registry.sign.CustomSignBlock;
 import net.dillon.lib.registry.sign.hanging.CustomHangingSignBlock;
 import net.dillon.lib.registry.sign.hanging.wall.CustomWallHangingSignBlock;
 import net.dillon.lib.registry.sign.wall.CustomWallSignBlock;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.component.type.BlocksAttacksComponent;
@@ -36,8 +40,6 @@ import net.minecraft.util.Identifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-
-import static net.dillon.lib.DillonLib.id;
 
 /**
  * A registry class, which registers certain items to a list to register in other parts of the game to behave correctly.
@@ -83,11 +85,15 @@ public class DillonsRegistry {
             throw new IllegalArgumentException("Item is not a shield item!");
         }
         SHIELD_FACTORIES.add(new ShieldData(id, shieldItem, cooldown));
+        if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.CLIENT)) {
+            DillonsCRegistry.SHIELD_IDENTIFIERS.add(new SpriteIdentifier[]{
+                    new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id.getPath() + "_base")),
+                    new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id.getPath() + "_base_no_pattern"))
+            });
+        }
         DillonLib.debug("Registered shield factory " + id + " with cooldown of " + cooldown + ".");
         return shieldItem;
     }
-
-    public static final Item TEST_SHIELD = DillonsRegistry.registerShieldFactory(id("test_shield"), ShieldItem::new, new Item.Settings(), 50);
 
     /**
      * Registers a {@code shears factory} into the game.

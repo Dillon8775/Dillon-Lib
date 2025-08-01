@@ -25,14 +25,18 @@ public class SpecialModeTypesMixin {
     @Shadow @Final
     public static Codecs.IdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> ID_MAPPER;
 
+    /**
+     * Fixes a bug where sometimes, shield factory renderers don't register correctly.
+     */
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void registerShieldFactoryRenderers(CallbackInfo ci) {
         for (ShieldData data : DillonsRegistry.getShieldFactories()) {
             String id = data.identifier().getPath();
-            SpriteIdentifier base = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id + "_base"));
-            SpriteIdentifier baseNoPattern = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id + "_base_no_pattern"));
             MapCodec<? extends SpecialModelRenderer.Unbaked> specialModeRendererCodec =
-                    RendererRegistry.createShieldRenderer(base, baseNoPattern).getCodec();
+                    RendererRegistry.createUnbakedShieldRenderer(
+                            new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id + "_base")),
+                                    new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/" + id + "_base_no_pattern")))
+                            .getCodec();
             ID_MAPPER.put(data.identifier(), specialModeRendererCodec);
         }
     }

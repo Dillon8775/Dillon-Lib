@@ -1,5 +1,6 @@
 package net.dillon.lib.registry.item;
 
+import net.dillon.lib.annotation.GlobalUse;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * A bow item factory.
  */
+@GlobalUse
 public class BowFactory extends BowItem {
     private final float pullSpeed;
     private final float power;

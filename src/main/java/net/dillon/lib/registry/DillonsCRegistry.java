@@ -9,15 +9,13 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A client-side registry class, which registers certain items to a list to register in other parts of the game to behave correctly on client-side.
@@ -25,6 +23,7 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 @GlobalUse
 public class DillonsCRegistry {
+    protected static final Set<SpriteIdentifier[]> SHIELD_IDENTIFIERS = new HashSet<>();
     private static final Map<KeyBinding, List<Runnable>> KEY_BINDING_FACTORIES = new HashMap<>();
 
     /**
@@ -61,6 +60,14 @@ public class DillonsCRegistry {
         }
         KEY_BINDING_FACTORIES.put(keyBind, runnables);
         return keyBind;
+    }
+
+    /**
+     * @return the shield identifiers.
+     */
+    @PrivateUse
+    public static Set<SpriteIdentifier[]> getShieldIdentifiers() {
+        return SHIELD_IDENTIFIERS;
     }
 
     /**

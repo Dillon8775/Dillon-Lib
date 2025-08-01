@@ -27,8 +27,8 @@ import java.util.Set;
 /**
  * The renderer class for all {@code shield factories.}
  */
-@Environment(EnvType.CLIENT)
 @PrivateUse
+@Environment(EnvType.CLIENT)
 public abstract class AbstractShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
     private final ShieldEntityModel shieldModel;
 

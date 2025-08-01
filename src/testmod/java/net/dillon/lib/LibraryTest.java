@@ -12,4 +12,8 @@ public class LibraryTest implements ModInitializer {
         LibTest.init();
         TestModOptions.INSTANCE.load();
     }
+
+    public static Identifier id(String path) {
+        return Identifier.of("dillonlibtest", path);
+    }
 }
