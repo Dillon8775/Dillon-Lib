@@ -1,0 +1,13 @@
+/give @s dillonlibtest:test_boat
+/give @s dillonlibtest:test_bow
+/give @s dillonlibtest:test_crossbow
+/give @s dillonlibtest:test_cutout
+/give @s dillonlibtest:test_shears
+/give @s dillonlibtest:test_shield
+/give @s dillonlibtest:test_sign
+/give @s dillonlibtest:test_boat
+/give @s dillonlibtest:test_sign
+/give @s dillonlibtest:test_crossbow
+/give @s dillonlibtest:test_shears
+/give @s dillonlibtest:test_shield
+/give @s dillonlibtest:test_sign

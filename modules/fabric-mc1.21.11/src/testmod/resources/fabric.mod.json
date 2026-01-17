@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "dillonlibtest",
+  "version": "$version",
+  "name": "Dillon Lib test mod.",
+  "entrypoints": {
+    "main": [
+      "net.dillonlib.LibraryTest"
+    ],
+    "client": [
+      "net.dillonlib.LibraryTestClient"
+    ],
+    "fabric-datagen": [
+      "net.dillonlib.data.TestDataGenerator"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.4"
+  }
+}

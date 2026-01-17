@@ -1,0 +1,8 @@
+{
+  "test_boolean": {
+    "requires_restart": false,
+    "default_value": true,
+    "current_value": true,
+    "broken": false
+  }
+}
