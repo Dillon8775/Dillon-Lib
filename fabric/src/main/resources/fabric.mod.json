@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}+${mc_version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "Dillon8775"
+  ],
+  "contact": {
+    "homepage": "${homepage}",
+    "sources": "${sources}",
+    "issues": "${issues}"
+  },
+  "license": "${license}",
+  "icon": "${logo}.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.dillon.dillonlib.ClientDillonLibFabric"
+    ],
+    "server": [
+      "net.dillon.dillonlib.ServerDillonLibFabric"
+    ],
+    "main": [
+      "net.dillon.dillonlib.DillonLibFabric"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": ">=1.21.1",
+    "java": ">=${java_version}",
+    "fabric-api": "*"
+  }
+}
