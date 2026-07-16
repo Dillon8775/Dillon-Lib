@@ -102,7 +102,7 @@ processResources {
             "discord"                      : discord,
             "issues"                       : issues,
             "sources"                      : sources,
-            // "balm_version"                 : libs.versions.balm.get().split('\\+')[0],
+            "balm_version"                 : libs.versions.balm.get().split('\\+')[0],
     ]
 
     def jsonExpandProps = expandProps.collectEntries {

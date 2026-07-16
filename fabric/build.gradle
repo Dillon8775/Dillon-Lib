@@ -12,7 +12,7 @@ apply from: rootProject.file('repositories.gradle')
 apply from: 'dependencies.gradle'
 
 tasks.named('remapJar', RemapJarTask) {
-    archiveFileName.set("${mod_id}-${mod_version}_${project.name}-mc${libs.minecraft.get().version}.jar")
+    archiveFileName.set("${mod_id}-${mod_version}_${project.name}-${mc_version}.jar")
 }
 
 loom {
