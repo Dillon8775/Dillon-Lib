@@ -3,6 +3,9 @@ package net.dillon.dillonlib.event;
 import net.dillon.dillonlib.platform.PlatformGetter;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
+/**
+ * {@code Common Fabric events} for DillonLib.
+ */
 public class FabricCommonEvents {
 
     public static void registerFabricCommonCommands() {

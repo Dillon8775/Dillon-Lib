@@ -1,8 +1,8 @@
 {
-  "dillonlib.on": "§aON",
-  "dillonlib.off": "§cOFF",
-  "dillonlib.yes": "§aYES",
-  "dillonlib.no": "§cNO",
+  "dillonlib.on": "ON",
+  "dillonlib.off": "OFF",
+  "dillonlib.yes": "YES",
+  "dillonlib.no": "NO",
   "dillonlib.lets_go": "Let's go!",
   "dillonlib.back": "Back",
   "dillonlib.next": "Next",

@@ -1,10 +1,13 @@
-package net.dillon.dillonlib.utility;
+package net.dillon.dillonlib;
 
+import net.dillon.dillonlib.annotation.Dill;
+import net.dillon.dillonlib.annotation.DillType;
 import net.minecraft.client.Minecraft;
 
 /**
  * Client-side only methods that can be commonly used throughout your mod.
  */
+@Dill(DillType.CLIENT)
 public class ClientChores {
 
     /**
