@@ -68,7 +68,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
         mainFile.changelog = rootProject.file("${changelog_file}").text
         mainFile.addRequirement("fabric-api")
         mainFile.addGameVersion(libs.minecraft.get().version)
-        mainFile.releaseType = "beta"
+        // mainFile.releaseType = "beta"
         project.findProperty("curseforge_environments")?.split(",")?.toList()?.each { mainFile.addEnvironment(it) }
     }
 }
@@ -90,5 +90,5 @@ modrinth {
     dependencies {
         required.project "fabric-api"
     }
-    versionType = "beta"
+    // versionType = "beta"
 }
