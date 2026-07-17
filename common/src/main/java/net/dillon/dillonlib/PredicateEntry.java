@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.utility;
+package net.dillon.dillonlib;
 
 /**
  * A list of mapped {@code mixin class names} with {@code booleans} on whether the mixin should be enabled.

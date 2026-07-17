@@ -18,42 +18,42 @@ public abstract class ModPlatform {
     /**
      * @return the logger for the mod.
      */
-    public abstract @NotNull Logger logger();
+    protected abstract @NotNull Logger logger();
 
     /**
      * @return the mod id.
      */
-    public abstract String modId();
+    protected abstract String modId();
 
     /**
      * @return the mod version.
      */
-    public abstract String version();
+    protected abstract String modVersion();
 
     /**
      * @return the platform name.
      */
-    public abstract @NotNull PlatformName platformName();
+    protected abstract @NotNull PlatformName platformName();
 
     /**
      * @return the platform release.
      */
-    public abstract @NotNull PlatformRelease platformRelease();
+    protected abstract @NotNull PlatformRelease platformRelease();
 
     /**
      * @return the logo width.
      */
-    public abstract @NotNull LogoWidth logoWidth();
+    protected abstract @NotNull LogoWidth logoWidth();
 
     /**
      * Gets the config directory for the supported platform.
      */
-    public abstract @NotNull Path configDir();
+    protected abstract @NotNull Path configDir();
 
     /**
      * @return if a {@code Quality of Queso} packet can be sent.
      */
-    public abstract boolean canSendPacket(LocalPlayer localPlayer);
+    protected abstract boolean canSendPacket(LocalPlayer localPlayer);
 
     /**
      * Registers commands that should be on all environments. Can be blank.
@@ -71,33 +71,5 @@ public abstract class ModPlatform {
      * Registers server-side only commands. Can be blank.
      */
     public void registerServerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
-
-    /**
-     * Sends a normal {@code message} to console.
-     */
-    public static void info(String message) {
-        PlatformGetter.get().logger().info(message);
-    }
-
-    /**
-     * Sends a {@code warning} message to console.
-     */
-    public static void warn(String message) {
-        PlatformGetter.get().logger().warn(message);
-    }
-
-    /**
-     * Sends a {@code error} message to console.
-     */
-    public static void error(String error) {
-        PlatformGetter.get().logger().error(error);
-    }
-
-    /**
-     * Sends a {@code debug} message to console
-     */
-    public static void debug(String message) {
-        PlatformGetter.get().logger().debug(message);
     }
 }

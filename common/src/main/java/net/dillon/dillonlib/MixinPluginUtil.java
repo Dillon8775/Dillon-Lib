@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.utility;
+package net.dillon.dillonlib;
 
 import net.dillon.dillonlib.platform.ModReference;
 import org.slf4j.Logger;
@@ -28,13 +28,19 @@ public abstract class MixinPluginUtil {
     public abstract boolean isModLoaded(ModReference mod);
 
     /**
+     * @return the mixin directory used to check for mixins.
+     * <p>Example: "net.dillon.dillonlib.mixin."</p>
+     */
+    public abstract String mixinDirectory();
+
+    /**
      * @return {@code false} if mixin should not apply.
      */
     public boolean shouldNotApply(String targetClassName, String mixinClassName) {
         for (PredicateEntry entry : entries()) {
             if (entry.condition()) {
                 for (String s : entry.mixins()) {
-                    String name = "net.dillon.qualityofqueso.mixin." + s;
+                    String name = this.mixinDirectory() + s;
                     if (name.equals(mixinClassName)) {
                         logger().warn("Skipping mixin {} for class {}: {}",
                                 mixinClassName,

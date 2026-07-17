@@ -1,0 +1,128 @@
+package net.dillon.dillonlib.client;
+
+import net.dillon.dillonlib.annotation.Dill;
+import net.dillon.dillonlib.annotation.DillType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A better version of {@link net.minecraft.client.gui.components.OptionsList}, with more user-friendly appearances, centering and positioning.
+ */
+@Dill(DillType.CLIENT)
+public class ModernListWidget extends ContainerObjectSelectionList<ModernListWidget.ModWidgetEntry> {
+    private static final int ROW_WIDTH = 310;
+    private static final int ROW_SPACING = 160;
+
+    /**
+     * Initializes this class.
+     */
+    public static void i_() {
+    }
+
+    /**
+     * Create a new {@link ModernListWidget}.
+     */
+    public ModernListWidget(Minecraft client, int width, OptionsSubScreen optionsScreen) {
+        super(client, width, optionsScreen.layout.getContentHeight(), optionsScreen.layout.getHeaderHeight(), 25);
+        this.centerListVertically = false;
+    }
+
+    /**
+     * Adds a "row" of buttons to the list.
+     */
+    public void addRow(AbstractWidget firstButton, @Nullable AbstractWidget secondButton) {
+        List<AbstractWidget> buttons = new ArrayList<>();
+        buttons.add(firstButton);
+        if (secondButton != null) {
+            buttons.add(secondButton);
+        }
+        this.addEntry(ModWidgetEntry.create(buttons));
+        this.layoutButtons(false);
+    }
+
+    /**
+     * <p>Adds a single button to the list of buttons.</p>
+     * This button will take up a whole "row" space.
+     */
+    public void addSingleOptionEntry(AbstractWidget button) {
+        button.setWidth(ROW_WIDTH);
+        List<AbstractWidget> buttons = new ArrayList<>();
+        buttons.add(button);
+        this.addEntry(ModWidgetEntry.create(buttons));
+        this.layoutButtons(false);
+    }
+
+    /**
+     * Adds a whole {@link List} of buttons to the screen.
+     */
+    public void addAll(List<AbstractWidget> buttons) {
+        for (int i = 0; i < buttons.size(); i += 2) {
+            this.addRow(buttons.get(i), i < buttons.size() - 1 ? buttons.get(i + 1) : null);
+        }
+    }
+
+    /**
+     * Repositions row widgets after the list itself has been moved or resized.
+     */
+    public void layoutButtons(boolean centerSingleButtons) {
+        int rowLeft = this.getRowLeft();
+
+        for (ModWidgetEntry entry : this.children()) {
+            List<AbstractWidget> widgets = entry.widgets;
+            if (widgets.size() == 1) {
+                AbstractWidget widget = widgets.getFirst();
+                widget.setX(centerSingleButtons && widget.getWidth() < ROW_WIDTH ? rowLeft + (ROW_WIDTH - widget.getWidth()) / 2 : rowLeft);
+            } else if (widgets.size() >= 2) {
+                widgets.get(0).setX(rowLeft);
+                widgets.get(1).setX(rowLeft + ROW_SPACING);
+            }
+        }
+    }
+
+    /**
+     * @return the total row width for the list widget.
+     */
+    @Override
+    public int getRowWidth() {
+        return ROW_WIDTH;
+    }
+
+    public static class ModWidgetEntry extends Entry<ModWidgetEntry> {
+        public final List<AbstractWidget> widgets;
+
+        private ModWidgetEntry(List<AbstractWidget> widgets) {
+            this.widgets = widgets;
+        }
+
+        public static ModWidgetEntry create(List<AbstractWidget> widgets) {
+            return new ModWidgetEntry(widgets);
+        }
+
+        @Override
+        public List<? extends GuiEventListener> children() {
+            return this.widgets;
+        }
+
+        @Override
+        public List<? extends NarratableEntry> narratables() {
+            return this.widgets;
+        }
+
+        @Override
+        public void render(GuiGraphics graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            for (AbstractWidget widget : this.widgets) {
+                widget.setY(y);
+                widget.render(graphics, mouseX, mouseY, tickDelta);
+            }
+        }
+    }
+}

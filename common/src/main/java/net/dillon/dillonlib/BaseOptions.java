@@ -1,9 +1,9 @@
-package net.dillon.dillonlib.utility;
+package net.dillon.dillonlib;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.platform.Statics;
 
 import java.io.File;
 import java.io.FileReader;
@@ -146,7 +146,7 @@ public abstract class BaseOptions<T> {
         if (this.file == null) {
             File baseDir = (this.customDir != null)
                     ? this.customDir
-                    : PlatformGetter.get().configDir().resolve(this.configDir()).toFile();
+                    : Statics.CONFIG_DIR.resolve(this.configDir()).toFile();
 
             baseDir.mkdirs();
             this.file = new File(baseDir, this.fileName);
