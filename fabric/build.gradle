@@ -93,4 +93,8 @@ modrinth {
         required.project "fabric-api"
         // required.project "balm"
     }
+    additionalFiles = files(
+            tasks.named("sourcesJar"),
+            tasks.named("javadocJar")
+    )
 }
