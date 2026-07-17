@@ -4,12 +4,9 @@
 
 ---
 
-## For Developers
+## Developers Notes
 
-- Provides all information required to create a mod on multiple modding platforms (ex. Fabric, Forge and NeoForge).
-- Compatible with **Minecraft 26.2, 1.21.11, 1.21.1 and 1.20.1.**
-    - For **1.21.1** and above, only **NeoForge** and **Fabric** are supported.
-    - For **1.20.1**, only **Forge** and **Fabric** are supported.
+Provides all information required to create a mod on multiple modding platforms (ex. Fabric, Forge and NeoForge).
 
 Provides other miscellaneous resources, including:
 - Memory-stored player data, based on UUID
@@ -23,6 +20,32 @@ Provides other miscellaneous resources, including:
 DillonLib does not require any other outside resources or mods, other than [Fabric API](https://modrinth.com/mod/fabric-api) for fabric users.
 
 You can view the **[source code](https://github.com/Dillon8775/Dillon-Lib)** for reference.
+
+### To use this library with your mod, add this to your `build.gradle` file:
+
+```
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
+}
+
+dependencies {
+    implementation "maven.modrinth:dillon-lib:*DL_version*"
+    
+    // Note: for *DL_version*, make sure you use the correct MC and platform (fabric/neoforge/forge) version.
+    // You can get it by opening the specified version and copying the end of the modrinth link.
+    // Example: https://modrinth.com/mod/dillon-lib/version/5voax3wu <- use "5voax3wu" as the *DL_version*!
+}
+```
 
 ---
 
