@@ -60,9 +60,11 @@ tasks.register('curseforge', TaskPublishCurseForge) {
         mainFile.displayName = "[${mc_version.substring(2)}] $mod_name ${mod_version}"
         mainFile.changelog = rootProject.file("${changelog_file}").text
         mainFile.addGameVersion(libs.minecraft.get().version)
-        // mainFile.releaseType = "beta"
+        mainFile.releaseType = "release"
         project.findProperty("curseforge_environments")?.split(",")?.toList()?.each { mainFile.addEnvironment(it) }
         mainFile.addModLoader("NeoForge")
+        mainFile.addEnvironment("Client")
+        mainFile.addEnvironment("Server")
     }
 }
 
@@ -82,7 +84,7 @@ modrinth {
     loaders = ['neoforge']
     dependencies {
     }
-    // versionType = "beta"
+    versionType = "release"
 }
 
 def neoForgeSnapshotUrl = findProperty("neoforge_snapshot_url")
