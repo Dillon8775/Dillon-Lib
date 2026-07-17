@@ -12,17 +12,17 @@ import java.nio.file.Path;
 public class NeoForgeModPlatform extends ModPlatform {
 
     @Override
-    public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Main");
+    protected @NotNull Logger logger() {
+        return LoggerFactory.getLogger("DillonLib/NeoForge");
     }
 
     @Override
-    public String modId() {
+    protected String modId() {
         return "dillonlib";
     }
 
     @Override
-    public String version() {
+    protected String modVersion() {
         return ModList.get()
                 .getModContainerById(this.modId())
                 .map(c -> c.getModInfo().getVersion().toString().split("\\+", 2)[0])
@@ -30,27 +30,27 @@ public class NeoForgeModPlatform extends ModPlatform {
     }
 
     @Override
-    public @NotNull PlatformName platformName() {
+    protected @NotNull PlatformName platformName() {
         return PlatformName.NEOFORGE;
     }
 
     @Override
-    public @NotNull PlatformRelease platformRelease() {
-        return PlatformRelease.BETA;
+    protected @NotNull PlatformRelease platformRelease() {
+        return PlatformRelease.STABLE;
     }
 
     @Override
-    public @NotNull LogoWidth logoWidth() {
-        return LogoWidth.PATCH;
+    protected @NotNull LogoWidth logoWidth() {
+        return LogoWidth.DEFAULT;
     }
 
     @Override
-    public @NotNull Path configDir() {
+    protected @NotNull Path configDir() {
         return FMLPaths.CONFIGDIR.get();
     }
 
     @Override
-    public boolean canSendPacket(LocalPlayer localPlayer) {
+    protected boolean canSendPacket(LocalPlayer localPlayer) {
         return true;
     }
 }

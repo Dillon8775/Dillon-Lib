@@ -107,7 +107,7 @@ processResources {
             'discord' : discord,
             'java_version' : java_version,
             'minecraft_version' : minecraft_version,
-            // 'balm_version' : balm_version,
+            'balm_version' : balm_version,
             'fabric_version' : fabric_version,
             'fabric_loader_version' : fabric_loader_version,
             'modmenu_version' : modmenu_version,
