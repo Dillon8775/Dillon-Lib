@@ -125,6 +125,10 @@ modrinth {
     dependencies {
     }
     versionType = "release"
+    additionalFiles = files(
+            tasks.named("sourcesJar"),
+            tasks.named("javadocJar")
+    )
 }
 
 sourceSets.each {

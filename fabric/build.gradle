@@ -93,4 +93,8 @@ modrinth {
         required.project "fabric-api"
     }
     versionType = "release"
+    additionalFiles = files(
+            tasks.named("sourcesJar"),
+            tasks.named("javadocJar")
+    )
 }
