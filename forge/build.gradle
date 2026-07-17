@@ -8,15 +8,15 @@ plugins {
     alias libs.plugins.modrinthMinotaur
 }
 
-mixin {
-    config("${mod_id}.mixins.json")
-}
-
-jar {
-    manifest {
-        attributes["MixinConfigs"] = "${mod_id}.mixins.json"
-    }
-}
+//mixin {
+//    config("${mod_id}.mixins.json")
+//}
+//
+//jar {
+//    manifest {
+//        attributes["MixinConfigs"] = "${mod_id}.mixins.json"
+//    }
+//}
 
 minecraft {
     mappings channel: 'official', version: libs.minecraft.get().version

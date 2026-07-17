@@ -12,17 +12,17 @@ import java.nio.file.Path;
 public class ForgeModPlatform extends ModPlatform {
 
     @Override
-    public @NotNull Logger logger() {
+    protected @NotNull Logger logger() {
         return LoggerFactory.getLogger("DillonLib/Main");
     }
 
     @Override
-    public String modId() {
+    protected String modId() {
         return "dillonlib";
     }
 
     @Override
-    public String version() {
+    protected String modVersion() {
         return ModList.get()
                 .getModContainerById("dillonlib")
                 .map(c -> c.getModInfo().getVersion().toString().split("[+-]", 2)[0])
@@ -30,27 +30,27 @@ public class ForgeModPlatform extends ModPlatform {
     }
 
     @Override
-    public @NotNull PlatformName platformName() {
+    protected @NotNull PlatformName platformName() {
         return PlatformName.FORGE;
     }
 
     @Override
-    public @NotNull PlatformRelease platformRelease() {
+    protected @NotNull PlatformRelease platformRelease() {
         return PlatformRelease.BETA;
     }
 
     @Override
-    public @NotNull LogoWidth logoWidth() {
+    protected @NotNull LogoWidth logoWidth() {
         return LogoWidth.PATCH;
     }
 
     @Override
-    public @NotNull Path configDir() {
+    protected @NotNull Path configDir() {
         return FMLPaths.CONFIGDIR.get();
     }
 
     @Override
-    public boolean canSendPacket(LocalPlayer localPlayer) {
+    protected boolean canSendPacket(LocalPlayer localPlayer) {
         return true;
     }
 }

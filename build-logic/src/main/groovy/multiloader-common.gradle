@@ -81,6 +81,7 @@ processResources {
             "minecraft_version_range"      : minecraft_version_range,
             'neoforge_version'             : neoforge_version,
             'neoforge_loader_version_range': neoforge_loader_version_range,
+            "forge_version"                : libs.forge.get().version,
             "fabric_api_version"           : libs.fabricApi.get().version,
             "fabric_loader_version"        : libs.fabricLoader.get().version,
             "mod_name"                     : mod_name,
