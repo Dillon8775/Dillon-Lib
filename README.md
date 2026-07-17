@@ -4,7 +4,7 @@
 
 ---
 
-## Developers Notes
+## Developer Notes
 
 Provides all information required to create a mod on multiple modding platforms (ex. Fabric, Forge and NeoForge).
 
