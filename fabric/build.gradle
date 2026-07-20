@@ -31,6 +31,21 @@ loom {
             ideConfigGenerated(true)
             runDir('runs/server')
         }
+        testmodClient {
+            client()
+            source(sourceSets.test)
+
+            runDir('runs/client')
+            name = "Test Mod Client"
+        }
+
+        testmodServer {
+            server()
+            source(sourceSets.test)
+
+            runDir('runs/server')
+            name = "Test Mod Server"
+        }
     }
 }
 
@@ -51,6 +66,17 @@ sourceSets.configureEach {
             }
         }
     }
+}
+
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
+tasks.named('test') {
+    enabled = false
 }
 
 tasks.register('curseforge', TaskPublishCurseForge) {

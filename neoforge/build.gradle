@@ -18,11 +18,16 @@ neoForge {
         accessTransformers.from(at.absolutePath)
     }
     runs {
+        addModdingDependenciesTo(sourceSets.test)
+
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
         }
         client {
+            client()
+        }
+        test {
             client()
         }
         data {
@@ -40,10 +45,24 @@ neoForge {
         "${mod_id}" {
             sourceSet sourceSets.main
         }
+        "quesoinstance" {
+            sourceSet sourceSets.test
+        }
     }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+tasks.named('test') {
+    enabled = false
+}
 
 tasks.register('curseforge', TaskPublishCurseForge) {
     dependsOn('build')

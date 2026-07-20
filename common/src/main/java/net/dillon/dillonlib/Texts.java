@@ -3,16 +3,10 @@ package net.dillon.dillonlib;
 import net.minecraft.network.chat.Component;
 
 /**
- * Common texts used in Dillon's mods.
+ * Common texts that can be used throughout your mod.
+ * @since 1.0
  */
 public class Texts {
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
-
     public static final Component BLANK = Component.literal("");
     public static final Component ON = Component.translatable("dillonlib.on");
     public static final Component OFF = Component.translatable("dillonlib.off");

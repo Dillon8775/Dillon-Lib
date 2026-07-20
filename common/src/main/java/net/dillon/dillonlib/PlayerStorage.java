@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Stores server-side data for a player's {@link UUID}, mainly used for syncing client-options with the server for player preferences.
+ * @since 1.0
  * @param <T> the type of data stored for the player's UUID.
  */
 public class PlayerStorage<T> {
@@ -14,12 +15,6 @@ public class PlayerStorage<T> {
 
     public PlayerStorage(T defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
     }
 
     /**

@@ -8,16 +8,11 @@ import java.util.List;
 import java.util.TimerTask;
 
 /**
- * An alternative to {@link TimerTask}, which allows execution of code after a set amount of seconds, running within the Minecraft server.
+ * An alternative to {@link TimerTask}, which allows execution of code after a set amount of seconds, running within the Minecraft server tick.
+ * @since 1.0
  */
 public class TaskScheduler {
     private static final List<ScheduledTask> TASKS = new ArrayList<>();
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
 
     /**
      * Schedule a task (executes after {@code delayTicks}).

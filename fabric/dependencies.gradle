@@ -8,4 +8,13 @@ dependencies {
 //    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
 //        changing = balm_version.contains('SNAPSHOT')
 //    }
+    testImplementation sourceSets.main.output
+    testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    afterEvaluate {
+        subprojects.each {
+            implementation project(path: ":${it.path}", configuration: "namedElements")
+            testImplementation project(":${it.path}").sourceSets.test.output
+        }
+    }
 }
