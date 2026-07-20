@@ -43,11 +43,37 @@ loom {
             vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file("src/generated/resources")}"
             vmArg "-Dfabric-api.datagen.modid=${mod_id}"
         }
+        testmodClient {
+            client()
+            source(sourceSets.test)
+
+            runDir('runs/client')
+            name = "Test Mod Client"
+        }
+
+        testmodServer {
+            server()
+            source(sourceSets.test)
+
+            runDir('runs/server')
+            name = "Test Mod Server"
+        }
     }
 }
 
 tasks.named('remapJar') {
     archiveFileName.set("${mod_id}-${mod_version}_${project.name}-mc${libs.minecraft.get().version}.jar")
+}
+
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
+tasks.named('test') {
+    enabled = false
 }
 
 tasks.register('curseforge', TaskPublishCurseForge) {

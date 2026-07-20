@@ -3,8 +3,7 @@ package net.dillon.dillonlib;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.dillon.dillonlib.platform.PlatformGetter;
-import net.dillon.dillonlib.platform.Statics;
+import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,7 +11,11 @@ import java.io.FileWriter;
 import java.util.function.Consumer;
 
 /**
- * A base class for registering options on different environment sides.
+ * A base class for registering options on different multiple environment sides. You can customize this however you'd like, by setting instances of options, a custom {@link Gson} setup, config directory, and a {@code update function} to directly update your options.
+ * @since 1.0
+ * @see BaseOptions#update(Consumer)
+ * @see BaseOptions#configDir()
+ * @see BaseOptions#createGson()
  */
 public abstract class BaseOptions<T> {
     private final Gson GSON = createGson();
@@ -27,18 +30,8 @@ public abstract class BaseOptions<T> {
     public BaseOptions(String fileName) {
         this.fileName = fileName;
         this.instance = createDefault();
+        this.load();
     }
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
-
-    /**
-     * Returns the config directory to be resolved.
-     */
-    public abstract String configDir();
 
     /**
      * Returns the type to get the options from.
@@ -58,11 +51,19 @@ public abstract class BaseOptions<T> {
     }
 
     /**
+     * Returns the config directory to be resolved. Leave blank for default .minecraft/config directory.
+     */
+    public String configDir() {
+        return "";
+    }
+
+    /**
      * Runs a safe check through all options to ensure no issues.
      * <p>Preforms a {@code "safe check"} on all the Speedrunner Mod options, and makes sure that they are valid and safe to run in-game.
      * <p>If an option is broken or invalid, and it is not recommended to run, the user will automatically boot into the Safe boot screen.</p>
      */
-    protected abstract void safeCheck();
+    protected void safeCheck() {
+    }
 
     /**
      * Gets the instance of options.
@@ -147,7 +148,7 @@ public abstract class BaseOptions<T> {
         if (this.file == null) {
             File baseDir = (this.customDir != null)
                     ? this.customDir
-                    : Statics.CONFIG_DIR.resolve(this.configDir()).toFile();
+                    : CommonPlatformGetter.get().configDir().resolve(this.configDir()).toFile();
 
             baseDir.mkdirs();
             this.file = new File(baseDir, this.fileName);

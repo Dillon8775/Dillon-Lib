@@ -27,6 +27,7 @@
     ]
   },
   "mixins": [
+    "dillonlib.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

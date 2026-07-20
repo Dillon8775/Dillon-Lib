@@ -10,10 +10,16 @@ dependencies {
     modImplementation libs.fabricApi
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-//    modImplementation(libs.balmFabric) {
-//        changing = libs.versions.balm.get().contains("SNAPSHOT")
+//    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
+//        changing = balm_version.contains('SNAPSHOT')
 //    }
-//
-//    modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}+${project.yalc_mc}-fabric"
-//
+    testImplementation sourceSets.main.output
+//    testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    afterEvaluate {
+        subprojects.each {
+            implementation project(path: ":${it.path}", configuration: "namedElements")
+            testImplementation project(":${it.path}").sourceSets.test.output
+        }
+    }
 }

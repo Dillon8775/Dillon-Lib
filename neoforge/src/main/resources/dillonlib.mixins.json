@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.4"
+  },
+  "compatibilityLevel": "JAVA_21",
+  "package": "net.dillon.dillonlib.mixin",
+  "plugin": "net.dillon.dillonlib.mixin.ConditionalMixinPlugin",
+  "mixins": [
+    "accessor.EntityTypeInvoker",
+    "accessor.ItemsInvoker"
+  ],
+  "client": [
+    "client.ClientPacketListenerMixin",
+    "client.MinecraftMixin",
+    "client.fix.bow.AbstractClientPlayerFix",
+    "client.fix.bow.AvatarRendererFix",
+    "client.fix.bow.ItemInHandRendererFix",
+    "entity.LivingEntityMixin",
+    "ignitable.CandleCakeBlockFix",
+    "ignitable.TntBlockFix",
+    "shear.BeehiveBlockFix",
+    "shear.CopperGolemFix",
+    "shear.MatchToolFix",
+    "shear.MushroomCowFix"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

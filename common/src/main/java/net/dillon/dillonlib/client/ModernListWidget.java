@@ -6,27 +6,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A better version of {@link net.minecraft.client.gui.components.OptionsList}, with more user-friendly appearances, centering and positioning.
+ * A better version of {@link OptionsList}, with more user-friendly appearances, centering and positioning.
+ * @since 1.0
+ * @see ModernWidgetOptions
  */
 @Dill(DillType.CLIENT)
 public class ModernListWidget extends ContainerObjectSelectionList<ModernListWidget.ModWidgetEntry> {
     private static final int ROW_WIDTH = 310;
     private static final int ROW_SPACING = 160;
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
 
     /**
      * Create a new {@link ModernListWidget}.
@@ -37,7 +35,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * Adds a "row" of buttons to the list.
+     * Adds a row of buttons to the list.
      */
     public void addRow(AbstractWidget firstButton, @Nullable AbstractWidget secondButton) {
         List<AbstractWidget> buttons = new ArrayList<>();
@@ -50,8 +48,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * <p>Adds a single button to the list of buttons.</p>
-     * This button will take up a whole "row" space.
+     * Adds a single button to the list of buttons. This button will take up a whole row space.
      */
     public void addSingleOptionEntry(AbstractWidget button) {
         button.setWidth(ROW_WIDTH);
@@ -62,7 +59,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * Adds a whole {@link List} of buttons to the screen.
+     * Adds a {@link List} of buttons to the screen.
      */
     public void addAll(List<AbstractWidget> buttons) {
         for (int i = 0; i < buttons.size(); i += 2) {
@@ -129,12 +126,12 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
         }
 
         @Override
-        public List<? extends GuiEventListener> children() {
+        public @NonNull List<? extends GuiEventListener> children() {
             return this.widgets;
         }
 
         @Override
-        public List<? extends NarratableEntry> narratables() {
+        public @NonNull List<? extends NarratableEntry> narratables() {
             return this.widgets;
         }
     }
