@@ -10,8 +10,8 @@ public class QuesoExampleMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        QuesoTestItems.i_();
         QuesoEntityTypes.i_();
+        QuesoTestItems.i_();
 
         QuesoExamplePlatformGetter.get().logger().info("Successfully initialized QuesoExample mod for DillonLib.");
     }
