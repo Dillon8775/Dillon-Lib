@@ -10,6 +10,7 @@ public class DillonLibOptions {
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
     public boolean applyTotemFactories = true;
+    public boolean applyShieldFactories = true;
 
     /**
      * @return the dillonlib options instance.

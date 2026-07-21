@@ -31,7 +31,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         MessageType.DEBUG
                 ),
                 new PredicateEntry(
-                        new String[]{"client.fix.bow.PlayerRendererFix"},
+                        new String[]{"client.fix.bow.FabricPlayerRendererFix"},
                         !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
                         ofFactory("\"apply_avatar_renderer_fix\" is disabled."),
                         MessageType.DEBUG
@@ -59,7 +59,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "shear.BeehiveBlockFix",
                                 "shear.CopperGolemFix",
                                 "shear.MatchToolFix",
-                                "shear.MushroomCowFix",
+                                "shear.FabricMushroomCowFix",
                                 "shear.FabricBoggedFix",
                                 "shear.FabricLeashFenceKnotEntityFix",
                                 "shear.FabricPumpkinBlockFix",
@@ -78,6 +78,12 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         },
                         !DillonLibOptions.getLibInstance().applyTotemFactories || !MixinPlatformGetter.shouldApplyFactories(),
                         ofFactory("\"apply_totem_factories\" is disabled."),
+                        MessageType.DEBUG
+                ),
+                new PredicateEntry(
+                        new String[]{"entity.PlayerMixin"},
+                        !DillonLibOptions.getLibInstance().applyShieldFactories || !MixinPlatformGetter.shouldApplyFactories(),
+                        ofFactory("\"apply_shield_factories\" is disabled."),
                         MessageType.DEBUG
                 )
         );
