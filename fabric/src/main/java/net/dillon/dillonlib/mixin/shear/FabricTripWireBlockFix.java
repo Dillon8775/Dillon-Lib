@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FabricTripWireBlockFix {
 
     /**
-     * Fixes {@code speedrunner shears} not working on tripwire hooks.
+     * Fixes {@link ShearsFactory} not working on tripwire hooks.
      */
     @Redirect(method = "playerWillDestroy", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     private boolean playerWillDestroyFactory(ItemStack stack, Item item) {

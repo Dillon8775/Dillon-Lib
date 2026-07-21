@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FabricPumpkinBlockFix {
 
     /**
-     * Fixes {@code speedrunner shears} not working on pumpkin blocks.
+     * Fixes {@link ShearsFactory} not working on pumpkin blocks.
      */
     @Redirect(method = "useItemOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     private boolean useItemOnFactory(ItemStack stack, Item item) {

@@ -59,8 +59,7 @@ public abstract class BaseOptions<T> {
 
     /**
      * Runs a safe check through all options to ensure no issues.
-     * <p>Preforms a {@code "safe check"} on all the Speedrunner Mod options, and makes sure that they are valid and safe to run in-game.
-     * <p>If an option is broken or invalid, and it is not recommended to run, the user will automatically boot into the Safe boot screen.</p>
+     * <p>Preforms a {@code "safe check"} on all options, and makes sure that they are valid and safe to run in-game.
      */
     protected void safeCheck() {
     }

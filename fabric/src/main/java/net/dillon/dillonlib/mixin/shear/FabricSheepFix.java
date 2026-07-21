@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FabricSheepFix {
 
     /**
-     * Allows sheep to be sheared with {@code speedrunner shears.}
+     * Allows sheep to be sheared with {@link ShearsFactory}.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     private boolean mobInteractFactory(ItemStack stack, Item item) {
