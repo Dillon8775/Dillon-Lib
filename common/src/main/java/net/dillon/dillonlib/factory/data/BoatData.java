@@ -3,6 +3,7 @@ package net.dillon.dillonlib.factory.data;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.level.ItemLike;
 
 /**
  * Holds boat registration data.
@@ -11,5 +12,5 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
  * @param id the id for the boat entity (including the mod's namespace and entity name)
  * @param chest determines if the boat entity should be a chest boat
  */
-public record BoatData(EntityType<? extends AbstractBoat> entityType, Identifier id, boolean chest) {
+public record BoatData(EntityType<? extends AbstractBoat> entityType, ItemLike dropItem, Identifier id, boolean chest) {
 }

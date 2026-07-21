@@ -18,7 +18,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
 
     @Override
     public String mixinDirectory() {
-        return "net.dillon.dillonlib.mixin";
+        return "net.dillon.dillonlib.mixin.";
     }
 
     @Override
