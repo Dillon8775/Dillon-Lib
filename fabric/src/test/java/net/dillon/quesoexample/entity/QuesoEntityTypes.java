@@ -1,7 +1,6 @@
 package net.dillon.quesoexample.entity;
 
 import net.dillon.dillonlib.factory.Factories;
-import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.item.QuesoTestItems;
 import net.minecraft.resources.Identifier;

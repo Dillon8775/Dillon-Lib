@@ -22,6 +22,7 @@ import net.minecraft.world.item.component.DeathProtection;
 public class TotemFactory extends Item {
     public static final ItemFactoryPredicate THIS = stack -> stack.getItem() instanceof TotemFactory;
     public static final int DEFAULT_PARTICLE_LIFETIME = 30;
+    private final DeathProtection deathProtectionComponent;
     private final ParticleOptions particle;
     private final int particleLifeTime;
 
@@ -31,6 +32,7 @@ public class TotemFactory extends Item {
 
     public TotemFactory(Properties properties, DeathProtection protection, ParticleOptions particle, int particleLifeTime) {
         super(properties.component(DataComponents.DEATH_PROTECTION, protection));
+        this.deathProtectionComponent = protection;
         this.particle = particle;
         this.particleLifeTime = particleLifeTime;
     }
@@ -39,11 +41,19 @@ public class TotemFactory extends Item {
      * Invokes the totem use event when the player "dies". You can implement your custom logic by overriding this method.
      */
     public void invokeTotemUse(LivingEntity living, ItemStack stack, DamageSource source) {
+        this.deathProtectionComponent.applyEffects(stack, living);
         living.setHealth(1.0F);
         living.level().broadcastEntityEvent(living, (byte)35); // byte for default totem client-side logic, see ClientPacketListener.handleEntityEvent for more
         if (living instanceof ServerPlayer player) {
             CriteriaTriggers.USED_TOTEM.trigger(player, new ItemStack(Items.TOTEM_OF_UNDYING)); // grants the "Postmortal" advancement to the player
         }
+    }
+
+    /**
+     * @return the death protection component to be used for this factory.
+     */
+    public DeathProtection getDeathProtectionComponent() {
+        return this.deathProtectionComponent;
     }
 
     /**

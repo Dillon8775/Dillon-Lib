@@ -18,7 +18,7 @@ public class SulfurCubeFix {
      * Allows any {@link IgnitableFactory} to work on sulfur cubes when checking.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 0))
-    private boolean allowIgitables(ItemStack stack, Object o) {
+    private boolean mobInteractFlintAndSteel(ItemStack stack, Object o) {
         return stack.is(Items.FLINT_AND_STEEL) || IgnitableFactory.THIS_OR_STEEL.test(stack);
     }
 
@@ -26,7 +26,7 @@ public class SulfurCubeFix {
      * Allows any {@link IgnitableFactory} to work on sulfur cubes when checking.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 1))
-    private boolean allowIgnitables(ItemStack stack, Object o) {
+    private boolean mobInteractFireCharge(ItemStack stack, Object o) {
         return stack.is(Items.FIRE_CHARGE) || IgnitableFactory.THIS_OR_STEEL.test(stack);
     }
 
@@ -34,7 +34,7 @@ public class SulfurCubeFix {
      * Allows any {@link IgnitableFactory} to work on sulfur cubes when checking.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 2))
-    private boolean allowSpeedrunnerFlintAndSteelToWork(ItemStack stack, Object o) {
+    private boolean mobInteractFlintAndSteelFactory(ItemStack stack, Object o) {
         return stack.is(Items.FLINT_AND_STEEL) || IgnitableFactory.THIS_OR_STEEL.test(stack);
     }
 
@@ -42,7 +42,7 @@ public class SulfurCubeFix {
      * Allows any {@link ShearsFactory} to work on sulfur cubes.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 3))
-    private boolean allowSpeedrunnerShearsToWork(ItemStack stack, Object o) {
+    private boolean mobInteractShearFactory(ItemStack stack, Object o) {
         return ShearsFactory.DEFAULT.test(stack);
     }
 }

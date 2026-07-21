@@ -33,7 +33,7 @@ public class QuesoTestItems {
             .rarity(Rarity.UNCOMMON)
             .durability(200)
     );
-    public static final Item QUESO_TOTEM = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_TOTEM, properties -> new TotemFactory(properties, DeathProtection.TOTEM_OF_UNDYING, ParticleTypes.ANGRY_VILLAGER, 30));
+    public static final Item QUESO_TOTEM = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_TOTEM, properties -> new QuesoTotemFactory(properties, DeathProtection.TOTEM_OF_UNDYING, ParticleTypes.ANGRY_VILLAGER, 30));
     public static final Item QUESO_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_BOAT, properties));
     public static final Item QUESO_CHEST_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_CHEST_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_CHEST_BOAT, properties));
 
