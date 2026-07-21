@@ -29,8 +29,7 @@ public class DillonLibEvents {
                 DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
             }
         }
-        PlatformGetter.getDillonLibPlatform().logger().info("Registered shear factory dispenser behaviors.");
-    }
+        PlatformGetter.getDillonLibPlatform().logger().debug("Registered shear factory dispenser behaviors.");}
 
     /**
      * Ticks all scheduled tasks.
@@ -38,6 +37,13 @@ public class DillonLibEvents {
      */
     protected static void tickAllScheduledTasks() {
         CommonPlatformGetter.get().tickScheduledTasks();
+    }
+
+    /**
+     * Registers all {@code common} events.
+     */
+    protected static void registerAllCommonEvents() {
+        PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
     }
 
     /**

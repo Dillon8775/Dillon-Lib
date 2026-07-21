@@ -56,19 +56,25 @@ public abstract class ModPlatform implements Loadable {
     public abstract boolean canSendPacket(LocalPlayer localPlayer);
 
     /**
-     * Registers commands that should be on all environments. Can be blank if you have no custom commands in your mod.
+     * Registers events, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.
+     */
+    public void registerEvents() {
+    }
+
+    /**
+     * Registers commands that should be on all environments.
      */
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
     }
 
     /**
-     * Registers client-side only commands. Can be blank if you have no custom commands in your mod.
+     * Registers client-side only commands.
      */
     public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
     }
 
     /**
-     * Registers server-side only commands. Can be blank if you have no custom commands in your mod.
+     * Registers server-side only commands.
      */
     public void registerServerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
     }
