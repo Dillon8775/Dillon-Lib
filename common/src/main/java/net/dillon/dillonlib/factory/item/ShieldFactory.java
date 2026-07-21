@@ -21,6 +21,7 @@ public class ShieldFactory extends ShieldItem {
     public ShieldFactory(Properties properties, float disableCooldownScale) {
         super(properties
                 .stacksTo(1)
+                .equippableUnswappable(EquipmentSlot.OFFHAND)
                 .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
                 .delayedComponent(
                         DataComponents.BLOCKS_ATTACKS,
@@ -34,7 +35,7 @@ public class ShieldFactory extends ShieldItem {
                                 Optional.of(SoundEvents.SHIELD_BREAK)
                         )
                 )
-                .equippableUnswappable(EquipmentSlot.OFFHAND)
+                .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
         );
     }
 }
