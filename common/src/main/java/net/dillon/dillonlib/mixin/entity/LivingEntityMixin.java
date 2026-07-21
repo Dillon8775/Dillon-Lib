@@ -22,7 +22,6 @@ public class LivingEntityMixin {
     @Inject(method = "checkTotemDeathProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setHealth(F)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
     private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack stack, DeathProtection deathProtectionComponent) {
         if (stack.getItem() instanceof TotemFactory totemFactory) {
-            deathProtectionComponent.applyEffects(stack, (LivingEntity)(Object)this);
             totemFactory.invokeTotemUse((LivingEntity)(Object)this, stack, source);
             cir.setReturnValue(stack != null);
         }

@@ -1,4 +1,4 @@
-# Version 1.0 | Initial Release
+[![DillonLib Logo.](https://github.com/Dillon8775/ImageGIFs/blob/universal/9i8dnw.gif?raw=true)](https://youtu.be/CurMwVkAqWo)
 
 # Base Library/API for Dillon's mods.
 
@@ -208,7 +208,7 @@ You don't have to do anything else with your shears after this. Everything else 
 You can use factories with the following objects:
 - Shears
 - Flint and Steels
-  - In *1.21.11 and below,* dispenser behavior must be done *manually* for this factory.
+    - In *1.21.11 and below,* dispenser behavior must be done *manually* for this factory.
 - Any "ignitable" item, which ignites or creates fire on certain blocks
 - Bows and crossbows
 - Boats *(1.21.11 and above only)*

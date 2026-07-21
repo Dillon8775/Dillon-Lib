@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FabricSnowGolemFix {
 
     /**
-     * Fixes {@code speedrunner shears} not working on snow golems.
+     * Fixes {@link ShearsFactory} not working on snow golems.
      */
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     private boolean mobInteractFactory(ItemStack stack, Item item) {
