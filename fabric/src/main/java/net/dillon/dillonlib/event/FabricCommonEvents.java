@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.event;
 
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.core.DillonLibEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 /**
@@ -10,7 +10,7 @@ public class FabricCommonEvents {
 
     public static void registerFabricCommonCommands() {
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
-            PlatformGetter.get().registerCommonCommands(commandDispatcher, commandRegistryAccess);
+            DillonLibEvents.registerAllCommonCommands(commandDispatcher, commandRegistryAccess);
         });
     }
 }

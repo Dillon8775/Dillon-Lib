@@ -1,15 +1,25 @@
 package net.dillon.dillonlib.event;
 
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.core.DillonLibEvents;
+import net.dillon.dillonlib.core.DillonLibMain;
+import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-@EventBusSubscriber(modid = "dillonlib")
+@EventBusSubscriber(modid = DillonLibMain.MOD_ID)
 public class NeoForgeCommonEvents {
 
     @SubscribeEvent
-    public static void registerCommonCommandsNeoForge(RegisterCommandsEvent dispatcher) {
-        PlatformGetter.get().registerCommonCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
+    public static void registerCommands(RegisterCommandsEvent dispatcher) {
+        DillonLibEvents.registerAllCommonCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
+
+        if (CommonPlatformGetter.get().isEnvironmentClient()) {
+            DillonLibEvents.registerAllClientCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
+        }
+
+        if (CommonPlatformGetter.get().isEnvironmentServer()) {
+            DillonLibEvents.registerAllServerCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
+        }
     }
 }

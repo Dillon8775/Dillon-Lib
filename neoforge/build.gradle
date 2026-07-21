@@ -29,7 +29,9 @@ neoForge {
         client {
             client()
         }
-
+//        test {
+//            client()
+//        }
         server {
             server()
         }
@@ -39,10 +41,24 @@ neoForge {
         "${mod_id}" {
             sourceSet sourceSets.main
         }
+//        "quesoinstance" {
+//            sourceSet sourceSets.test
+//        }
     }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+//sourceSets {
+//    test {
+//        compileClasspath += sourceSets.main.output
+//        runtimeClasspath += sourceSets.main.output
+//    }
+//}
+//
+//tasks.named('test') {
+//    enabled = false
+//}
 
 tasks.register('curseforge', TaskPublishCurseForge) {
     dependsOn('build')

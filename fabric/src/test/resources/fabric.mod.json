@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "quesotest",
+  "version": "6.7",
+  "name": "QuesoTest",
+  "description": "This mod is for testing and example purposes for DillonLib.",
+  "authors": [
+    "skib"
+  ],
+  "license": "Test.",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.dillon.quesoexample.QuesoExampleMod"
+    ]
+  },
+  "mixins": [
+    "quesoexample.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.5",
+    "minecraft": ">=1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
