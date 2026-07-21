@@ -9,13 +9,9 @@ import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.command.QuesoClientCommand;
 import net.dillon.quesoexample.command.QuesoCommand;
 import net.dillon.quesoexample.command.QuesoServerCommand;
-import net.dillon.quesoexample.entity.QuesoEntityTypes;
-import net.dillon.quesoexample.item.QuesoTestItems;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
-import net.minecraft.world.level.block.DispenserBlock;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,12 +51,6 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     @Override
     public boolean canSendPacket(LocalPlayer localPlayer) {
         return true;
-    }
-
-    @Override
-    public void registerEvents() {
-        DispenserBlock.registerBehavior(QuesoTestItems.QUESO_BOAT, new BoatDispenseItemBehavior(QuesoEntityTypes.QUESO_BOAT));
-        DispenserBlock.registerBehavior(QuesoTestItems.QUESO_CHEST_BOAT, new BoatDispenseItemBehavior(QuesoEntityTypes.QUESO_CHEST_BOAT));
     }
 
     @Override

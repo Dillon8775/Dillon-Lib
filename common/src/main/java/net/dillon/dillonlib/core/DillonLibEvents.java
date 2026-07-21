@@ -52,7 +52,7 @@ public class DillonLibEvents {
     /**
      * Registers all {@code common} events.
      */
-    public static void registerAllCommonEvents() {
+    protected static void registerAllCommonEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
     }
 
