@@ -44,11 +44,9 @@ public abstract class MixinPluginUtil {
 
             if (entry.condition()) {
                 for (String s : entry.mixins()) {
-                    String name = this.mixinDirectory() + "." + s;
+                    String name = this.mixinDirectory() + s;
                     if (name.equals(mixinClassName)) {
-                        message(entry, "Skipping mixin {} for class {}: {}", mixinClassName,
-                                targetClassName,
-                                entry.reason());
+                        message(entry, mixinClassName, targetClassName);
                         return true;
                     }
                 }
@@ -59,9 +57,18 @@ public abstract class MixinPluginUtil {
     }
 
     /**
+     * The message that is sent to the console. This can be over-ridden if you wish to change the message.
+     */
+    public void message(PredicateEntry entry, String mixinClassName, String targetClassName) {
+        sendMessage(entry, "Skipping mixin {} for class {}: {}", mixinClassName,
+                targetClassName,
+                entry.reason());
+    }
+
+    /**
      * Sends a console message to the user, based on the {@link MessageType}.
      */
-    public void message(PredicateEntry entry, String message, Object... arguments) {
+    public void sendMessage(PredicateEntry entry, String message, Object... arguments) {
         if (CommonPlatformGetter.get().isDevelopmentEnvironment()) {
             logger().warn(message, arguments);
         } else {
