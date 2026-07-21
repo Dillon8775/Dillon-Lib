@@ -20,7 +20,7 @@ public class LivingEntityMixin {
      * Calls the totem use event if supposed to and not totem of undying.
      */
     @Inject(method = "checkTotemDeathProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setHealth(F)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    private void applySpeedrunnersTotemEffects(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack stack, DeathProtection deathProtectionComponent) {
+    private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack stack, DeathProtection deathProtectionComponent) {
         if (stack.getItem() instanceof TotemFactory totemFactory) {
             deathProtectionComponent.applyEffects(stack, (LivingEntity)(Object)this);
             totemFactory.invokeTotemUse((LivingEntity)(Object)this, stack, source);

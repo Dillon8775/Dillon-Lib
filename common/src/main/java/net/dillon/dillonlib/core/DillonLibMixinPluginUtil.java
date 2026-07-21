@@ -87,6 +87,6 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
      * @return a string of if factories are disabled, or something else.
      */
     private static String ofFactory(String s) {
-        return "Factories are auto-disabled because a factory is never registered, or " + s;
+        return "Factories are disabled, or " + s;
     }
 }

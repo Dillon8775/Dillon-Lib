@@ -9,14 +9,7 @@
   "plugin": "net.dillon.dillonlib.mixin.ConditionalMixinPlugin",
   "mixins": [
     "accessor.EntityTypeInvoker",
-    "accessor.ItemsInvoker"
-  ],
-  "client": [
-    "client.ClientPacketListenerMixin",
-    "client.MinecraftMixin",
-    "client.fix.bow.AbstractClientPlayerFix",
-    "client.fix.bow.AvatarRendererFix",
-    "client.fix.bow.ItemInHandRendererFix",
+    "accessor.ItemsInvoker",
     "entity.LivingEntityMixin",
     "ignitable.CandleCakeBlockFix",
     "ignitable.TntBlockFix",
@@ -24,6 +17,13 @@
     "shear.CopperGolemFix",
     "shear.MatchToolFix",
     "shear.MushroomCowFix"
+  ],
+  "client": [
+    "client.ClientPacketListenerMixin",
+    "client.MinecraftMixin",
+    "client.fix.bow.AbstractClientPlayerFix",
+    "client.fix.bow.AvatarRendererFix",
+    "client.fix.bow.ItemInHandRendererFix"
   ],
   "server": [
   ],
