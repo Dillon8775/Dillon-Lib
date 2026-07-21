@@ -2,7 +2,7 @@ package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.core.DillonLibEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 /**
@@ -13,7 +13,7 @@ public class FabricServerEvents {
 
     public static void registerFabricServerCommands() {
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
-            PlatformGetter.get().registerServerCommands(commandDispatcher, commandRegistryAccess);
+            DillonLibEvents.registerAllServerCommands(commandDispatcher, commandRegistryAccess);
         });
     }
 }

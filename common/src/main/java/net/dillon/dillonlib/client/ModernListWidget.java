@@ -8,14 +8,15 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A better version of {@link net.minecraft.client.gui.components.OptionsList}, with more user-friendly appearances, centering and positioning.
+ * A better version of {@link ContainerObjectSelectionList}, with more user-friendly appearances, centering and positioning.
+ * @since 1.0
+ * @see ModernWidgetOptions
  */
 @Dill(DillType.CLIENT)
 public class ModernListWidget extends ContainerObjectSelectionList<ModernListWidget.ModWidgetEntry> {
@@ -37,7 +38,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * Adds a "row" of buttons to the list.
+     * Adds a row of buttons to the list.
      */
     public void addRow(AbstractWidget firstButton, @Nullable AbstractWidget secondButton) {
         List<AbstractWidget> buttons = new ArrayList<>();
@@ -50,8 +51,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * <p>Adds a single button to the list of buttons.</p>
-     * This button will take up a whole "row" space.
+     * Adds a single button to the list of buttons. This button will take up a whole row space.
      */
     public void addSingleOptionEntry(AbstractWidget button) {
         button.setWidth(ROW_WIDTH);
@@ -62,7 +62,7 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
     }
 
     /**
-     * Adds a whole {@link List} of buttons to the screen.
+     * Adds a {@link List} of buttons to the screen.
      */
     public void addAll(List<AbstractWidget> buttons) {
         for (int i = 0; i < buttons.size(); i += 2) {
@@ -108,6 +108,14 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
         }
 
         @Override
+        public void render(GuiGraphics graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+            for (AbstractWidget widget : this.widgets) {
+                widget.setY(y);
+                widget.render(graphics, mouseX, mouseY, tickDelta);
+            }
+        }
+
+        @Override
         public List<? extends GuiEventListener> children() {
             return this.widgets;
         }
@@ -115,14 +123,6 @@ public class ModernListWidget extends ContainerObjectSelectionList<ModernListWid
         @Override
         public List<? extends NarratableEntry> narratables() {
             return this.widgets;
-        }
-
-        @Override
-        public void render(GuiGraphics graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            for (AbstractWidget widget : this.widgets) {
-                widget.setY(y);
-                widget.render(graphics, mouseX, mouseY, tickDelta);
-            }
         }
     }
 }

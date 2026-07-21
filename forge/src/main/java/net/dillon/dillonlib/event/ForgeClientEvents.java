@@ -1,16 +1,23 @@
 package net.dillon.dillonlib.event;
 
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.annotation.Dill;
+import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.core.DillonLibMain;
+import net.dillon.dillonlib.factory.ClientFactories;
+import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = "dillonlib", value = Dist.CLIENT)
+@Dill(DillType.CLIENT)
+@Mod.EventBusSubscriber(modid = DillonLibMain.MOD_ID, value = Dist.CLIENT)
 public class ForgeClientEvents {
 
     @SubscribeEvent
-    public static void registerClientCommandsForge(RegisterCommandsEvent dispatcher) {
-        PlatformGetter.get().registerClientCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
+    public static void registerKeybindings(RegisterKeyMappingsEvent event) {
+        for (KeyMapping keyMapping : ClientFactories.NON_KUMA_KEY_MAPPING_FACTORIES.keySet()) {
+            event.register(keyMapping);
+        }
     }
 }

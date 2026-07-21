@@ -12,7 +12,14 @@ dependencies {
 
 //    modImplementation(libs.balmFabric) {
 //        changing = libs.versions.balm.get().contains("SNAPSHOT")
-//        exclude group: "net.blay09.mods", module: "shared-bridge"
 //    }
-//    modImplementation(libs.kumaFabric)
+    testImplementation sourceSets.main.output
+//    testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    afterEvaluate {
+        subprojects.each {
+            implementation project(path: ":${it.path}", configuration: "namedElements")
+            testImplementation project(":${it.path}").sourceSets.test.output
+        }
+    }
 }

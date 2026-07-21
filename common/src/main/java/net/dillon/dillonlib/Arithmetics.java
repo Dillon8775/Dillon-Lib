@@ -1,19 +1,14 @@
 package net.dillon.dillonlib;
 
-import net.dillon.dillonlib.platform.Statics;
+import net.dillon.dillonlib.platform.PlatformGetter;
 import net.minecraft.util.RandomSource;
 
 /**
- * Different formulas and math expressions commonly used in my mods.
+ * Different formulas and math expressions.
+ * @since 1.0
  */
 public class Arithmetics {
     private static final RandomSource RANDOM = RandomSource.create();
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
 
     /**
      * Converts seconds to ticks (sas = seconds as ticks)
@@ -29,7 +24,7 @@ public class Arithmetics {
             }
             return secondsAsTicks * 20;
         } catch (NumberFormatException o) {
-            Statics.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
+            PlatformGetter.getDillonLibPlatform().logger().error("Use method minutesInTicks(int) if you're inputting an exact minute.");
             o.printStackTrace();
             return mas(secondsAsTicks / 60);
         }
