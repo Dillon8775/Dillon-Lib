@@ -58,12 +58,6 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public void registerEvents() {
-        DispenserBlock.registerBehavior(QuesoTestItems.QUESO_BOAT, new BoatDispenseItemBehavior(QuesoEntityTypes.QUESO_BOAT));
-        DispenserBlock.registerBehavior(QuesoTestItems.QUESO_CHEST_BOAT, new BoatDispenseItemBehavior(QuesoEntityTypes.QUESO_CHEST_BOAT));
-    }
-
-    @Override
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
         dispatcher.register(QuesoCommand.testCommand());
     }
