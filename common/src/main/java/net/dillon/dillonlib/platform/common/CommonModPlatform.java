@@ -1,6 +1,5 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.TaskScheduler;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
 import org.jetbrains.annotations.NotNull;

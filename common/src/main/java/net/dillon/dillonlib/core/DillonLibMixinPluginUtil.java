@@ -1,6 +1,5 @@
 package net.dillon.dillonlib.core;
 
-import net.dillon.dillonlib.mixinplugin.MessageType;
 import net.dillon.dillonlib.mixinplugin.MixinPluginUtil;
 import net.dillon.dillonlib.mixinplugin.PredicateEntry;
 import net.dillon.dillonlib.platform.mixinsafe.MixinPlatformGetter;
@@ -25,16 +24,27 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
     public List<PredicateEntry> entries() {
         return List.of(
                 new PredicateEntry(
+                        new String[]{
+                                "client.FabricOptionInstanceMixin",
+                                "client.NeoForgeOptionInstanceMixin",
+                        },
+                        !MixinPlatformGetter.shouldApplyFullBright(),
+                        "FullBright is not enabled."
+                ),
+                new PredicateEntry(
+                        new String[]{"client.FabricSodiumConfigBuilderMixin"},
+                        !MixinPlatformGetter.shouldApplyFullBright() || !MixinPlatformGetter.getDillonLibMixinPlatform().isModLoaded(DillonLibModReferences.SODIUM),
+                        "FullBright is not enabled, or Sodium is not loaded."
+                ),
+                new PredicateEntry(
                         new String[]{"client.fix.bow.AbstractClientPlayerFix"},
                         !DillonLibOptions.getLibInstance().applyAbstractClientPlayerFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_abstract_client_player_fix\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_abstract_client_player_fix\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{"client.fix.bow.AvatarRendererFix"},
                         !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_avatar_renderer_fix\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_avatar_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{
@@ -42,8 +52,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "client.fix.bow.FabricItemInHandRendererFix"
                         },
                         !DillonLibOptions.getLibInstance().applyItemInHandRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_item_in_hand_renderer_fix\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_item_in_hand_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{
@@ -51,8 +60,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "ignitable.TntBlockFix"
                         },
                         !DillonLibOptions.getLibInstance().applyIgnitableFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_ignitable_factories\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_ignitable_factories\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{
@@ -68,8 +76,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "shear.FabricTripWireBlockFix"
                         },
                         !DillonLibOptions.getLibInstance().applyShearFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_shear_factories\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_shear_factories\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{
@@ -77,8 +84,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "entity.LivingEntityMixin"
                         },
                         !DillonLibOptions.getLibInstance().applyTotemFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_totem_factories\" is disabled."),
-                        MessageType.DEBUG
+                        ofFactory("\"apply_totem_factories\" is disabled.")
                 )
         );
     }

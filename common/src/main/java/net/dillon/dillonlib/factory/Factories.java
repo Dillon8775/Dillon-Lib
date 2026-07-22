@@ -11,12 +11,28 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,12 +48,6 @@ public class Factories {
     public static final Set<BoatData> BOATS = new HashSet<>();
     public static final Set<ShearsFactory> SHEARS = new HashSet<>();
     public static final Set<IgnitableFactory.FlintAndSteel> FLINT_AND_STEELS = new HashSet<>();
-
-    /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
 
     /**
      * Registers a {@code boat entity factory} into the game.
@@ -58,7 +68,7 @@ public class Factories {
      * @return the custom-factory registered boat entity.
      */
     private static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, EntityType.EntityFactory<T> factory, boolean chest) {
-        EntityType<T> boat = register(
+        EntityType<T> boat = registerEntityType(
                 ResourceKey.create(Registries.ENTITY_TYPE, id),
                 EntityType.Builder.of(factory, MobCategory.MISC)
                         .noLootTable()
@@ -77,7 +87,139 @@ public class Factories {
     /**
      * Helper method for registering boat types.
      */
-    private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> key, EntityType.Builder<T> type) {
+    public static <T extends Entity> EntityType<T> registerEntityType(ResourceKey<EntityType<?>> key, EntityType.Builder<T> type) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type.build(key));
+    }
+
+    /**
+     * Registers a {@code sound event}.
+     */
+    public static SoundEvent registerSoundEvent(Identifier id) {
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id));
+    }
+
+    /**
+     * Registers a {@code block} tag.
+     */
+    public static TagKey<Block> createBlockTag(Identifier id) {
+        return createRegisterableTag(Registries.BLOCK, id);
+    }
+
+    /**
+     * Registers a {@code item} tag.
+     */
+    public static TagKey<Item> createItemTag(Identifier id) {
+        return createRegisterableTag(Registries.ITEM, id);
+    }
+
+    /**
+     * Registers a {@code potion} tag.
+     */
+    public static TagKey<Potion> createPotionTag(Identifier id) {
+        return createRegisterableTag(Registries.POTION, id);
+    }
+
+    /**
+     * Registers a {@code enchantment} tag.
+     */
+    public static TagKey<Enchantment> createEnchantmentTag(Identifier id) {
+        return createRegisterableTag(Registries.ENCHANTMENT, id);
+    }
+
+    /**
+     * Registers a {@code fluid} tag.
+     */
+    public static TagKey<Fluid> createFluidTag(Identifier id) {
+        return createRegisterableTag(Registries.FLUID, id);
+    }
+
+    /**
+     * Registers a {@code structure} tag.
+     */
+    public static TagKey<Structure> createStructureTag(Identifier id) {
+        return createRegisterableTag(Registries.STRUCTURE, id);
+    }
+
+    /**
+     * Registers a {@code structure set} tag.
+     */
+    public static TagKey<StructureSet> createStructureSetTag(Identifier id) {
+        return createRegisterableTag(Registries.STRUCTURE_SET, id);
+    }
+
+    /**
+     * Registers a {@code template pool} tag.
+     */
+    public static TagKey<StructureTemplatePool> createTemplatePoolTag(Identifier id) {
+        return createRegisterableTag(Registries.TEMPLATE_POOL, id);
+    }
+
+    /**
+     * Registers a {@code configured feature} tag.
+     */
+    public static TagKey<ConfiguredFeature<?, ?>> createConfiguredFeatureTag(Identifier id) {
+        return createRegisterableTag(Registries.CONFIGURED_FEATURE, id);
+    }
+
+    /**
+     * Registers a {@code placed feature} tag.
+     */
+    public static TagKey<PlacedFeature> createPlacedFeatureTag(Identifier id) {
+        return createRegisterableTag(Registries.PLACED_FEATURE, id);
+    }
+
+    /**
+     * Registers a {@code biome} tag.
+     */
+    public static TagKey<Biome> createBiomeTag(Identifier id) {
+        return createRegisterableTag(Registries.BIOME, id);
+    }
+
+    /**
+     * Registers a {@code dimension type} tag.
+     */
+    public static TagKey<DimensionType> createDimensionTypeTag(Identifier id) {
+        return createRegisterableTag(Registries.DIMENSION_TYPE, id);
+    }
+
+    /**
+     * Registers a {@code dimension} tag.
+     */
+    public static TagKey<Level> createDimensionTag(Identifier id) {
+        return createRegisterableTag(Registries.DIMENSION, id);
+    }
+
+    /**
+     * Registers a {@code attribute} tag.
+     */
+    public static TagKey<Attribute> createAttributeTag(Identifier id) {
+        return createRegisterableTag(Registries.ATTRIBUTE, id);
+    }
+
+    /**
+     * Registers a {@code damage type} tag.
+     */
+    public static TagKey<DamageType> createDamageTypeTag(Identifier id) {
+        return createRegisterableTag(Registries.DAMAGE_TYPE, id);
+    }
+
+    /**
+     * Registers a {@code entity type} tag.
+     */
+    public static TagKey<EntityType<?>> createEntityTypeTag(Identifier id) {
+        return createRegisterableTag(Registries.ENTITY_TYPE, id);
+    }
+
+    /**
+     * Registers any {@link TagKey} object of {@link Registries}.
+     */
+    public static <T> TagKey<T> createRegisterableTag(ResourceKey<Registry<T>> registerable, Identifier id) {
+        return TagKey.create(registerable, id);
+    }
+
+    /**
+     * Initializes this class.
+     */
+    public static void i_() {
     }
 }

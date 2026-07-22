@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${mod_version}+${mc_version}",
+  "accessWidener": "dillonlib.accesswidener",
   "name": "${mod_name}",
   "description": "${description}",
   "authors": [

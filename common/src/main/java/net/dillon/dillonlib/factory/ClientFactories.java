@@ -21,9 +21,17 @@ public class ClientFactories {
     public static final Map<KeyMapping, Runnable> NON_KUMA_KEY_MAPPING_FACTORIES = new HashMap<>();
 
     /**
-     * Initializes this class.
+     * Registers a {@code key binding factory,} with an functional action and a message to send.
+     * @param category the group that this keybind should be in, found in the "Controls" menu.
+     * @param key the translation key for the keybind
+     * @param code the keycode for the keybind (see {@link org.lwjgl.glfw.GLFW}.)
+     * @param runnable the {@link Runnable} that the keybind should execute (typically in-game).
      */
-    public static void i_() {
+    public static KeyMapping registerKeyMapping(String key, InputConstants.Type type, KeyMapping.Category category, int code, Runnable runnable) {
+        KeyMapping keyBind = ClientPlatformGetter.getDillonLibClientPlatform().createKeyMapping(key, type, category, code);
+        NON_KUMA_KEY_MAPPING_FACTORIES.put(keyBind, runnable);
+        PlatformGetter.getDillonLibPlatform().logger().info("Registered key mapping {} with keycode {}", key, code);
+        return keyBind;
     }
 
     /**
@@ -41,16 +49,8 @@ public class ClientFactories {
     }
 
     /**
-     * Registers a {@code key binding factory,} with an functional action and a message to send.
-     * @param category the group that this keybind should be in, found in the "Controls" menu.
-     * @param key the translation key for the keybind
-     * @param code the keycode for the keybind (see {@link org.lwjgl.glfw.GLFW}.)
-     * @param runnable the {@link Runnable} that the keybind should execute (typically in-game).
+     * Initializes this class.
      */
-    public static KeyMapping registerKeyMapping(String key, InputConstants.Type type, KeyMapping.Category category, int code, Runnable runnable) {
-        KeyMapping keyBind = ClientPlatformGetter.getDillonLibClientPlatform().createKeyMapping(key, type, category, code);
-        NON_KUMA_KEY_MAPPING_FACTORIES.put(keyBind, runnable);
-        PlatformGetter.getDillonLibPlatform().logger().info("Registered key mapping {} with keycode {}", key, code);
-        return keyBind;
+    public static void i_() {
     }
 }

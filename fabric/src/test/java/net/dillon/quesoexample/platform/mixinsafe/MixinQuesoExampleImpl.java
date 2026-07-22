@@ -21,4 +21,9 @@ public class MixinQuesoExampleImpl extends MixinModPlatform {
     public boolean shouldApplyFactories() {
         return true;
     }
+
+    @Override
+    public boolean shouldApplyFullBright() {
+        return true;
+    }
 }

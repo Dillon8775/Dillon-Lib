@@ -1,6 +1,5 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.TaskScheduler;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForge;

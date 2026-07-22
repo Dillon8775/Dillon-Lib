@@ -9,6 +9,7 @@ dependencies {
     modImplementation libs.fabricLoader
     modImplementation libs.fabricApi
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modImplementation "maven.modrinth:sodium:${project.sodium_version}"
 
 //    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
 //        changing = balm_version.contains('SNAPSHOT')

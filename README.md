@@ -65,90 +65,11 @@ DillonLib provides three different service loaders for you to create. One for yo
 
 You technically do not need to create all platforms. However, you should. Each platform contains necessary information required to register certain things.
 
-Here is a look at ```ModPlatform.class```, the base service loader for your mod:
+[Click here to view ModPlatform.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/platform/ModPlatform.java).
 
-```
-// A platform helper class. Can be used for various different calls and functions, and new methods can easily be added in the mod's specified platform.
-// Each platform for your mod (ex. fabric and neoforge) should contain {@code three service loaders}, one for this class, one for ClientModPlatform (for client-side only access code), and one for the MixinModPlatform, which is a mixin-safe class for methods that can be used in conditional mixin plugins.
-public abstract class ModPlatform implements Loadable {
+[Click here to view ClientModPlatform.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/platform/client/ClientModPlatform.java).
 
-    // Returns the mod id for this platform. Should return your mod id from your common mod class.
-    @Override
-    public abstract String modId();
-
-    // Returns the logger for your mod.
-    public abstract @NotNull Logger logger();
-
-    // Returns your mod version.
-    public abstract String modVersion();
-
-    // Returns the PlatformName (fabric, neoforge, forge, etc.)
-    public abstract @NotNull PlatformName platformName();
-
-    // Returns the PlatformRelease (stable/release, beta, or alpha).
-    public abstract @NotNull PlatformRelease platformRelease();
-
-    // Returns the LogoWidth. Used specifically in Dillon's mods, but you can branch your own logic with this if you'd like. Otherwise this doesn't do much.
-    public abstract @NotNull LogoWidth logoWidth();
-
-    // Returns if a packet in your mod can be sent. It's helpful to check if a packet can be sent when joining a server that doesn't have your mod installed, which can inform the user of mod incompatibility. If you don't have a reason to check if a packet can be sent in your mod, you can just return false here.
-    public abstract boolean canSendPacket(LocalPlayer localPlayer);
-
-    // Registers events, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.
-    public void registerEvents() {
-    }
-
-    // Registers commands that should be on all environments.
-    public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
-
-    // Registers client-side only commands.
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
-
-    // Registers server-side only commands.
-    public void registerServerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
-}
-```
-
-```ClientModPlatform.class```, the client-side entrypoint for your mod:
-
-```
-// An instance of Loadable. Similar to ModPlatform, all methods used inside this class should be client-side only methods, meaning they should not interfere with the common code.
-@Dill(DillType.CLIENT)
-public abstract class ClientModPlatform implements Loadable {
-
-    // Returns the mod id for this client platform. Should return your mod id from your common mod class.
-    @Override
-    public abstract String modId();
-
-    // Registers a KeyMapping into the game. This should point to your platform's way of registering a keybind.
-    public abstract KeyMapping createKeyMapping(String name, InputConstants.Type type, KeyMapping.Category category, int value);
-}
-```
-
-```MixinModPlatform.class```, the mixin platform for your mod:
-
-```
-// A separate service loader for mixin-safe classes and plugins, to prevent unknown and unexpected crashes when reading other Minecraft files during game initialization and checking mixins. This class should only be used within mixin plugins to ensure stability.
-public abstract class MixinModPlatform implements Loadable {
-
-    // Returns the mod id for this platform. Should return your mod id from your common mod class.
-    @Override
-    public abstract String modId();
-
-    // Returns if a mod is loaded on a specific platform. You can use this in {@link MixinPluginUtil}s.
-    public abstract boolean isModLoaded(ModReference mod);
-
-    // Specifies if factories should be applied. If any instance of {@link MixinModPlatform} returns {@code true} here, unless a mixin is manually disabled, factories will be applied.
-    // Returns false by default because not all of Dillon's mods use factories. This returns false by default as a safety feature in order to prevent mod incompatibility with other mods when factories aren't even being used.
-    // You must override this to return true if you plan on using Factories!
-    public boolean shouldApplyFactories() {
-        return false;
-    }
-}
-```
+[Click here to view MixinModPlatform.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/platform/mixinsafe/MixinModPlatform.java).
 
 These platforms are designed to work on projects that are coded on multiple mod loaders, so each mod loader should have its own platform classes.
 
@@ -167,20 +88,9 @@ In each of these files, you should enter in the path to *your* platform. For exa
 net.dillon.quesoexample.platform.QuesoExamplePlatformImpl
 ```
 
-Then you should create getter classes to get each of your platforms. For example:
+Then you should create getter classes to get each of your platforms. [View an example of this here.](https://github.com/Dillon8775/Dillon-Lib/tree/mc26.2/fabric/src/test/java/net/dillon/quesoexample/platform)
 
-```
-public class QuesoExamplePlatformGetter {
-    private static final ModPlatform PLATFORM = PlatformLoader.load(ModPlatform.class, QuesoExampleMod.MOD_ID);
-
-    // This will return your ModPlatform. You will be accessing this a lot if you plan to use DillonLib.
-    public static ModPlatform get() {
-        return PLATFORM;
-    }
-}
-```
-
-These platforms are split into three to ensure that Minecraft launches safely. We don't want client-side interfering with common code, and we also don't want classes to be loaded too early during mixin initialization, which is why we have a separate platform called ```MixinModPlatform```.
+There are three different platforms to ensure that Minecraft launches safely. We don't want client-side interfering with common code, and we also don't want classes to be loaded too early during mixin initialization, which is why we have a separate platform called ```MixinModPlatform```.
 
 ---
 
@@ -295,158 +205,9 @@ For other factories, registering them is similar to these other factories. Take 
 # Mixin Plugin Util
 Mixins are high in causing mod incompatibility, and that is what the ```MixinPluginUtil``` class is for. It allows you to easily control if mixins certain should be applied at initialization or not.
 
-Here is a look at ```MixinPluginUtil.class```:
+[Click here to view MixinPluginUtil.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/mixinplugin/MixinPluginUtil.java).
 
-```
-// Simple utility class for org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin. You can use this to easily disable mixins on certain conditions with the help of PredicateEntries
-// logger - the logger to be used specifically for the mixin plugin.
-// Do not use an outside logger, as you risk Minecraft crashing due to pre-mature load time.
-// mixinDirectory - the mixin directory to be checked with the plugin. You can have the method return blank or "" if you want to specifically all mixin class names by their full package name. However, it's easier to specify the package name with this method, and then simply input the mixin classes names.
-// entries - the list of PredicateEntries to check for each mixin loaded at load time. If the predicate entry boolean returns true, the list of mixins in the entry will be disabled at load time.
-public abstract class MixinPluginUtil {
-
-    // Returns the logger for a mixin plugin. It should only be used within the conditional mixin plugin.
-    public abstract Logger logger();
-
-    // Returns the mixin directory used to check for mixins.
-    // Example: "net.dillon.dillonlib.mixin."
-    public abstract String mixinDirectory();
-
-    // Returns the list of predicates, mixin class names and message reasons for mixins that should be disabled.
-    public abstract List<PredicateEntry> entries();
-
-    // Returns false if mixin should not apply. It is not recommended to override this method, as this provides the full functionality for {@link PredicateEntry}.
-    public boolean shouldNotApply(String targetClassName, String mixinClassName) {
-        for (PredicateEntry entry : entries()) {
-            if (entry.reason().isEmpty() || entry.reason().isBlank()) {
-                throw new IllegalStateException("Mixin predicate entry reason cannot be blank!");
-            }
-
-            if (entry.condition()) {
-                for (String s : entry.mixins()) {
-                    String name = this.mixinDirectory() + s;
-                    if (name.equals(mixinClassName)) {
-                        message(entry, mixinClassName, targetClassName);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // The message that is sent to the console. This can be over-ridden if you wish to change the message.
-    public void message(PredicateEntry entry, String mixinClassName, String targetClassName) {
-        sendMessage(entry, "Skipping mixin {} for class {}: {}", mixinClassName,
-                targetClassName,
-                entry.reason());
-    }
-
-    // Sends a console message to the user, based on the {@link MessageType}.
-    public void sendMessage(PredicateEntry entry, String message, Object... arguments) {
-        if (CommonPlatformGetter.get().isDevelopmentEnvironment()) {
-            logger().warn(message, arguments);
-        } else {
-            switch (entry.messageType()) {
-                case WARN -> logger().warn(message, arguments);
-                case DEBUG -> logger().debug(message, arguments);
-                case ERROR -> logger().error(message, arguments);
-                default -> logger().info(message, arguments);
-            }
-        }
-    }
-}
-```
-
-Here is an example of a ```MixinPluginUtil```:
-
-```
-public class DillonLibMixinPluginUtil extends MixinPluginUtil {
-
-    @Override
-    public Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Mixin");
-    }
-
-    @Override
-    public String mixinDirectory() {
-        return "net.dillon.dillonlib.mixin.";
-    }
-
-    @Override
-    public List<PredicateEntry> entries() {
-        return List.of(
-                new PredicateEntry(
-                        new String[]{"client.fix.bow.AbstractClientPlayerFix"},
-                        !DillonLibOptions.getLibInstance().applyAbstractClientPlayerFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_abstract_client_player_fix\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{"client.fix.bow.AvatarRendererFix"},
-                        !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_avatar_renderer_fix\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "client.fix.bow.ItemInHandRendererFix",
-                                "client.fix.bow.FabricItemInHandRendererFix"
-                        },
-                        !DillonLibOptions.getLibInstance().applyItemInHandRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_item_in_hand_renderer_fix\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "ignitable.CandleCakeBlockFix",
-                                "ignitable.TntBlockFix"
-                        },
-                        !DillonLibOptions.getLibInstance().applyIgnitableFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_ignitable_factories\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "shear.BeehiveBlockFix",
-                                "shear.CopperGolemFix",
-                                "shear.MatchToolFix",
-                                "shear.MushroomCowFix",
-                                "shear.FabricBoggedFix",
-                                "shear.FabricLeashFenceKnotEntityFix",
-                                "shear.FabricPumpkinBlockFix",
-                                "shear.FabricSheepFix",
-                                "shear.FabricSnowGolemFix",
-                                "shear.FabricTripWireBlockFix"
-                        },
-                        !DillonLibOptions.getLibInstance().applyShearFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_shear_factories\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{"entity.fix.SulfurCubeFix"},
-                        (!DillonLibOptions.getLibInstance().applyShearFactories && !DillonLibOptions.getLibInstance().applyIgnitableFactories) || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_shear_factories\" and \"apply_ignitable_factories\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "client.ClientPacketListenerMixin",
-                                "entity.LivingEntityMixin"
-                        },
-                        !DillonLibOptions.getLibInstance().applyTotemFactories || !MixinPlatformGetter.shouldApplyFactories(),
-                        ofFactory("\"apply_totem_factories\" is disabled."),
-                        MessageType.DEBUG
-                )
-        );
-    }
-
-  
-    private static String ofFactory(String s) {
-        return "Factories are disabled, or " + s;
-    }
-```
+[Example use of MixinPluginUtil](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/core/DillonLibMixinPluginUtil.java).
 
 Once you create your ```MixinPluginUtil```, you can use it like this in your ```IMixinConfigPlugin```:
 

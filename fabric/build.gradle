@@ -11,7 +11,7 @@ apply from: rootProject.file('repositories.gradle')
 apply from: 'dependencies.gradle'
 
 loom {
-    def aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+    def aw = project(":fabric").file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }

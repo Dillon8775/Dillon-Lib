@@ -1,9 +1,9 @@
 package net.dillon.quesoexample.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.dillon.dillonlib.Arithmetics;
-import net.dillon.dillonlib.SimplePermissions;
-import net.dillon.dillonlib.TaskScheduler;
+import net.dillon.dillonlib.task.CommonTasks;
+import net.dillon.dillonlib.util.Arithmetics;
+import net.dillon.dillonlib.util.SimplePermissions;
 import net.dillon.quesoexample.platform.QuesoExamplePlatformGetter;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -17,7 +17,7 @@ public class QuesoCommand {
                 .requires(SimplePermissions::admin)
                 .executes(
                         context -> {
-                            TaskScheduler.schedule(Arithmetics.sas(5), () -> {
+                            CommonTasks.schedule(Arithmetics.sas(5), () -> {
                                 printMessage(context.getSource(), null, "Ran task!");
                             });
                             printMessage(context.getSource(), context.getSource().getPlayerOrException(), "Executed common-side command.");

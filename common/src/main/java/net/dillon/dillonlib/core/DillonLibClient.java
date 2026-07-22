@@ -4,6 +4,8 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.platform.PlatformGetter;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -29,5 +31,20 @@ public class DillonLibClient {
         return List.of(
                 ClientFactories::i_
         );
+    }
+
+    /**
+     * @return the full bright setting component string.
+     */
+    public static Component toComponentString(Double gamma) {
+        long brightness = Math.round(gamma * 100);
+        return Component.translatable("options.gamma").append(": ").append(brightness == 0 ? Component.translatable("options.gamma.min") : brightness == 100 ? Component.translatable("options.gamma.max") : Component.literal(String.valueOf(brightness)));
+    }
+
+    /**
+     * Updates full bright.
+     */
+    public static void onValueUpdate(Double brightness) {
+        Minecraft.getInstance().options.gamma().set(brightness);
     }
 }
