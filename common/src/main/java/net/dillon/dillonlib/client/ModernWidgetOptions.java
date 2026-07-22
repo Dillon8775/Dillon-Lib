@@ -1,9 +1,9 @@
 package net.dillon.dillonlib.client;
 
-import net.dillon.dillonlib.BaseOptions;
-import net.dillon.dillonlib.Texts;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.util.BaseOptions;
+import net.dillon.dillonlib.util.Texts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;

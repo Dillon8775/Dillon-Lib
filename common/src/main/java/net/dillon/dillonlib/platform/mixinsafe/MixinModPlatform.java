@@ -30,4 +30,11 @@ public abstract class MixinModPlatform implements Loadable {
     public boolean shouldApplyFactories() {
         return false;
     }
+
+    /**
+     * @return if full bright settings should be applied. This allows for full bright in your mod if you wish to add it.
+     */
+    public boolean shouldApplyFullBright() {
+        return false;
+    }
 }

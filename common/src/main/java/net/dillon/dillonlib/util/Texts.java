@@ -1,4 +1,4 @@
-package net.dillon.dillonlib;
+package net.dillon.dillonlib.util;
 
 import net.minecraft.network.chat.Component;
 

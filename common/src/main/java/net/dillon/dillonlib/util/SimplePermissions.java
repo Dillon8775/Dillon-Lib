@@ -1,4 +1,4 @@
-package net.dillon.dillonlib;
+package net.dillon.dillonlib.util;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

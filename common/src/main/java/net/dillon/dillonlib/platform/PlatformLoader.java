@@ -16,12 +16,6 @@ public class PlatformLoader {
     private static final List<ModPlatform> ALL_PLATFORMS = collectionOf(ModPlatform.class);
 
     /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
-
-    /**
      * This code is used to load a service for the current environment. Your implementation of the service must be defined
      * manually by including a text file in META-INF/services named with the fully qualified class name of the service.
      * Inside the file you should write the fully qualified class name of the implementation to load for the platform. For
@@ -65,5 +59,11 @@ public class PlatformLoader {
         for (ModPlatform platform : ALL_PLATFORMS) {
             function.accept(platform);
         }
+    }
+
+    /**
+     * Initializes this class.
+     */
+    public static void i_() {
     }
 }

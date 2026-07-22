@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.TaskScheduler;
+import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -35,7 +35,7 @@ public class CommonForgePlatformImpl extends CommonModPlatform {
     public void tickScheduledTasks() {
         MinecraftForge.EVENT_BUS.addListener((TickEvent.ServerTickEvent event) -> {
             if (event.phase == TickEvent.Phase.END) {
-                TaskScheduler.tick(event.getServer());
+                CommonTasks.tickTasks(event.getServer());
             }
         });
     }

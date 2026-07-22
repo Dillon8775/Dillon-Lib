@@ -19,7 +19,7 @@ public class DillonLibMain {
     public static void initialize() {
         DillonLibMain.commonInitializers().forEach(Runnable::run);
 
-        DillonLibEvents.registerAllCommonEvents();
+        DillonLibEvents.registerAllEvents();
 
         DillonLibEvents.registerDispenserBehaviors();
         DillonLibEvents.tickAllScheduledTasks();

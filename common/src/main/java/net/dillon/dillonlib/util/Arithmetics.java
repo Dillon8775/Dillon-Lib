@@ -1,4 +1,4 @@
-package net.dillon.dillonlib;
+package net.dillon.dillonlib.util;
 
 import net.dillon.dillonlib.platform.PlatformGetter;
 import net.minecraft.util.RandomSource;
@@ -35,6 +35,20 @@ public class Arithmetics {
      */
     public static int mas(int minutesAsTicks) {
         return (minutesAsTicks * 60) * 20;
+    }
+
+    /**
+     * Rounds the value to the nearest tenths place.
+     */
+    public static double round(double d) {
+        return Math.round(d * 10.0) / 10.0;
+    }
+
+    /**
+     * Rounds a value to the nearest hundredths place.
+     */
+    public static double roundBig(double d) {
+        return Math.round(d * 100.0) / 100.0;
     }
 
     /**
