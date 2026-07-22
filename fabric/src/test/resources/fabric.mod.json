@@ -12,6 +12,9 @@
   "entrypoints": {
     "main": [
       "net.dillon.quesoexample.QuesoExampleMod"
+    ],
+    "fabric-datagen": [
+      "net.dillon.quesoexample.data.QuesoExampleDataGenerator"
     ]
   },
   "mixins": [

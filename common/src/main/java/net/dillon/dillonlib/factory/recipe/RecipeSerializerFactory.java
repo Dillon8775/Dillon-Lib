@@ -8,6 +8,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.function.Function;
 
+@Deprecated
 public class RecipeSerializerFactory {
 
     /**
