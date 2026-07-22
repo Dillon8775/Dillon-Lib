@@ -57,11 +57,8 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                 new PredicateEntry(
                         new String[]{
                                 "shear.BeehiveBlockFix",
-                                "shear.CopperGolemFix",
                                 "shear.MatchToolFix",
                                 "shear.FabricMushroomCowFix",
-                                "shear.FabricBoggedFix",
-                                "shear.FabricLeashFenceKnotEntityFix",
                                 "shear.FabricPumpkinBlockFix",
                                 "shear.FabricSheepFix",
                                 "shear.FabricSnowGolemFix",
