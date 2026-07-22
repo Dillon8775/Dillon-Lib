@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.TaskScheduler;
+import net.dillon.dillonlib.task.CommonTasks;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForge;
@@ -34,7 +34,7 @@ public class NeoForgeCommonPlatformImpl extends CommonModPlatform {
     @Override
     public void tickScheduledTasks() {
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> {
-            TaskScheduler.tick(event.getServer());
+            CommonTasks.tickTasks(event.getServer());
         });
     }
 }

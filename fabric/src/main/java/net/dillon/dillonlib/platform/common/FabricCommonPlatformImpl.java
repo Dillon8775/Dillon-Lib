@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.TaskScheduler;
+import net.dillon.dillonlib.task.CommonTasks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -32,6 +32,6 @@ public class FabricCommonPlatformImpl extends CommonModPlatform {
 
     @Override
     public void tickScheduledTasks() {
-        ServerTickEvents.END_SERVER_TICK.register(TaskScheduler::tick);
+        ServerTickEvents.END_SERVER_TICK.register(CommonTasks::tickTasks);
     }
 }

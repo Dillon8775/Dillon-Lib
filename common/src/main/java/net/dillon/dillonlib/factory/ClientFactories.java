@@ -19,12 +19,6 @@ public class ClientFactories {
     public static final Map<KeyMapping, Runnable> NON_KUMA_KEY_MAPPING_FACTORIES = new HashMap<>();
 
     /**
-     * Initializes this class.
-     */
-    public static void i_() {
-    }
-
-    /**
      * Registers a {@code key binding factory,} with an functional action and a message to send.
      * @param category the group that this keybind should be in, found in the "Controls" menu.
      * @param key the translation key for the keybind
@@ -36,5 +30,11 @@ public class ClientFactories {
         NON_KUMA_KEY_MAPPING_FACTORIES.put(keyBind, runnable);
         PlatformGetter.getDillonLibPlatform().logger().info("Registered key mapping {} with keycode {}", key, code);
         return keyBind;
+    }
+
+    /**
+     * Initializes this class.
+     */
+    public static void i_() {
     }
 }
