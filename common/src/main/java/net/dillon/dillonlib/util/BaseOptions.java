@@ -1,4 +1,4 @@
-package net.dillon.dillonlib;
+package net.dillon.dillonlib.util;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

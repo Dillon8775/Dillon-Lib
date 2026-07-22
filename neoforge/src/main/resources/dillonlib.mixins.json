@@ -22,6 +22,7 @@
   "client": [
     "client.ClientPacketListenerMixin",
     "client.MinecraftMixin",
+    "client.NeoForgeOptionInstanceMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.AvatarRendererFix",
     "client.fix.bow.ItemInHandRendererFix"

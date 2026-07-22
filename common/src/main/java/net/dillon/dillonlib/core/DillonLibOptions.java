@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.core;
 
-import net.dillon.dillonlib.BaseOptions;
+import net.dillon.dillonlib.util.BaseOptions;
 
 public class DillonLibOptions {
     public static final DillonLibOptionsHandler INSTANCE = new DillonLibOptionsHandler();

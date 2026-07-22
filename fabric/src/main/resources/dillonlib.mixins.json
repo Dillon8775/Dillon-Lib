@@ -26,6 +26,8 @@
   ],
   "client": [
     "client.ClientPacketListenerMixin",
+    "client.FabricOptionInstanceMixin",
+    "client.FabricSodiumConfigBuilderMixin",
     "client.MinecraftMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.AvatarRendererFix",

@@ -1,7 +1,6 @@
 package net.dillon.dillonlib.core;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.dillon.dillonlib.TaskScheduler;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
@@ -43,7 +42,7 @@ public class DillonLibEvents {
 
     /**
      * Ticks all scheduled tasks.
-     * @see TaskScheduler
+     * @see net.dillon.dillonlib.task.CommonTasks
      */
     protected static void tickAllScheduledTasks() {
         CommonPlatformGetter.get().tickScheduledTasks();
@@ -52,7 +51,7 @@ public class DillonLibEvents {
     /**
      * Registers all {@code common} events.
      */
-    protected static void registerAllCommonEvents() {
+    protected static void registerAllEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
     }
 
