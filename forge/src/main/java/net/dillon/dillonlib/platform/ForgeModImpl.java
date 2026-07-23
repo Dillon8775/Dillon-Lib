@@ -8,7 +8,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ForgeModImpl extends ModPlatform {
 
@@ -19,7 +18,7 @@ public class ForgeModImpl extends ModPlatform {
 
     @Override
     public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Main");
+        return DillonLibMain.LOGGER;
     }
 
     @Override

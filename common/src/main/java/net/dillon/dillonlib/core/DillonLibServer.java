@@ -2,7 +2,6 @@ package net.dillon.dillonlib.core;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
-import net.dillon.dillonlib.platform.PlatformGetter;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class DillonLibServer {
     public static void sInitialize() {
         DillonLibServer.serverInitializers().forEach(Runnable::run);
 
-        PlatformGetter.getDillonLibPlatform().logger().info("(Server) DillonLib has loaded");
+        DillonLibMain.LOGGER.info("(Server) DillonLib has loaded");
     }
 
     /**
