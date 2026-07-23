@@ -19,7 +19,7 @@ public class ForgeModImpl extends ModPlatform {
 
     @Override
     public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Forge");
+        return LoggerFactory.getLogger("DillonLib/Main");
     }
 
     @Override

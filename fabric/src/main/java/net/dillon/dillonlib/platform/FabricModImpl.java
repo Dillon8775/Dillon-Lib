@@ -19,7 +19,7 @@ public class FabricModImpl extends ModPlatform {
 
     @Override
     public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Fabric");
+        return LoggerFactory.getLogger("DillonLib/Main");
     }
 
     @Override
