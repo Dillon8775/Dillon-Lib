@@ -19,7 +19,7 @@ public class NeoForgeModImpl extends ModPlatform {
 
     @Override
     public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/NeoForge");
+        return LoggerFactory.getLogger("DillonLib/Main");
     }
 
     @Override

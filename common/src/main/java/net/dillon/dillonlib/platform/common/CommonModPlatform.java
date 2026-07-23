@@ -2,6 +2,7 @@ package net.dillon.dillonlib.platform.common;
 
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
+import net.dillon.dillonlib.task.CommonTasks;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -36,7 +37,7 @@ public abstract class CommonModPlatform {
 
     /**
      * Ticks all simple scheduled tasks.
-     * @see TaskScheduler
+     * @see CommonTasks
      */
     public abstract void tickScheduledTasks();
 }

@@ -18,7 +18,7 @@ public class DillonLibServer {
     public static void sInitialize() {
         DillonLibServer.serverInitializers().forEach(Runnable::run);
 
-        PlatformGetter.getDillonLibPlatform().logger().info("Server-side for DillonLib has successfully initialized.");
+        PlatformGetter.getDillonLibPlatform().logger().info("(Server) DillonLib has loaded");
     }
 
     /**

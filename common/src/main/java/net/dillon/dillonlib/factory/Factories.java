@@ -83,7 +83,7 @@ public class Factories {
         BoatData boatData = new BoatData(boat, dropItem.get(), id, chest);
         DispenserBlock.registerBehavior(boatData.dropItem(), new BoatDispenseItemBehavior(boatData.entityType()));
         BOATS.add(boatData);
-        PlatformGetter.getDillonLibPlatform().logger().info("Registered {} boat factory {}.", chest ? "chest" : "default", id);
+        PlatformGetter.getDillonLibPlatform().logger().info("Registered {} boat factory {}", chest ? "chest" : "default", id);
         return boat;
     }
 

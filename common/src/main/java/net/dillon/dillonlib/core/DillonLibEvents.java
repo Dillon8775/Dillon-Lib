@@ -30,22 +30,14 @@ public class DillonLibEvents {
                 DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
             }
         }
-        PlatformGetter.getDillonLibPlatform().logger().debug("Registered shear factory dispenser behaviors.");
+        PlatformGetter.getDillonLibPlatform().logger().debug("Registered shear factory dispenser behaviors");
 
         for (IgnitableFactory.FlintAndSteel flintAndSteel : Factories.FLINT_AND_STEELS) {
             if (flintAndSteel.registerDispenserBehavior) {
                 DispenserBlock.registerBehavior(flintAndSteel, new FlintAndSteelDispenseItemBehavior());
             }
         }
-        PlatformGetter.getDillonLibPlatform().logger().debug("Registered flint and steel factory dispenser behaviors.");
-    }
-
-    /**
-     * Ticks all scheduled tasks.
-     * @see net.dillon.dillonlib.task.CommonTasks
-     */
-    protected static void tickAllScheduledTasks() {
-        CommonPlatformGetter.get().tickScheduledTasks();
+        PlatformGetter.getDillonLibPlatform().logger().debug("Registered flint and steel factory dispenser behaviors");
     }
 
     /**
@@ -53,6 +45,7 @@ public class DillonLibEvents {
      */
     protected static void registerAllEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
+        CommonPlatformGetter.get().tickScheduledTasks();
     }
 
     /**
