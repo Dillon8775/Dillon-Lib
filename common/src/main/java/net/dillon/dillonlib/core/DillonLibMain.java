@@ -19,12 +19,30 @@ public class DillonLibMain {
     public static void initialize() {
         DillonLibMain.commonInitializers().forEach(Runnable::run);
 
+        DillonLibEvents.registerDispenserBehaviors();
+
         DillonLibEvents.registerAllEvents();
 
-        DillonLibEvents.registerDispenserBehaviors();
-        DillonLibEvents.tickAllScheduledTasks();
+        int platforms = PlatformLoader.executeForEachPlatform(modPlatform ->
+                PlatformGetter.getDillonLibPlatform().logger().info("ModPlatform loaded with mod ID {} (version {})",
+                        modPlatform.modId(),
+                        modPlatform.modVersion()
+                ));
+        int mixinPlatforms = PlatformLoader.executeForEachMixinPlatform(mixinModPlatform ->
+                PlatformGetter.getDillonLibPlatform().logger().info("MixinModPlatform loaded with mod ID {} (factories={}, fullBright={})",
+                        mixinModPlatform.modId(),
+                        mixinModPlatform.shouldApplyFactories(),
+                        mixinModPlatform.shouldApplyFullBright()
+                ));
 
-        PlatformGetter.getDillonLibPlatform().logger().info("DillonLib {} for {} has successfully initialized.", PlatformGetter.getDillonLibPlatform().modVersion(), PlatformGetter.getDillonLibPlatform().platformName().toString().toLowerCase(Locale.ROOT));
+        PlatformGetter.getDillonLibPlatform().logger().info("Loaded {} platforms and {} mixin platforms",
+                platforms,
+                mixinPlatforms
+        );
+
+        PlatformGetter.getDillonLibPlatform().logger().info("DillonLib {} for {} has loaded",
+                PlatformGetter.getDillonLibPlatform().modVersion(),
+                PlatformGetter.getDillonLibPlatform().platformName().toString().toLowerCase(Locale.ROOT));
     }
 
     /**
