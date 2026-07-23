@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.platform.ModPlatform;
-import net.dillon.dillonlib.platform.PlatformGetter;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.minecraft.commands.CommandBuildContext;
@@ -28,7 +27,7 @@ public class DillonLibEvents {
                 DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
             }
         }
-        PlatformGetter.getDillonLibPlatform().logger().debug("Registered shear factory dispenser behaviors.");
+        DillonLibMain.LOGGER.debug("Registered shear factory dispenser behaviors");
     }
 
     /**
