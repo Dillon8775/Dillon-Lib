@@ -1,6 +1,8 @@
 package net.dillon.dillonlib.platform;
 
+import net.dillon.dillonlib.platform.client.ClientModPlatform;
 import net.dillon.dillonlib.platform.common.CommonModPlatform;
+import net.dillon.dillonlib.platform.mixinsafe.MixinModPlatform;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -13,7 +15,6 @@ import java.util.function.Consumer;
  * @since 1.0
  */
 public class PlatformLoader {
-    private static final List<ModPlatform> ALL_PLATFORMS = collectionOf(ModPlatform.class);
 
     /**
      * This code is used to load a service for the current environment. Your implementation of the service must be defined
@@ -53,12 +54,36 @@ public class PlatformLoader {
     }
 
     /**
-     * Executes a given task (or method) for all instances {@link ModPlatform} classes.
+     * Executes a given task (or method) for all instances {@link ModPlatform} classes, and then returns the total amount of platforms (excluding DillonLib's base platform).
      */
-    public static void executeForEachPlatform(Consumer<ModPlatform> function) {
-        for (ModPlatform platform : ALL_PLATFORMS) {
+    public static int executeForEachPlatform(Consumer<ModPlatform> function) {
+        List<ModPlatform> platforms = collectionOf(ModPlatform.class);
+        for (ModPlatform platform : platforms) {
             function.accept(platform);
         }
+        return platforms.size() - 1;
+    }
+
+    /**
+     * Executes a given task (or method) for all instances {@link MixinModPlatform} classes, and then returns the total amount of mixin platforms (excluding DillonLib's base mixin platform).
+     */
+    public static int executeForEachMixinPlatform(Consumer<MixinModPlatform> function) {
+        List<MixinModPlatform> mixinPlatforms = collectionOf(MixinModPlatform.class);
+        for (MixinModPlatform mixinPlatform : mixinPlatforms) {
+            function.accept(mixinPlatform);
+        }
+        return mixinPlatforms.size() - 1;
+    }
+
+    /**
+     * Executes a given task (or method) for all instances {@link ClientModPlatform} classes, and then returns the total amount of client platforms (excluding DillonLib's base client platform).
+     */
+    public static int executeForEachClientPlatform(Consumer<ClientModPlatform> function) {
+        List<ClientModPlatform> clientPlatforms = collectionOf(ClientModPlatform.class);
+        for (ClientModPlatform clientPlatform : collectionOf(ClientModPlatform.class)) {
+            function.accept(clientPlatform);
+        }
+        return clientPlatforms.size() - 1;
     }
 
     /**

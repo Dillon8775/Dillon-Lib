@@ -4,6 +4,7 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.platform.PlatformLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
@@ -21,7 +22,13 @@ public class DillonLibClient {
     public static void cInitialize() {
         DillonLibClient.clientInitializers().forEach(Runnable::run);
 
-        PlatformGetter.getDillonLibPlatform().logger().info("Client-side for DillonLib has successfully initialized.");
+        int clientPlatforms = PlatformLoader.executeForEachClientPlatform(clientModPlatform ->
+                PlatformGetter.getDillonLibPlatform().logger().info("ClientModPlatform loaded with mod ID {}",
+                        clientModPlatform.modId()
+                ));
+
+        PlatformGetter.getDillonLibPlatform().logger().info("Loaded {} client platforms", clientPlatforms);
+        PlatformGetter.getDillonLibPlatform().logger().info("(Client) DillonLib has loaded");
     }
 
     /**
