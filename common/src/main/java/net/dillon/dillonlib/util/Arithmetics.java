@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.util;
 
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.minecraft.util.RandomSource;
 
 /**
@@ -24,7 +24,7 @@ public class Arithmetics {
             }
             return secondsAsTicks * 20;
         } catch (NumberFormatException o) {
-            PlatformGetter.getDillonLibPlatform().logger().error("Use method minutesInTicks(int) if you're inputting an exact minute.");
+            DillonLibMain.LOGGER.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
             o.printStackTrace();
             return mas(secondsAsTicks / 60);
         }

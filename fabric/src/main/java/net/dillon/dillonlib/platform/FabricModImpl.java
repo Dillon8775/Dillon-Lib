@@ -8,7 +8,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.player.LocalPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FabricModImpl extends ModPlatform {
 
@@ -19,7 +18,7 @@ public class FabricModImpl extends ModPlatform {
 
     @Override
     public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("DillonLib/Main");
+        return DillonLibMain.LOGGER;
     }
 
     @Override

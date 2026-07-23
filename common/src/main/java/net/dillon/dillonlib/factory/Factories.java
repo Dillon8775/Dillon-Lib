@@ -1,10 +1,10 @@
 package net.dillon.dillonlib.factory;
 
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.data.BoatData;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
-import net.dillon.dillonlib.platform.PlatformGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -83,7 +83,7 @@ public class Factories {
         BoatData boatData = new BoatData(boat, dropItem.get(), id, chest);
         DispenserBlock.registerBehavior(boatData.dropItem(), new BoatDispenseItemBehavior(boatData.entityType()));
         BOATS.add(boatData);
-        PlatformGetter.getDillonLibPlatform().logger().info("Registered {} boat factory {}", chest ? "chest" : "default", id);
+        DillonLibMain.LOGGER.info("Registered {} boat factory {}", chest ? "chest" : "default", id);
         return boat;
     }
 
