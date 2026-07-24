@@ -101,18 +101,7 @@ public class Factories {
     }
 
     /**
-     * Creates a simple item group with a custom supplier for your items. Should be called in your mod's common initialization stage. This will register your item group on all platforms automatically (fabric x (neo)forge).
-     * @param id the {@link Identifier} for your item group (used to create the translation key)
-     * @param icon the icon for your item group
-     * @param entries the list of items to be in your item group
-     */
-    public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
-        CommonPlatformGetter.get().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
-        DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
-    }
-
-    /**
-     * Creates a simple item group with basic items.
+     * Creates a simple item group with basic items. Should be called in your mod's common initialization stage. This will register your item group on all platforms automatically (fabric x (neo)forge).
      * @param id the {@link Identifier} for your item group (used to create the translation key)
      * @param icon the icon for your item group
      * @param entries the list of {@link ItemLike}s to be in your item group
@@ -123,6 +112,17 @@ public class Factories {
                         .map(itemLike -> itemLike.asItem().getDefaultInstance())
                         .toList()
         );
+    }
+
+    /**
+     * Creates a simple item group with a custom supplier for your items. Should be called in your mod's common initialization stage. This will register your item group on all platforms automatically (fabric x (neo)forge).
+     * @param id the {@link Identifier} for your item group (used to create the translation key)
+     * @param icon the icon for your item group
+     * @param entries the list of items to be in your item group
+     */
+    public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
+        CommonPlatformGetter.get().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
+        DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 
     /**
