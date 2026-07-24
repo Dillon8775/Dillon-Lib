@@ -13,8 +13,6 @@ import net.dillon.quesoexample.command.QuesoServerCommand;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -64,13 +62,12 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
 
     @Override
     public void registerEvents() {
-        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
+        Factories.registerSimpleItemGroupFactory(new ResourceLocation("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
             ItemStack stack = new ItemStack(Items.ANCIENT_DEBRIS);
-            stack.set(DataComponents.CUSTOM_NAME, Component.literal("lol"));
             return List.of(stack);
         });
-        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay2"), Items.GOLD_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
-        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay3"), Items.DIAMOND_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
+        Factories.registerSimpleItemGroupFactory(new ResourceLocation("quesoexample", "yay2"), Items.GOLD_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
+        Factories.registerSimpleItemGroupFactory(new ResourceLocation("quesoexample", "yay3"), Items.DIAMOND_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
         Factories.factorItemLikesIntoCreativeTab(CreativeModeTabs.BUILDING_BLOCKS, List.of(Items.FLINT_AND_STEEL, Items.DIAMOND));
     }
 
