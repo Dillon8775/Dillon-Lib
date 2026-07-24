@@ -125,6 +125,7 @@ You can use factories with the following objects:
 - Shields
 - Totems of Undying
 - Keybinds
+- Item groups
 
 ## Boat Factories
 Boat factories are a special type of factory that hold "BoatData", which contains all information required for the boat.

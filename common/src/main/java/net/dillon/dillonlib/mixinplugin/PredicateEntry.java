@@ -2,7 +2,7 @@ package net.dillon.dillonlib.mixinplugin;
 
 /**
  * A list of mapped {@code mixin class names} with {@code booleans} on whether the mixin should be enabled upon load time.
- * <p>If the mapped boolean returns {@code true}, the every mapped mixin class name should be {@code disabled.}</p>
+ * <p>If the mapped boolean returns {@code true}, the every mapped mixin class id should be {@code disabled.}</p>
  *
  * @param mixins      the list of mixins that should be disabled if {@code condition} returns true
  * @param condition   the condition for if the list of mixins should be disabled

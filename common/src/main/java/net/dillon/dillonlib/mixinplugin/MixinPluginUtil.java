@@ -9,7 +9,7 @@ import java.util.List;
  * Simple utility class for {@link org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin}. You can use this to easily disable mixins on certain conditions with the help of {@link PredicateEntry}s
  * <p>{@code logger} - the logger to be used specifically for the mixin plugin.
  * Do not use an outside logger, as you risk Minecraft crashing due to pre-mature load time.
- * <p>{@code mixinDirectory} - the mixin directory to be checked with the plugin. You can have the method return {@code blank} or {@code ""} if you want to specifically all mixin class names by their full package name. However, it's easier to specify the package name with this method, and then simply input the mixin classes names.
+ * <p>{@code mixinDirectory} - the mixin directory to be checked with the plugin. You can have the method return {@code blank} or {@code ""} if you want to specifically all mixin class names by their full package id. However, it's easier to specify the package id with this method, and then simply input the mixin classes names.
  * <p>{@code entries} - the list of {@link PredicateEntry} to check for each mixin loaded at load time. If the predicate entry {@code boolean} returns true, the list of mixins in the entry will be disabled at load time.
  * @since 1.0
  * @see PredicateEntry
