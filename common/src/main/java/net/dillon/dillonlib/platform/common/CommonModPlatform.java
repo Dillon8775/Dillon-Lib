@@ -1,14 +1,12 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.factory.Factories;
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -49,14 +47,12 @@ public abstract class CommonModPlatform {
     public abstract void tickScheduledTasks();
 
     /**
-     * Refreshes all item groups when an item group factory is created. Cannot be done on forge 1.20.1.
-     * @see Factories#registerSimpleItemGroupFactory(ResourceLocation, ItemLike, Supplier) 
+     * Registers an item group when an item group factory is created.
      */
-    public abstract void refreshItemGroups();
+    public abstract void registerItemGroup(SimpleItemGroupFactory simpleItemGroup);
 
     /**
      * Adds an item to an item group.
-     * @see Factories
      */
     public abstract void addItemToGroup(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> stack);
 }

@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.platform.common;
 
-import net.dillon.dillonlib.factory.Factories;
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -46,27 +46,24 @@ public class FabricCommonPlatformImpl extends CommonModPlatform {
     }
 
     @Override
-    public void refreshItemGroups() {
-        Factories.SIMPLE_ITEM_GROUPS.forEach((simpleItemGroup) -> {
-            try {
-                ResourceKey<CreativeModeTab> key = ResourceKey.create(
-                        Registries.CREATIVE_MODE_TAB,
-                        simpleItemGroup.id()
-                );
+    public void registerItemGroup(SimpleItemGroupFactory simpleItemGroup) {
+        try {
+            ResourceKey<CreativeModeTab> key = ResourceKey.create(
+                    Registries.CREATIVE_MODE_TAB,
+                    simpleItemGroup.id()
+            );
 
-                Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key,
-                        CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
-                                .title(Component.translatable("itemGroup." + simpleItemGroup.id().getNamespace() + "." + simpleItemGroup.id().getPath()))
-                                .icon(() -> new ItemStack(simpleItemGroup.icon()))
-                                .displayItems((parameters, output) -> {
-                                    simpleItemGroup.entries().get().forEach(output::accept);
-                                })
-                                .build()
-                );
-            } catch (IllegalArgumentException | IllegalStateException o) { // Stops duplicate groups from being created
-                System.out.println("caught");
-            }
-        });
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key,
+                    CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
+                            .title(Component.translatable("itemGroup." + simpleItemGroup.id().getNamespace() + "." + simpleItemGroup.id().getPath()))
+                            .icon(() -> new ItemStack(simpleItemGroup.icon()))
+                            .displayItems((parameters, output) -> {
+                                simpleItemGroup.entries().get().forEach(output::accept);
+                            })
+                            .build()
+            );
+        } catch (IllegalArgumentException | IllegalStateException o) { // Stops duplicate groups from being created
+        }
     }
 
     @Override
