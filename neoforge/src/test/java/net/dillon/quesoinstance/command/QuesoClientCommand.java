@@ -1,9 +1,9 @@
 package net.dillon.quesoinstance.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.dillon.dillonlib.SimplePermissions;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.util.SimplePermissions;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
