@@ -1,6 +1,7 @@
 package net.dillon.dillonlib.platform.common;
 
 import net.dillon.dillonlib.factory.Factories;
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.task.CommonTasks;
@@ -49,10 +50,10 @@ public abstract class CommonModPlatform {
     public abstract void tickScheduledTasks();
 
     /**
-     * Refreshes all item groups when an item group factory is created.
-     * @see Factories#registerSimpleItemGroupFactory(ResourceLocation, ItemLike, Supplier) 
+     * Registers an item group when an item group factory is created.
+     * @see Factories#registerSimpleItemGroupFactory(ResourceLocation, ItemLike, Supplier)
      */
-    public abstract void refreshItemGroups();
+    public abstract void registerItemGroup(SimpleItemGroupFactory simpleItemGroup);
 
     /**
      * Adds an item to an item group.
