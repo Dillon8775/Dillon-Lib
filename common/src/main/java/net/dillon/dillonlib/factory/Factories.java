@@ -58,7 +58,21 @@ public class Factories {
     }
 
     /**
-     * Creates a simple item group. Should be called in your mod's common initialization stage or in {@link net.dillon.dillonlib.platform.ModPlatform}. This will register your item group on all platforms automatically (fabric x (neo)forge).
+     * Creates a simple item group with basic items. Should be called in your mod's common initialization stage. This will register your item group on all platforms automatically (fabric x (neo)forge).
+     * @param id the {@link ResourceLocation} for your item group (used to create the translation key)
+     * @param icon the icon for your item group
+     * @param entries the list of {@link ItemLike}s to be in your item group
+     */
+    public static void registerSimpleItemGroupFactory(ResourceLocation id, ItemLike icon, List<ItemLike> entries) {
+        registerSimpleItemGroupFactory(id, icon, () ->
+                entries.stream()
+                        .map(itemLike -> itemLike.asItem().getDefaultInstance())
+                        .toList()
+        );
+    }
+
+    /**
+     * Creates a simple item group with a custom supplier for your items. Should be called in your mod's common initialization stage. This will register your item group on all platforms automatically (fabric x (neo)forge).
      * @param id the {@link ResourceLocation} for your item group (used to create the translation key)
      * @param icon the icon for your item group
      * @param entries the list of items to be in your item group
