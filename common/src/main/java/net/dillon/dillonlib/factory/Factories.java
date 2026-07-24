@@ -4,6 +4,7 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.data.BoatData;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
 import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.minecraft.core.Registry;
@@ -56,8 +57,6 @@ public class Factories {
     public static final Set<BoatData> BOATS = new HashSet<>();
     public static final Set<ShearsFactory> SHEARS = new HashSet<>();
     public static final Set<IgnitableFactory.FlintAndSteel> FLINT_AND_STEELS = new HashSet<>();
-    // Not affected by MixinModPlatform.shouldApplyFactories()
-    public static final Set<SimpleItemGroup> SIMPLE_ITEM_GROUPS = new HashSet<>();
 
     /**
      * Registers a {@code boat entity factory} into the game.
@@ -108,8 +107,7 @@ public class Factories {
      * @param entries the list of items to be in your item group
      */
     public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
-        SIMPLE_ITEM_GROUPS.add(new SimpleItemGroup(id, icon, entries));
-        CommonPlatformGetter.get().refreshItemGroups();
+        CommonPlatformGetter.get().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
         DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 
@@ -331,9 +329,4 @@ public class Factories {
      */
     public static void i_() {
     }
-
-    /**
-     * Holds item group data that is registered when creating an item group factory.
-     */
-    public record SimpleItemGroup(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {}
 }

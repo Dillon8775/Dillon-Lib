@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.platform.common;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.factory.Factories;
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -58,21 +58,19 @@ public class NeoForgeCommonPlatformImpl extends CommonModPlatform {
     }
 
     @Override
-    public void refreshItemGroups() {
-        Factories.SIMPLE_ITEM_GROUPS.forEach((simpleItemGroup) -> {
-            try {
-                ITEM_GROUPS.register(
-                        simpleItemGroup.id().getPath(),
-                        () -> CreativeModeTab.builder()
-                                .title(Component.translatable("itemGroup." + simpleItemGroup.id().getNamespace() + "." + simpleItemGroup.id().getPath()))
-                                .icon(() -> new ItemStack(simpleItemGroup.icon()))
-                                .displayItems((parameters, output) -> {
-                                    simpleItemGroup.entries().get().forEach(output::accept);
-                                })
-                                .build());
-            } catch (IllegalArgumentException | IllegalStateException o) { // Stops duplicate groups from being created
-            }
-        });
+    public void registerItemGroup(SimpleItemGroupFactory simpleItemGroup) {
+        try {
+            ITEM_GROUPS.register(
+                    simpleItemGroup.id().getPath(),
+                    () -> CreativeModeTab.builder()
+                            .title(Component.translatable("itemGroup." + simpleItemGroup.id().getNamespace() + "." + simpleItemGroup.id().getPath()))
+                            .icon(() -> new ItemStack(simpleItemGroup.icon()))
+                            .displayItems((parameters, output) -> {
+                                simpleItemGroup.entries().get().forEach(output::accept);
+                            })
+                            .build());
+        } catch (IllegalArgumentException | IllegalStateException o) { // Stops duplicate groups from being created
+        }
     }
 
     @Override
