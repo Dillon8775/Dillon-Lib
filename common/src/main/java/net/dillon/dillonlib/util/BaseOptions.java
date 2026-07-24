@@ -25,7 +25,7 @@ public abstract class BaseOptions<T> {
     protected T instance;
 
     /**
-     * Constructor which initializes the file name and the instance of the options.
+     * Constructor which initializes the file id and the instance of the options.
      */
     public BaseOptions(String fileName) {
         this.fileName = fileName;

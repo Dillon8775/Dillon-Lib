@@ -1,6 +1,7 @@
 package net.dillon.quesoexample.platform;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
@@ -12,9 +13,17 @@ import net.dillon.quesoexample.command.QuesoServerCommand;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class QuesoExamplePlatformImpl extends ModPlatform {
 
@@ -51,6 +60,18 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     @Override
     public boolean canSendPacket(LocalPlayer localPlayer) {
         return true;
+    }
+
+    @Override
+    public void registerEvents() {
+        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
+            ItemStack stack = new ItemStack(Items.ANCIENT_DEBRIS);
+            stack.set(DataComponents.CUSTOM_NAME, Component.literal("lol"));
+            return List.of(stack);
+        });
+        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay2"), Items.GOLD_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
+        Factories.registerSimpleItemGroupFactory(ResourceLocation.fromNamespaceAndPath("quesoexample", "yay3"), Items.DIAMOND_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
+        Factories.factorItemLikesIntoCreativeTab(CreativeModeTabs.BUILDING_BLOCKS, List.of(Items.FLINT_AND_STEEL, Items.DIAMOND));
     }
 
     @Override

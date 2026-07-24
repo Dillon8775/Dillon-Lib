@@ -1,8 +1,11 @@
 package net.dillon.dillonlib.factory;
 
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.ShieldFactory;
+import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,9 +17,12 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -28,13 +34,11 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Supplier;
 
 /**
- * Stores different factories for Minecraft items and blocks, to register most of the things needed for that special item with one single method.
+ * Stores and registers different factories for specific Minecraft registries.
  * <p>See {@link net.dillon.dillonlib.factory.item} for more item-specific factories.</p>
  * @since 1.0
  * @see net.dillon.dillonlib.mixin
@@ -43,12 +47,98 @@ public class Factories {
     public static final Set<ShearsFactory> SHEARS = new HashSet<>();
     public static final Set<IgnitableFactory.FlintAndSteel> FLINT_AND_STEELS = new HashSet<>();
     public static final Map<ShieldFactory, Integer> SHIELDS = new HashMap<>();
+    // Not affected by MixinModPlatform.shouldApplyFactories()
+    public static final Set<SimpleItemGroup> SIMPLE_ITEM_GROUPS = new HashSet<>();
 
     /**
      * Helper method for registering boat types.
      */
     public static <T extends Entity> EntityType<T> registerEntityType(ResourceKey<EntityType<?>> key, EntityType.Builder<T> type) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type.build(key.location().toString()));
+    }
+
+    /**
+     * Creates a simple item group. Should be called in your mod's common initialization stage or in {@link net.dillon.dillonlib.platform.ModPlatform}. This will register your item group on all platforms automatically (fabric x (neo)forge).
+     * @param id the {@link ResourceLocation} for your item group (used to create the translation key)
+     * @param icon the icon for your item group
+     * @param entries the list of items to be in your item group
+     */
+    public static void registerSimpleItemGroupFactory(ResourceLocation id, ItemLike icon, Supplier<List<ItemStack>> entries) {
+        if (PlatformGetter.getDillonLibPlatform().platformName().forge()) {
+            throw new IllegalStateException("Cannot instantiate item group factory on forge.");
+        }
+        SIMPLE_ITEM_GROUPS.add(new SimpleItemGroup(id, icon, entries));
+        CommonPlatformGetter.get().refreshItemGroups();
+        DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
+    }
+
+    /**
+     * Adds an {@link ItemStack} to a specific {@link CreativeModeTab}. Should be called in your mod's initialization stage.
+     * @param tab the tab you want to modify
+     * @param item the item you want to add to the tab (as an item stack)
+     */
+    public static void factorItemStackIntoCreativeTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> item) {
+        if (PlatformGetter.getDillonLibPlatform().platformName().forge()) {
+            throw new IllegalStateException("Cannot modify item groups on forge.");
+        }
+        CommonPlatformGetter.get().addItemToGroup(tab, item);
+    }
+
+    /**
+     * Adds a {@link ItemLike} to a specific {@link CreativeModeTab}. Should be called in your mod's initialization stage.
+     * @param tab the tab you want to modify
+     * @param itemLike the item you want to add to the tab (as an item like)
+     */
+    public static void factorItemLikeIntoCreativeTab(ResourceKey<CreativeModeTab> tab, ItemLike itemLike) {
+        factorItemStackIntoCreativeTab(tab, () -> itemLike.asItem().getDefaultInstance());
+    }
+
+    /**
+     * Adds a {@link List} of {@link ItemLike}s to a specific {@link CreativeModeTab}. Should be called in your mod's initialization stage.
+     * @param tab the tab you want to modify
+     * @param items the list of item likes that you want to add
+     */
+    public static void factorItemLikesIntoCreativeTab(ResourceKey<CreativeModeTab> tab, List<ItemLike> items) {
+        for (ItemLike itemLike : items) {
+            factorItemLikeIntoCreativeTab(tab, itemLike);
+        }
+    }
+
+    /**
+     * Adds a {@link List} of {@link ItemStack}s to a specific {@link CreativeModeTab}. Should be called in your mod's initialization stage.
+     * @param tab the tab you want to modify
+     * @param items the list of item stacks that you want to add
+     */
+    public static void factorItemStacksIntoCreativeTab(ResourceKey<CreativeModeTab> tab, Supplier<List<ItemStack>> items) {
+        for (ItemStack stack : items.get()) {
+            factorItemStackIntoCreativeTab(tab, () -> stack);
+        }
+    }
+
+    /**
+     * Adds a {@link List} of {@link ItemLike}s to multiple {@link CreativeModeTab}s. Should be called in your mod's initialization stage.
+     * @param tabs the list of tabs that you want to modify
+     * @param items the list of item likes that you want to add to each tab
+     */
+    public static void factorItemLikesIntoCreativeTabs(List<ResourceKey<CreativeModeTab>> tabs, List<ItemLike> items) {
+        for (ItemLike itemLike : items) {
+            for (ResourceKey<CreativeModeTab> tab : tabs) {
+                factorItemLikeIntoCreativeTab(tab, itemLike);
+            }
+        }
+    }
+
+    /**
+     * Adds a {@link List} of {@link ItemStack}s to multiple {@link CreativeModeTab}s. Should be called in your mod's initialization stage.
+     * @param tabs the list of tabs that you want to modify
+     * @param items the list of item stacks that you want to add to each tab
+     */
+    public static void factorItemStacksIntoCreativeTabs(List<ResourceKey<CreativeModeTab>> tabs, Supplier<List<ItemStack>> items) {
+        for (ItemStack stack : items.get()) {
+            for (ResourceKey<CreativeModeTab> tab : tabs) {
+                factorItemStackIntoCreativeTab(tab, () -> stack);
+            }
+        }
     }
 
     /**
@@ -182,4 +272,9 @@ public class Factories {
      */
     public static void i_() {
     }
+
+    /**
+     * Holds item group data that is registered when creating an item group factory.
+     */
+    public record SimpleItemGroup(ResourceLocation id, ItemLike icon, Supplier<List<ItemStack>> entries) {}
 }

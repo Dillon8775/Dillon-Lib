@@ -1,6 +1,9 @@
 package net.dillon.dillonlib.platform.common;
 
 import net.dillon.dillonlib.task.CommonTasks;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -8,6 +11,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.util.function.Supplier;
 
 public class CommonForgePlatformImpl extends CommonModPlatform {
 
@@ -38,5 +42,12 @@ public class CommonForgePlatformImpl extends CommonModPlatform {
                 CommonTasks.tickTasks(event.getServer());
             }
         });
+    }
+
+    @Override
+    public void refreshItemGroups() {
+    }
+
+    public void addItemToGroup(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> stack) {
     }
 }
