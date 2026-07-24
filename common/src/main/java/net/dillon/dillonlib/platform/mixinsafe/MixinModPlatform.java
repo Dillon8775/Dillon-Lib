@@ -18,7 +18,7 @@ public abstract class MixinModPlatform implements Loadable {
     public abstract String modId();
 
     /**
-     * @return if a mod is loaded on a specific platform. You can use this in {@link MixinPluginUtil}s.
+     * @return if a mod is loaded on a specific platform. You can use this in {@link MixinPluginUtil}s, or anywhere else.
      */
     public abstract boolean isModLoaded(ModReference mod);
 
