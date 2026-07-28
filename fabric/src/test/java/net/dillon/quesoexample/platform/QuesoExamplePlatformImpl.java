@@ -7,10 +7,8 @@ import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
 import net.dillon.dillonlib.platform.info.PlatformRelease;
 import net.dillon.quesoexample.QuesoExampleMod;
-import net.dillon.quesoexample.command.QuesoClientCommand;
 import net.dillon.quesoexample.command.QuesoCommand;
 import net.dillon.quesoexample.command.QuesoServerCommand;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.component.DataComponents;
@@ -58,11 +56,6 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public boolean canSendPacket(LocalPlayer localPlayer) {
-        return true;
-    }
-
-    @Override
     public void registerEvents() {
         Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
             ItemStack stack = new ItemStack(Items.ANCIENT_DEBRIS);
@@ -76,11 +69,6 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     @Override
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
         dispatcher.register(QuesoCommand.testCommand());
-    }
-
-    @Override
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-        dispatcher.register(QuesoClientCommand.clientTestCommand());
     }
 
     @Override
