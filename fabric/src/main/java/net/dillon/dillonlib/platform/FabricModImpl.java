@@ -5,7 +5,6 @@ import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
 import net.dillon.dillonlib.platform.info.PlatformRelease;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.player.LocalPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -42,10 +41,5 @@ public class FabricModImpl extends ModPlatform {
     @Override
     public @NotNull LogoWidth logoWidth() {
         return LogoWidth.DEFAULT;
-    }
-
-    @Override
-    public boolean canSendPacket(LocalPlayer localPlayer) {
-        return true;
     }
 }
