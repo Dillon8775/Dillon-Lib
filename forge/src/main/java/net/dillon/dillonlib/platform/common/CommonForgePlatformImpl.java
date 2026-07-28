@@ -1,5 +1,6 @@
 package net.dillon.dillonlib.platform.common;
 
+import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -45,7 +46,7 @@ public class CommonForgePlatformImpl extends CommonModPlatform {
     }
 
     @Override
-    public void refreshItemGroups() {
+    public void registerItemGroup(SimpleItemGroupFactory simpleItemGroup) {
     }
 
     public void addItemToGroup(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> stack) {
