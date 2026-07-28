@@ -58,7 +58,7 @@ public class DillonLibEvents {
      * Registers all {@code client} commands.
      */
     public static void registerAllClientCommands(CommandDispatcher<CommandSourceStack> commandDispatcher, CommandBuildContext commandRegistryAccess) {
-        PlatformLoader.executeForEachPlatform(modPlatform -> modPlatform.registerClientCommands(commandDispatcher, commandRegistryAccess));
+        PlatformLoader.executeForEachClientPlatform(modPlatform -> modPlatform.registerClientCommands(commandDispatcher, commandRegistryAccess));
     }
 
     /**

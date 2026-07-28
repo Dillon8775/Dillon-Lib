@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
 import net.dillon.dillonlib.platform.info.PlatformRelease;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.NotNull;
@@ -51,11 +50,6 @@ public abstract class ModPlatform implements Loadable {
     public abstract @NotNull LogoWidth logoWidth();
 
     /**
-     * @return if a packet in your mod can be sent. It's helpful to check if a packet can be sent when joining a server that doesn't have your mod installed, which can inform the user of mod incompatibility. If you don't have a reason to check if a packet can be sent in your mod, you can just return false here.
-     */
-    public abstract boolean canSendPacket(LocalPlayer localPlayer);
-
-    /**
      * Registers events, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.
      */
     public void registerEvents() {
@@ -65,12 +59,6 @@ public abstract class ModPlatform implements Loadable {
      * Registers commands that should be on all environments.
      */
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
-
-    /**
-     * Registers client-side only commands.
-     */
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
     }
 
     /**

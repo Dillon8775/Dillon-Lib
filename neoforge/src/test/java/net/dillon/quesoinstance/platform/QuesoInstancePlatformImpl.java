@@ -56,12 +56,6 @@ public class QuesoInstancePlatformImpl extends ModPlatform {
     public @NotNull LogoWidth logoWidth() {
         return LogoWidth.DEFAULT;
     }
-
-    @Override
-    public boolean canSendPacket(LocalPlayer localPlayer) {
-        return false;
-    }
-
     @Override
     public void registerEvents() {
         Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
@@ -76,11 +70,6 @@ public class QuesoInstancePlatformImpl extends ModPlatform {
     @Override
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
         dispatcher.register(QuesoCommand.testCommand());
-    }
-
-    @Override
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-        dispatcher.register(QuesoClientCommand.clientTestCommand());
     }
 
     @Override
