@@ -88,7 +88,7 @@ modrinth {
     token = project.findProperty("modrinth.token") ?: System.getenv("MODRINTH_TOKEN") ?: "none"
     projectId = findProperty("modrinth_project_id")
 
-    versionNumber = project.mod_version.toString()
+    versionNumber = "${mc_version}-${project.mod_version.toString()}-neoforge"
     versionName = "[mc${libs.minecraft.get().version}] ${mod_name} ${project.mod_version}"
 
     uploadFile = jar
