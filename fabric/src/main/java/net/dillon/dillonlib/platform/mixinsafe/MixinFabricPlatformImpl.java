@@ -4,7 +4,7 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.info.ModReference;
 import net.fabricmc.loader.api.FabricLoader;
 
-public class MixinFabricModImpl extends MixinModPlatform {
+public class MixinFabricPlatformImpl extends MixinModPlatform {
 
     @Override
     public String modId() {

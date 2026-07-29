@@ -2,7 +2,7 @@ package net.dillon.dillonlib.core;
 
 import net.dillon.dillonlib.mixinplugin.MixinPluginUtil;
 import net.dillon.dillonlib.mixinplugin.PredicateEntry;
-import net.dillon.dillonlib.platform.mixinsafe.MixinPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,22 +28,22 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "client.FabricOptionInstanceMixin",
                                 "client.NeoForgeOptionInstanceMixin",
                         },
-                        !MixinPlatformGetter.shouldApplyFullBright(),
+                        !Platforms.shouldApplyFullBright(),
                         "FullBright is not enabled."
                 ),
                 new PredicateEntry(
                         new String[]{"client.FabricSodiumConfigBuilderMixin"},
-                        !MixinPlatformGetter.shouldApplyFullBright() || !MixinPlatformGetter.getDillonLibMixinPlatform().isModLoaded(DillonLibModReferences.SODIUM),
+                        !Platforms.shouldApplyFullBright() || !Platforms.getDillonLibMixinPlatform().isModLoaded(DillonLibModReferences.SODIUM),
                         "FullBright is not enabled, or Sodium is not loaded."
                 ),
                 new PredicateEntry(
                         new String[]{"client.fix.bow.AbstractClientPlayerFix"},
-                        !DillonLibOptions.getLibInstance().applyAbstractClientPlayerFix || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyAbstractClientPlayerFix || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_abstract_client_player_fix\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{"client.fix.bow.AvatarRendererFix"},
-                        !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_avatar_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(
@@ -51,7 +51,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "client.fix.bow.ItemInHandRendererFix",
                                 "client.fix.bow.FabricItemInHandRendererFix"
                         },
-                        !DillonLibOptions.getLibInstance().applyItemInHandRendererFix || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyItemInHandRendererFix || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_item_in_hand_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(
@@ -59,7 +59,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "ignitable.CandleCakeBlockFix",
                                 "ignitable.TntBlockFix"
                         },
-                        !DillonLibOptions.getLibInstance().applyIgnitableFactories || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyIgnitableFactories || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_ignitable_factories\" is disabled.")
                 ),
                 new PredicateEntry(
@@ -75,7 +75,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "shear.FabricSnowGolemFix",
                                 "shear.FabricTripWireBlockFix"
                         },
-                        !DillonLibOptions.getLibInstance().applyShearFactories || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyShearFactories || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_shear_factories\" is disabled.")
                 ),
                 new PredicateEntry(
@@ -83,7 +83,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "client.ClientPacketListenerMixin",
                                 "entity.LivingEntityMixin"
                         },
-                        !DillonLibOptions.getLibInstance().applyTotemFactories || !MixinPlatformGetter.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyTotemFactories || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_totem_factories\" is disabled.")
                 )
         );

@@ -19,7 +19,7 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     }
 
     @Override
-    public KeyMapping createKeyMapping(String name, InputConstants.Type type, KeyMapping.Category category, int value) {
+    public KeyMapping registerKeyMapping(String name, InputConstants.Type type, KeyMapping.Category category, int value) {
         return KeyBindingHelper.registerKeyBinding(new KeyMapping(name, value, category));
     }
 
