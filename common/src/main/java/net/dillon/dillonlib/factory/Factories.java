@@ -6,7 +6,7 @@ import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -121,7 +121,7 @@ public class Factories {
      * @param entries the list of items to be in your item group
      */
     public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
-        CommonPlatformGetter.get().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
+        Platforms.getCommonPlatform().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
         DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 
@@ -131,7 +131,7 @@ public class Factories {
      * @param item the item you want to add to the tab (as an item stack)
      */
     public static void factorItemStackIntoCreativeTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> item) {
-        CommonPlatformGetter.get().addItemToGroup(tab, item);
+        Platforms.getCommonPlatform().addItemToGroup(tab, item);
     }
 
     /**

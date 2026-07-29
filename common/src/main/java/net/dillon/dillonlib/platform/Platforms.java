@@ -1,7 +1,9 @@
-package net.dillon.dillonlib.platform.mixinsafe;
+package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.PlatformLoader;
+import net.dillon.dillonlib.platform.client.ClientModPlatform;
+import net.dillon.dillonlib.platform.common.CommonModPlatform;
+import net.dillon.dillonlib.platform.mixinsafe.MixinModPlatform;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -9,17 +11,29 @@ import java.util.ServiceLoader;
 import java.util.function.Predicate;
 
 /**
- * The mixin-safe multi-loader platform getter for mixin methods.
- * @see MixinModPlatform
+ * Contains all built-in DillonLib platforms to access for your convenience.
  */
-public class MixinPlatformGetter {
+public class Platforms {
+    private static final CommonModPlatform COMMON_PLATFORM = loadCommonPlatform();
     private static final MixinModPlatform MIXIN_PLATFORM = PlatformLoader.load(MixinModPlatform.class, DillonLibMain.MOD_ID);
+    private static final ClientModPlatform CLIENT_PLATFORM = PlatformLoader.load(ClientModPlatform.class, DillonLibMain.MOD_ID);
 
-    /**
-     * @return the mixin mod platform for DillonLib.
-     */
+    public static CommonModPlatform getCommonPlatform() {
+        return COMMON_PLATFORM;
+    }
+
     public static MixinModPlatform getDillonLibMixinPlatform() {
         return MIXIN_PLATFORM;
+    }
+
+    public static ClientModPlatform getDillonLibClientPlatform() {
+        return CLIENT_PLATFORM;
+    }
+
+    private static CommonModPlatform loadCommonPlatform() {
+        return ServiceLoader.load(CommonModPlatform.class)
+                .findFirst()
+                .orElseThrow();
     }
 
     /**

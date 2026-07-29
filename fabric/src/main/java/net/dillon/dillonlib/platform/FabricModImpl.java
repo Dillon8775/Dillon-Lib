@@ -1,11 +1,9 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
 import net.dillon.dillonlib.platform.info.PlatformRelease;
-import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -23,7 +21,7 @@ public class FabricModImpl extends ModPlatform {
 
     @Override
     public String modVersion() {
-        return CommonPlatformGetter.get().commonModVersion(DillonLibMain.MOD_ID);
+        return Platforms.getCommonPlatform().commonModVersion(DillonLibMain.MOD_ID);
     }
 
     @Override

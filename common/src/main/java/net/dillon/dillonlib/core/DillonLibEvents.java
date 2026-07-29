@@ -6,7 +6,7 @@ import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.platform.PlatformLoader;
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.dispenser.FlintAndSteelDispenseItemBehavior;
@@ -44,7 +44,7 @@ public class DillonLibEvents {
      */
     protected static void registerAllEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
-        CommonPlatformGetter.get().tickScheduledTasks();
+        Platforms.getCommonPlatform().tickScheduledTasks();
     }
 
     /**
