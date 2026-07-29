@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
 
-public class ClientFabricModImpl extends ClientModPlatform {
+public class ClientFabricPlatformImpl extends ClientModPlatform {
 
     @Override
     public String modId() {
@@ -14,7 +14,7 @@ public class ClientFabricModImpl extends ClientModPlatform {
     }
 
     @Override
-    public KeyMapping createKeyMapping(String name, InputConstants.Type type, String category, int value) {
+    public KeyMapping registerKeyMapping(String name, InputConstants.Type type, String category, int value) {
         return KeyBindingHelper.registerKeyBinding(new KeyMapping(name, value, category));
     }
 

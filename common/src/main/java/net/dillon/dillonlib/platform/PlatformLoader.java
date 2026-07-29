@@ -80,7 +80,7 @@ public class PlatformLoader {
      */
     public static int executeForEachClientPlatform(Consumer<ClientModPlatform> function) {
         List<ClientModPlatform> clientPlatforms = collectionOf(ClientModPlatform.class);
-        for (ClientModPlatform clientPlatform : collectionOf(ClientModPlatform.class)) {
+        for (ClientModPlatform clientPlatform : clientPlatforms) {
             function.accept(clientPlatform);
         }
         return clientPlatforms.size() - 1;

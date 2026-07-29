@@ -5,7 +5,7 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
 
-public class ClientNeoForgeModImpl extends ClientModPlatform {
+public class ClientNeoForgePlatformImpl extends ClientModPlatform {
 
     @Override
     public String modId() {
@@ -14,7 +14,7 @@ public class ClientNeoForgeModImpl extends ClientModPlatform {
 
     // For NeoForge, you must use RegisterKeyMappingsEvent manually to register the created keybind. This is done automatically for any keybind in NeoForgeClientEvents.
     @Override
-    public KeyMapping createKeyMapping(String name, InputConstants.Type type, String category, int value) {
+    public KeyMapping registerKeyMapping(String name, InputConstants.Type type, String category, int value) {
         return new KeyMapping(name, value, category);
     }
 

@@ -18,9 +18,11 @@ public abstract class MixinModPlatform implements Loadable {
     public abstract String modId();
 
     /**
-     * @return if a mod is loaded on a specific platform. You can use this in {@link MixinPluginUtil}s, or anywhere else.
+     * @return if a mod is loaded on a specific platform. You can use this in {@link MixinPluginUtil}s, or anywhere else, but call {@code FabricPlatforms} or {@code (Neo)ForgePlatforms} to get the correct return value of this method!
      */
-    public abstract boolean isModLoaded(ModReference mod);
+    public boolean isModLoaded(ModReference mod) {
+        return false;
+    }
 
     /**
      * Specifies if factories should be applied. If any instance of {@link MixinModPlatform} returns {@code true} here, unless a mixin is manually disabled, factories will be applied.

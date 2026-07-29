@@ -2,9 +2,9 @@ package net.dillon.dillonlib.platform.mixinsafe;
 
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.info.ModReference;
-import net.neoforged.fml.loading.FMLLoader;
+import net.fabricmc.loader.api.FabricLoader;
 
-public class MixinNeoForgeModImpl extends MixinModPlatform {
+public class MixinFabricPlatformImpl extends MixinModPlatform {
 
     @Override
     public String modId() {
@@ -13,6 +13,6 @@ public class MixinNeoForgeModImpl extends MixinModPlatform {
 
     @Override
     public boolean isModLoaded(ModReference mod) {
-        return FMLLoader.getLoadingModList().getModFileById(mod.modId()) != null;
+        return FabricLoader.getInstance().isModLoaded(mod.modId());
     }
 }
