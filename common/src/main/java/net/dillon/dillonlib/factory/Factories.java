@@ -6,7 +6,7 @@ import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.ShieldFactory;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.PlatformGetter;
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -81,7 +81,7 @@ public class Factories {
         if (PlatformGetter.getDillonLibPlatform().platformName().forge()) {
             throw new IllegalStateException("Cannot instantiate item group factory on forge.");
         }
-        CommonPlatformGetter.get().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
+        Platforms.getCommonPlatform().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
         DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 
@@ -94,7 +94,7 @@ public class Factories {
         if (PlatformGetter.getDillonLibPlatform().platformName().forge()) {
             throw new IllegalStateException("Cannot modify item groups on forge.");
         }
-        CommonPlatformGetter.get().addItemToGroup(tab, item);
+        Platforms.getCommonPlatform().addItemToGroup(tab, item);
     }
 
     /**

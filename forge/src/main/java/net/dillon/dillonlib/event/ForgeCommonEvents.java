@@ -2,7 +2,7 @@ package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.core.DillonLibEvents;
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,11 +14,11 @@ public class ForgeCommonEvents {
     public static void registerCommands(RegisterCommandsEvent dispatcher) {
         DillonLibEvents.registerAllCommonCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
 
-        if (CommonPlatformGetter.get().isEnvironmentClient()) {
+        if (Platforms.getCommonPlatform().isEnvironmentClient()) {
             DillonLibEvents.registerAllClientCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
         }
 
-        if (CommonPlatformGetter.get().isEnvironmentServer()) {
+        if (Platforms.getCommonPlatform().isEnvironmentServer()) {
             DillonLibEvents.registerAllServerCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
         }
     }

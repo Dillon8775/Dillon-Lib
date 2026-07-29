@@ -27,9 +27,9 @@ public abstract class ClientModPlatform implements Loadable {
     public abstract String modId();
 
     /**
-     * Registers a {@link KeyMapping} into the game. This should point to your platform's way of registering a keybind.
+     * Registers a {@link KeyMapping} into the game.
      */
-    public abstract KeyMapping createKeyMapping(String name, InputConstants.Type type, String category, int value);
+    public abstract KeyMapping registerKeyMapping(String name, InputConstants.Type type, String category, int value);
 
     /**
      * @return if a packet in your mod can be sent. It's helpful to check if a packet can be sent when joining a server that doesn't have your mod installed, which can inform the user of mod incompatibility. If you don't have a reason to check if a packet can be sent in your mod, you can just return false here.

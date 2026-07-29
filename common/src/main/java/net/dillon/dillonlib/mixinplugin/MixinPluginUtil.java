@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.mixinplugin;
 
-import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -69,7 +69,7 @@ public abstract class MixinPluginUtil {
      * Sends a console message to the user, based on the {@link MessageType}.
      */
     public void sendMessage(PredicateEntry entry, String message, Object... arguments) {
-        if (CommonPlatformGetter.get().isDevelopmentEnvironment()) {
+        if (Platforms.getCommonPlatform().isDevelopmentEnvironment()) {
             logger().warn(message, arguments);
         } else {
             switch (entry.messageType()) {
