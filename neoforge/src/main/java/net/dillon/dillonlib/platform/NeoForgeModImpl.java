@@ -1,6 +1,7 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
+import net.dillon.dillonlib.platform.common.CommonPlatformGetter;
 import net.dillon.dillonlib.platform.info.LogoWidth;
 import net.dillon.dillonlib.platform.info.PlatformName;
 import net.dillon.dillonlib.platform.info.PlatformRelease;
@@ -22,10 +23,7 @@ public class NeoForgeModImpl extends ModPlatform {
 
     @Override
     public String modVersion() {
-        return ModList.get()
-                .getModContainerById(this.modId())
-                .map(c -> c.getModInfo().getVersion().toString().split("\\+", 2)[0])
-                .orElse("unknown");
+        return CommonPlatformGetter.get().commonModVersion(DillonLibMain.MOD_ID);
     }
 
     @Override

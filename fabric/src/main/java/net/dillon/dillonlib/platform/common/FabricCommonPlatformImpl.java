@@ -41,6 +41,14 @@ public class FabricCommonPlatformImpl extends CommonModPlatform {
     }
 
     @Override
+    public String commonModVersion(String modId) {
+        return FabricLoader.getInstance()
+                .getModContainer(modId)
+                .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
+                .orElse("unknown");
+    }
+
+    @Override
     public void tickScheduledTasks() {
         ServerTickEvents.END_SERVER_TICK.register(CommonTasks::tickTasks);
     }
