@@ -4,6 +4,7 @@ import net.dillon.dillonlib.util.BaseOptions;
 
 public class DillonLibOptions {
     public static final DillonLibOptionsHandler INSTANCE = new DillonLibOptionsHandler();
+    public boolean applyFullBrightIfRequired = true;
     public boolean applyAbstractClientPlayerFix = true;
     public boolean applyAvaterRendererFix = true;
     public boolean applyItemInHandRendererFix = true;

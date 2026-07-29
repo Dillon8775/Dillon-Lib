@@ -21,7 +21,7 @@ public class NeoForgePlatformImpl extends ModPlatform {
 
     @Override
     public String modVersion() {
-        return CommonPlatformGetter.get().commonModVersion(DillonLibMain.MOD_ID);
+        return Platforms.getCommonPlatform().commonModVersion(DillonLibMain.MOD_ID);
     }
 
     @Override
