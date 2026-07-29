@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForge;
@@ -48,6 +49,14 @@ public class NeoForgeCommonPlatformImpl extends CommonModPlatform {
     @Override
     public boolean isDevelopmentEnvironment() {
         return !FMLEnvironment.production;
+    }
+
+    @Override
+    public String commonModVersion(String modId) {
+        return ModList.get()
+                .getModContainerById(modId)
+                .map(c -> c.getModInfo().getVersion().toString().split("\\+", 2)[0])
+                .orElse("unknown");
     }
 
     @Override

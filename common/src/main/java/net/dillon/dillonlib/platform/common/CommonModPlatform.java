@@ -44,6 +44,11 @@ public abstract class CommonModPlatform {
     public abstract boolean isDevelopmentEnvironment();
 
     /**
+     * @return the common mod version for Dillon's mods.
+     */
+    public abstract String commonModVersion(String modId);
+
+    /**
      * Ticks all simple scheduled tasks.
      * @see CommonTasks
      */
