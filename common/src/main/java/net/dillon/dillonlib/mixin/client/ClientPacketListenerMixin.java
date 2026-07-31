@@ -5,6 +5,8 @@ import net.dillon.dillonlib.mixinplugin.PredicateSigned;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
@@ -24,6 +26,14 @@ public class ClientPacketListenerMixin {
     }
 
     /**
+     * Redirects finding of totems to check if the totem is a totem factory.
+     */
+    @Redirect(method = "findTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;has(Lnet/minecraft/core/component/DataComponentType;)Z"))
+    private static boolean findTotemFactory(ItemStack stack, DataComponentType dataComponentType) {
+        return stack.has(DataComponents.DEATH_PROTECTION) || stack.getItem() instanceof TotemFactory;
+    }
+
+    /**
      * Redirects the totem particle logic so that custom particles can be used when using a {@link TotemFactory}.
      */
     @Redirect(method = "handleEntityEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/ParticleEngine;createTrackingEmitter(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/particles/ParticleOptions;I)V"))
@@ -34,6 +44,7 @@ public class ClientPacketListenerMixin {
         if (entity instanceof Player player) {
             ItemStack totem = findTotem(player);
             if (totem.getItem() instanceof TotemFactory totemFactory) {
+                System.out.println("true");
                 realParticle = totemFactory.getParticle();
                 realLifeTime = totemFactory.getParticleLifeTime();
             }
