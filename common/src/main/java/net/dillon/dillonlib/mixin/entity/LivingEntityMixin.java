@@ -5,22 +5,19 @@ import net.dillon.dillonlib.mixinplugin.PredicateSigned;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @PredicateSigned
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
-    @Shadow
-    public abstract ItemStack getItemInHand(InteractionHand hand);
+public class LivingEntityMixin {
 
     /**
      * Makes {@link TotemFactory}s work correctly.
@@ -28,19 +25,29 @@ public abstract class LivingEntityMixin {
     @Inject(method = "checkTotemDeathProtection", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object)this;
-        for (InteractionHand hand : InteractionHand.values()) {
-            ItemStack totem = this.getItemInHand(hand);
-            if (totem.getItem() instanceof TotemFactory totemFactory && totemFactory.canInvokeTotem(self, totem, source)) {
-                if (self instanceof ServerPlayer serverPlayer) {
-                    serverPlayer.awardStat(Stats.ITEM_USED.get(totem.getItem()));
-                    CriteriaTriggers.USED_TOTEM.trigger(serverPlayer, totem);
-                    self.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
+        if (self instanceof ServerPlayer player) {
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                ItemStack possibleTotem = player.getInventory().getItem(i);
+                if (possibleTotem.getItem() instanceof TotemFactory totemFactory && totemFactory.canInvokeTotem(player, possibleTotem, source)) {
+                    this.invoke(player, totemFactory, possibleTotem, source, cir);
+                    return;
                 }
-
-                totemFactory.invokeTotem(self, totem, source);
-                cir.setReturnValue(totem != null);
-                break;
             }
         }
+    }
+
+    /**
+     * Invokes the base totem factory.
+     */
+    @Unique
+    private void invoke(LivingEntity living, TotemFactory totemFactory, ItemStack totem, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        if (living instanceof ServerPlayer serverPlayer) {
+            serverPlayer.awardStat(Stats.ITEM_USED.get(totem.getItem()));
+            CriteriaTriggers.USED_TOTEM.trigger(serverPlayer, totem);
+            serverPlayer.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
+        }
+
+        totemFactory.invokeTotem(living, totem, source);
+        cir.setReturnValue(totem != null);
     }
 }
