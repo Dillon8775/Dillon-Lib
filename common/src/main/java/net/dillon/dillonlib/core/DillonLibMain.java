@@ -22,8 +22,6 @@ public class DillonLibMain {
     public static void initialize() {
         DillonLibMain.commonInitializers().forEach(Runnable::run);
 
-        DillonLibEvents.registerDispenserBehaviors();
-
         DillonLibEvents.registerAllEvents();
 
         int platforms = PlatformLoader.executeForEachPlatform(modPlatform -> {

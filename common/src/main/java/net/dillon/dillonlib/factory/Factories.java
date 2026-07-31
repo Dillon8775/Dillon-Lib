@@ -1,13 +1,13 @@
 package net.dillon.dillonlib.factory;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.ShieldFactory;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.PlatformGetter;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
+import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -27,6 +27,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -35,7 +36,9 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -45,9 +48,20 @@ import java.util.function.Supplier;
  * @see net.dillon.dillonlib.mixin
  */
 public class Factories {
-    public static final Set<ShearsFactory> SHEARS = new HashSet<>();
-    public static final Set<IgnitableFactory.FlintAndSteel> FLINT_AND_STEELS = new HashSet<>();
     public static final Map<ShieldFactory, Integer> SHIELDS = new HashMap<>();
+
+    /**
+     * Safely registers {@link ShearsDispenseItemBehavior} for a list of {@link ShearsFactory}s.
+     * @param shears a list of ShearFactories to be registered for dispenser behavior.
+     */
+    public static void registerShearDispenserBehavior(List<Item> shears) {
+        for (Item shear : shears) {
+            if (!(shear instanceof ShearsFactory)) {
+                throw new IllegalStateException("Item must be a ShearsFactory to register dispenser behavior!");
+            }
+            DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
+        }
+    }
 
     /**
      * Helper method for registering entity types.
