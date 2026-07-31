@@ -9,6 +9,8 @@ import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.core.dispenser.FlintAndSteelDispenseItemBehavior;
+import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -56,8 +58,6 @@ import java.util.function.Supplier;
  */
 public class Factories {
     public static final Set<BoatData> BOATS = new HashSet<>();
-    public static final Set<ShearsFactory> SHEARS = new HashSet<>();
-    public static final Set<IgnitableFactory.FlintAndSteel> FLINT_AND_STEELS = new HashSet<>();
 
     /**
      * Registers a {@code boat entity factory} into the game.
@@ -94,7 +94,7 @@ public class Factories {
     }
 
     /**
-     * Safely registers dispenser behavior for a list of boats and boat items.
+     * Safely registers {@link BoatDispenseItemBehavior} for a list of boats and boat items.
      * @param boats a map of items and entity types to register your dispenser behavior. This should be called after both your entity types and items are initialized.
      */
     public static void registerBoatDispenserBehavior(List<Map<Item, EntityType<? extends AbstractBoat>>> boats) {
@@ -104,6 +104,32 @@ public class Factories {
                 EntityType<? extends AbstractBoat> boatType = entry.getValue();
                 DispenserBlock.registerBehavior(item, new BoatDispenseItemBehavior(boatType));
             }
+        }
+    }
+
+    /**
+     * Safely registers {@link net.minecraft.core.dispenser.ShearsDispenseItemBehavior} for a list of {@link ShearsFactory}s.
+     * @param shears a list of ShearFactories to be registered for dispenser behavior.
+     */
+    public static void registerShearDispenserBehavior(List<Item> shears) {
+        for (Item shear : shears) {
+            if (!(shear instanceof ShearsFactory)) {
+                throw new IllegalStateException("Item must be a ShearsFactory to register dispenser behavior!");
+            }
+            DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
+        }
+    }
+
+    /**
+     * Safely registers {@link FlintAndSteelDispenseItemBehavior} for a list of {@link IgnitableFactory.FlintAndSteel}s.
+     * @param flintAndSteels a list of IgnitableFactories to be registered for dispenser behavior.
+     */
+    public static void registerFlintAndSteelDispenserBehavior(List<Item> flintAndSteels) {
+        for (Item flintAndSteel : flintAndSteels) {
+            if (!(flintAndSteel instanceof IgnitableFactory.FlintAndSteel)) {
+                throw new IllegalStateException("Item must be a IgnitableFactory.FlintAndSteel to register dispenser behavior!");
+            }
+            DispenserBlock.registerBehavior(flintAndSteel, new ShearsDispenseItemBehavior());
         }
     }
 

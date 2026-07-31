@@ -1,17 +1,11 @@
 package net.dillon.dillonlib.core;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.dillon.dillonlib.factory.Factories;
-import net.dillon.dillonlib.factory.item.IgnitableFactory;
-import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.dispenser.FlintAndSteelDispenseItemBehavior;
-import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
-import net.minecraft.world.level.block.DispenserBlock;
 
 /**
  * All registry events for DillonLib.
@@ -19,25 +13,6 @@ import net.minecraft.world.level.block.DispenserBlock;
  * @see DillonLibMain
  */
 public class DillonLibEvents {
-
-    /**
-     * Registers all dispenser behaviors from item factories.
-     */
-    protected static void registerDispenserBehaviors() {
-        for (ShearsFactory shear : Factories.SHEARS) {
-            if (shear.registerDispenserBehavior) {
-                DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
-            }
-        }
-        DillonLibMain.LOGGER.debug("Registered shear factory dispenser behaviors");
-
-        for (IgnitableFactory.FlintAndSteel flintAndSteel : Factories.FLINT_AND_STEELS) {
-            if (flintAndSteel.registerDispenserBehavior) {
-                DispenserBlock.registerBehavior(flintAndSteel, new FlintAndSteelDispenseItemBehavior());
-            }
-        }
-        DillonLibMain.LOGGER.debug("Registered flint and steel factory dispenser behaviors");
-    }
 
     /**
      * Registers all {@code common} events.
