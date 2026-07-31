@@ -44,6 +44,7 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -67,8 +68,8 @@ public class Factories {
      */
     public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, boolean chest) {
         return chest ?
-                registerBoatFactory(id, dropItem, EntityTypesInvoker.registerModChestBoatFactory(dropItem), true) :
-                registerBoatFactory(id, dropItem, EntityTypesInvoker.registerModBoatFactory(dropItem), false);
+                registerBoatFactory(id, EntityTypesInvoker.registerModChestBoatFactory(dropItem), true) :
+                registerBoatFactory(id, EntityTypesInvoker.registerModBoatFactory(dropItem), false);
     }
 
     /**
@@ -76,7 +77,7 @@ public class Factories {
      * @param factory the custom factory for the boat.
      * @return the custom-factory registered boat entity.
      */
-    public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, EntityType.EntityFactory<T> factory, boolean chest) {
+    public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, EntityType.EntityFactory<T> factory, boolean chest) {
         EntityType<T> boat = registerEntityType(
                 ResourceKey.create(Registries.ENTITY_TYPE, id),
                 EntityType.Builder.of(factory, MobCategory.MISC)
@@ -86,11 +87,24 @@ public class Factories {
                         .clientTrackingRange(10)
         );
 
-        BoatData boatData = new BoatData(boat, dropItem.get(), id, chest);
-        DispenserBlock.registerBehavior(boatData.dropItem(), new BoatDispenseItemBehavior(boatData.entityType()));
+        BoatData boatData = new BoatData(boat, id, chest);
         BOATS.add(boatData);
         DillonLibMain.LOGGER.debug("Registered {} boat factory {}", chest ? "chest" : "default", id);
         return boat;
+    }
+
+    /**
+     * Safely registers dispenser behavior for a list of boats and boat items.
+     * @param boats a map of items and entity types to register your dispenser behavior. This should be called after both your entity types and items are initialized.
+     */
+    public static void registerBoatDispenserBehavior(List<Map<Item, EntityType<? extends AbstractBoat>>> boats) {
+        for (Map<Item, EntityType<? extends AbstractBoat>> map : boats) {
+            for (Map.Entry<Item, EntityType<? extends AbstractBoat>> entry : map.entrySet()) {
+                Item item = entry.getKey();
+                EntityType<? extends AbstractBoat> boatType = entry.getValue();
+                DispenserBlock.registerBehavior(item, new BoatDispenseItemBehavior(boatType));
+            }
+        }
     }
 
     /**
