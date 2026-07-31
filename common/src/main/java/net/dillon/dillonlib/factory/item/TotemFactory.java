@@ -35,11 +35,19 @@ public class TotemFactory extends Item {
     }
 
     /**
+     * @return if the totem can be used. You can implement your custom logic by overriding this method.
+     */
+    public boolean canInvokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
+        return true;
+    }
+
+    /**
      * Invokes the totem use event when the player "dies". You can implement your custom logic by overriding this method.
      */
-    public void invokeTotemUse(LivingEntity living, DamageSource source) {
+    public void invokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
         living.setHealth(1.0F);
         living.removeAllEffects();
+        totem.shrink(1);
         living.level().broadcastEntityEvent(living, (byte)35); // byte for default totem client-side logic, see ClientPacketListener.handleEntityEvent for more
         if (living instanceof ServerPlayer player) {
             living.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
