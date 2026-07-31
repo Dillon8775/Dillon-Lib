@@ -1,7 +1,6 @@
 package net.dillon.dillonlib.factory.item;
 
 import net.dillon.dillonlib.core.DillonLibEvents;
-import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.mixin.shear.MatchToolFix;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
@@ -24,6 +23,5 @@ public class ShearsFactory extends ShearsItem {
     public ShearsFactory(Properties properties, boolean registerDispenserBehavior) {
         super(properties);
         this.registerDispenserBehavior = registerDispenserBehavior;
-        Factories.SHEARS.add(this);
     }
 }
