@@ -1,7 +1,6 @@
 package net.dillon.dillonlib.factory.item;
 
 import net.dillon.dillonlib.core.DillonLibEvents;
-import net.dillon.dillonlib.factory.Factories;
 import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.Item;
 
@@ -31,7 +30,6 @@ public class IgnitableFactory extends Item {
         public FlintAndSteel(Properties properties, boolean registerDispenserBehavior) {
             super(properties);
             this.registerDispenserBehavior = registerDispenserBehavior;
-            Factories.FLINT_AND_STEELS.add(this);
         }
     }
 }
