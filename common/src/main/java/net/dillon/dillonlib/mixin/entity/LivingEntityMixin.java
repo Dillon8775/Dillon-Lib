@@ -27,8 +27,8 @@ public abstract class LivingEntityMixin {
     /**
      * Makes {@link TotemFactory}s work correctly.
      */
-    @Inject(method = "checkTotemDeathProtection", at = @At(value = "RETURN", ordinal = 1), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack nullStack, DeathProtection protection) {
+    @Inject(method = "checkTotemDeathProtection", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
+    private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object)this;
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack totem = this.getItemInHand(hand);
