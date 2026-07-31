@@ -9,14 +9,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.DeathProtection;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @PredicateSigned
 @Mixin(LivingEntity.class)
@@ -27,8 +25,8 @@ public abstract class LivingEntityMixin {
     /**
      * Makes {@link TotemFactory}s work correctly.
      */
-    @Inject(method = "checkTotemDeathProtection", at = @At(value = "RETURN", ordinal = 1), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack nullStack, DeathProtection protection) {
+    @Inject(method = "checkTotemDeathProtection", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
+    private void checkTotemDeathProtectionFactory(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object)this;
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack totem = this.getItemInHand(hand);
