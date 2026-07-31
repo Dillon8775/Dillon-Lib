@@ -13,7 +13,7 @@ public class QuesoTotemFactory extends TotemFactory {
         super(properties, protection, particle, particleLifeTime);
     }
 
-    public void invokeTotemUse(LivingEntity living, ItemStack stack, DamageSource source) {
-        super.invokeTotemUse(living, stack, source);
+    public void invokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
+        super.invokeTotem(living, totem, source);
     }
 }
