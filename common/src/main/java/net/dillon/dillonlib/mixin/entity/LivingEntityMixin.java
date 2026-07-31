@@ -5,13 +5,11 @@ import net.dillon.dillonlib.mixinplugin.PredicateSigned;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,9 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @PredicateSigned
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
-    @Shadow
-    public abstract ItemStack getItemInHand(InteractionHand hand);
+public class LivingEntityMixin {
 
     /**
      * Makes {@link TotemFactory}s work correctly.
