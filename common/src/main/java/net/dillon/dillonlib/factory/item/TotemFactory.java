@@ -31,18 +31,26 @@ public class TotemFactory extends Item {
     }
 
     public TotemFactory(Properties properties, DeathProtection protection, ParticleOptions particle, int particleLifeTime) {
-        super(properties.component(DataComponents.DEATH_PROTECTION, protection));
+        super(properties);
         this.deathProtectionComponent = protection;
         this.particle = particle;
         this.particleLifeTime = particleLifeTime;
     }
 
     /**
-     * Invokes the totem use event when the player "dies". You can implement your custom logic by overriding this method.
+     * @return if the totem can be used. You can implement your custom logic by overriding this method.
      */
-    public void invokeTotemUse(LivingEntity living, ItemStack stack, DamageSource source) {
-        this.deathProtectionComponent.applyEffects(stack, living);
+    public boolean canInvokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
+        return true;
+    }
+
+    /**
+     * Invokes the totem when the player attempts to die. You can implement your custom logic by overriding this method.
+     */
+    public void invokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
+        this.deathProtectionComponent.applyEffects(totem, living);
         living.setHealth(1.0F);
+        totem.shrink(1);
         living.level().broadcastEntityEvent(living, (byte)35); // byte for default totem client-side logic, see ClientPacketListener.handleEntityEvent for more
         if (living instanceof ServerPlayer player) {
             CriteriaTriggers.USED_TOTEM.trigger(player, new ItemStack(Items.TOTEM_OF_UNDYING)); // grants the "Postmortal" advancement to the player
