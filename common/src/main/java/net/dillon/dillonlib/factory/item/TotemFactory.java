@@ -37,8 +37,8 @@ public class TotemFactory extends Item {
     /**
      * @return if the totem can be used. You can implement your custom logic by overriding this method.
      */
-    public boolean canInvokeTotem(LivingEntity living, ItemStack totem, DamageSource source) {
-        return true;
+    public boolean canInvokeTotem(ServerPlayer player, ItemStack totem, DamageSource source) {
+        return player.getMainHandItem().is(totem.getItem()) || player.getOffhandItem().is(totem.getItem());
     }
 
     /**
