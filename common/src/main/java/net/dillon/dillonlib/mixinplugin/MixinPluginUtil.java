@@ -37,20 +37,24 @@ public abstract class MixinPluginUtil {
      * @return {@code false} if mixin should not apply. It is not recommended to override this method, as this provides the full functionality for {@link PredicateEntry}.
      */
     public boolean shouldNotApply(String targetClassName, String mixinClassName) {
-        for (PredicateEntry entry : entries()) {
-            if (entry.reason().isEmpty() || entry.reason().isBlank()) {
-                throw new IllegalStateException("Mixin predicate entry reason cannot be blank!");
-            }
+        try {
+            for (PredicateEntry entry : entries()) {
+                if (entry.reason().isEmpty() || entry.reason().isBlank()) {
+                    throw new IllegalStateException("Mixin predicate entry reason cannot be blank!");
+                }
 
-            if (entry.condition()) {
-                for (String s : entry.mixins()) {
-                    String name = this.mixinDirectory() + s;
-                    if (name.equals(mixinClassName)) {
-                        message(entry, mixinClassName, targetClassName);
-                        return true;
+                if (entry.condition()) {
+                    for (String s : entry.mixins()) {
+                        String name = this.mixinDirectory() + s;
+                        if (name.equals(mixinClassName)) {
+                            message(entry, mixinClassName, targetClassName);
+                            return true;
+                        }
                     }
                 }
             }
+        } catch (ExceptionInInitializerError e) {
+            throw new ExceptionInInitializerError("Ensure you are safely calling classes in MixinPluginUtil!");
         }
 
         return false;
