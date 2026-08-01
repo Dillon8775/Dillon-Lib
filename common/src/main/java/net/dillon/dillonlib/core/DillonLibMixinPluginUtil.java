@@ -69,15 +69,6 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         MessageType.DEBUG
                 ),
                 new PredicateEntry(
-                        new String[]{
-                                "client.ClientPacketListenerMixin",
-                                "entity.LivingEntityMixin"
-                        },
-                        !DillonLibOptions.getLibInstance().applyTotemFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_totem_factories\" is disabled."),
-                        MessageType.DEBUG
-                ),
-                new PredicateEntry(
                         new String[]{"entity.PlayerMixin"},
                         !DillonLibOptions.getLibInstance().applyShieldFactories || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_shield_factories\" is disabled."),
