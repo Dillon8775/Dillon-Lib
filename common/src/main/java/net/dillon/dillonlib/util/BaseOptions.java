@@ -30,7 +30,6 @@ public abstract class BaseOptions<T> {
     public BaseOptions(String fileName) {
         this.fileName = fileName;
         this.instance = createDefault();
-        this.load();
     }
 
     /**
@@ -62,6 +61,27 @@ public abstract class BaseOptions<T> {
      * <p>Preforms a {@code "safe check"} on all options, and makes sure that they are valid and safe to run in-game.
      */
     protected void safeCheck() {
+    }
+
+    /**
+     * @return the file name.
+     */
+    public String getFileName() {
+        return this.fileName;
+    }
+
+    /**
+     * @return the file.
+     */
+    public File getFile() {
+        return this.file;
+    }
+
+    /**
+     * @return the custom directory.
+     */
+    public File getCustomDir() {
+        return this.customDir;
     }
 
     /**
