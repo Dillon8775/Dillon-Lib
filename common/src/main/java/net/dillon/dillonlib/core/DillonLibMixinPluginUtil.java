@@ -82,14 +82,6 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         new String[]{"entity.fix.SulfurCubeFix"},
                         (!DillonLibOptions.getLibInstance().applyShearFactories && !DillonLibOptions.getLibInstance().applyIgnitableFactories) || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_shear_factories\" and \"apply_ignitable_factories\" is disabled.")
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "client.ClientPacketListenerMixin",
-                                "entity.LivingEntityMixin"
-                        },
-                        !DillonLibOptions.getLibInstance().applyTotemFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_totem_factories\" is disabled.")
                 )
         );
     }

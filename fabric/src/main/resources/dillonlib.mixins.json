@@ -10,7 +10,6 @@
   "mixins": [
     "accessor.EntityTypesInvoker",
     "accessor.ItemsInvoker",
-    "entity.LivingEntityMixin",
     "entity.fix.SulfurCubeFix",
     "ignitable.CandleCakeBlockFix",
     "ignitable.TntBlockFix",
@@ -25,7 +24,6 @@
     "shear.MushroomCowFix"
   ],
   "client": [
-    "client.ClientPacketListenerMixin",
     "client.FabricOptionInstanceMixin",
     "client.FabricSodiumConfigBuilderMixin",
     "client.MinecraftMixin",

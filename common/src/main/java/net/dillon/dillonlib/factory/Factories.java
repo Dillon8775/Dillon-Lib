@@ -129,7 +129,7 @@ public class Factories {
             if (!(flintAndSteel instanceof IgnitableFactory.FlintAndSteel)) {
                 throw new IllegalStateException("Item must be a IgnitableFactory.FlintAndSteel to register dispenser behavior!");
             }
-            DispenserBlock.registerBehavior(flintAndSteel, new ShearsDispenseItemBehavior());
+            DispenserBlock.registerBehavior(flintAndSteel, new FlintAndSteelDispenseItemBehavior());
         }
     }
 
