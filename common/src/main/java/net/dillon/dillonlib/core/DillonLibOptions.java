@@ -9,7 +9,6 @@ public class DillonLibOptions {
     public boolean applyItemInHandRendererFix = true;
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
-    public boolean applyTotemFactories = true;
     public boolean applyShieldFactories = true;
 
     /**

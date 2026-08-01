@@ -9,7 +9,6 @@
   "plugin": "net.dillon.dillonlib.mixin.ConditionalMixinPlugin",
   "mixins": [
     "accessor.LivingEntityAccessor",
-    "entity.LivingEntityMixin",
     "entity.PlayerMixin",
     "ignitable.CandleCakeBlockFix",
     "ignitable.TntBlockFix",
@@ -22,7 +21,6 @@
     "shear.MatchToolFix"
   ],
   "client": [
-    "client.ClientPacketListenerMixin",
     "client.MinecraftMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.FabricItemInHandRendererFix",

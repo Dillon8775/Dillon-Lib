@@ -25,7 +25,6 @@ public class QuesoTestItems {
     public static final Item QUESO_FLINT_AND_STEEL = Items.registerItem(QuesoItemIds.QUESO_FLINT_AND_STEEL, new IgnitableFactory.FlintAndSteel(new Item.Properties()
             .rarity(Rarity.UNCOMMON)
             .durability(200)));
-    public static final Item QUESO_TOTEM = Items.registerItem(QuesoItemIds.QUESO_TOTEM, new TotemFactory(new Item.Properties(), ParticleTypes.ANGRY_VILLAGER, 30));
 
     /**
      * Initializes this class.
