@@ -10,7 +10,6 @@
   "mixins": [
     "accessor.EntityTypeInvoker",
     "accessor.ItemsInvoker",
-    "entity.LivingEntityMixin",
     "ignitable.CandleCakeBlockFix",
     "ignitable.TntBlockFix",
     "shear.BeehiveBlockFix",
@@ -19,7 +18,6 @@
     "shear.MushroomCowFix"
   ],
   "client": [
-    "client.ClientPacketListenerMixin",
     "client.MinecraftMixin",
     "client.NeoForgeOptionInstanceMixin",
     "client.fix.bow.AbstractClientPlayerFix",

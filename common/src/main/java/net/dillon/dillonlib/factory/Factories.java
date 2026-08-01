@@ -89,7 +89,7 @@ public class Factories {
     }
 
     /**
-     * Safely registers dispenser behavior for a list of boats and boat items.
+     * Safely registers {@link BoatDispenseItemBehavior} for a list of boats and boat items.
      * @param boats a map of items and entity types to register your dispenser behavior. This should be called after both your entity types and items are initialized.
      */
     public static void registerBoatDispenserBehavior(List<Map<Item, EntityType<? extends AbstractBoat>>> boats) {

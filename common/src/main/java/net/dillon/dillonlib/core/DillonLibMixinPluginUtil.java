@@ -77,14 +77,6 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         },
                         !DillonLibOptions.getLibInstance().applyShearFactories || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_shear_factories\" is disabled.")
-                ),
-                new PredicateEntry(
-                        new String[]{
-                                "client.ClientPacketListenerMixin",
-                                "entity.LivingEntityMixin"
-                        },
-                        !DillonLibOptions.getLibInstance().applyTotemFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_totem_factories\" is disabled.")
                 )
         );
     }

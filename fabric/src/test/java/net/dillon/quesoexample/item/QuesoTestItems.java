@@ -4,12 +4,10 @@ import net.dillon.dillonlib.factory.item.*;
 import net.dillon.dillonlib.mixin.accessor.ItemsInvoker;
 import net.dillon.quesoexample.entity.QuesoEntityTypes;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShearsItem;
-import net.minecraft.world.item.component.DeathProtection;
 
 public class QuesoTestItems {
     public static final Item QUESO_SHIELD = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_SHIELD, properties -> new ShieldFactory(properties
@@ -33,7 +31,6 @@ public class QuesoTestItems {
             .rarity(Rarity.UNCOMMON)
             .durability(200)
     );
-    public static final Item QUESO_TOTEM = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_TOTEM, properties -> new QuesoTotemFactory(properties, DeathProtection.TOTEM_OF_UNDYING, ParticleTypes.ANGRY_VILLAGER, 30));
     public static final Item QUESO_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_BOAT, properties));
     public static final Item QUESO_CHEST_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_CHEST_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_CHEST_BOAT, properties));
 
