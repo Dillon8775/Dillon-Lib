@@ -25,7 +25,7 @@ public class ClientFactories {
      * @param category the group that this keybind should be in, found in the "Controls" menu.
      * @param key the translation key for the keybind
      * @param code the keycode for the keybind (see {@link org.lwjgl.glfw.GLFW}.)
-     * @param runnable the {@link Runnable} that the keybind should execute (typically in-game).
+     * @param consumer the {@link Runnable} that the keybind should execute (typically in-game).
      */
     public static KeyMapping registerKeyMapping(String key, InputConstants.Type type, String category, int code, Consumer<LocalPlayer> consumer) {
         KeyMapping keyBind = Platforms.getDillonLibClientPlatform().registerKeyMapping(key, type, category, code);
