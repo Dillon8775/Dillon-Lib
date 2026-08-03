@@ -51,19 +51,25 @@ dependencies {
 }
 ```
 
+### For multi-loader mods (fabric x (neo)forge), in your *common* directory, you must add this:
+```
+compileOnly "maven.modrinth:dillon-lib:${project.*DL_version* /*<- can either be Fabric or NeoForge, but I recommend fabric*/}"
+```
+Then, in your other modules (ex. fabric or neoforge), add the normal implementation block provided above for your specified module.
+
 ---
 # API Documentation
 
 ---
 
 # Platform Abstraction
-This API provides a versatile way to store your mod's basic information with the help of a built-in Java feature called Service Loaders.
+This API provides a versatile way to store a mod's basic information with the help of a built-in Java feature called Service Loaders.
 
 You can think of a service loader as your mod's base entrypoint, or table of contents. The service loader contains information like your mod version, mod ID, platform name (fabric, neoforge, forge, or other), platform release (stable, beta or alpha), and other useful utilities.
 
 DillonLib provides three different service loaders for you to create. One for your base entrypoint ```(called ModPlatform.class)```, one specifically designed for mixins ```(called MixinModPlatform.class)```, and one for client-side operations ```(called ClientModPlatform)```.
 
-You technically do not need to create all platforms. However, you should. Each platform contains necessary information required to register certain things.
+You technically do not need to create all platforms. Each platform contains necessary information required to register certain things.
 
 [Click here to view ModPlatform.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/platform/ModPlatform.java).
 
@@ -75,7 +81,7 @@ These platforms are designed to work on projects that are coded on multiple mod 
 
 To properly create your service loader, simply create instances of these platform classes, and fill in your information.
 
-Then, in your mods ```resources``` folder, create a directory called `META-INF/services`, and then create the following three files, with these exact names:
+Then, in your mods ```resources``` folder, create a directory called `META-INF/services`, and then create the following files (depending on which platforms you are using), with these exact names:
 
 ```
 net.dillon.dillonlib.platform.client.ClientModPlatform
@@ -88,7 +94,21 @@ In each of these files, you should enter in the path to *your* platform. For exa
 net.dillon.quesoexample.platform.QuesoExamplePlatformImpl
 ```
 
-Then you should create getter classes to get each of your platforms. [View an example of this here.](https://github.com/Dillon8775/Dillon-Lib/tree/mc26.2/fabric/src/test/java/net/dillon/quesoexample/platform)
+If you are extending a platform with a custom platform, ex. MyModPlatform extends ModPlatform, if your custom platform *only* has methods that are inherited from an original platform class, you must specify your *extended platform* in the file. However, if you have a custom platform with custom methods that are not inherited from the original platform class, you must specify your extended platform in the file *and additionally* create a new file, pointing to your extended platform class, and specify it there too.
+
+For example:
+```
+package com.me.mymod
+
+public class MyPlatform extends ModPlatform {
+
+  public void myCustomMethod(String args) {
+  }
+}
+```
+You must call *this class* in the file named ```net.dillon.dillonlib.platform.ModPlatform``` *and* a file called ```com.me.mymod.MyPlatform```
+
+Then you should create getter methods to get each of your platforms. [View an example of this here.]([https://github.com/Dillon8775/Dillon-Lib/tree/mc26.2/fabric/src/test/java/net/dillon/quesoexample/platform](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/fabric/src/main/java/net/dillon/dillonlib/platform/FabricPlatforms.java))
 
 There are three different platforms to ensure that Minecraft launches safely. We don't want client-side interfering with common code, and we also don't want classes to be loaded too early during mixin initialization, which is why we have a separate platform called ```MixinModPlatform```.
 
@@ -118,10 +138,9 @@ You don't have to do anything else with your shears after this. Everything else 
 You can use factories with the following objects:
 - Shears
 - Flint and Steels
-    - In *1.21.11 and below,* dispenser behavior must be done *manually* for this factory.
 - Any "ignitable" item, which ignites or creates fire on certain blocks
 - Bows and crossbows
-- Boats *(1.21.11 and above only)*
+- Boats
 - Shields
 - Totems of Undying
 - Keybinds
