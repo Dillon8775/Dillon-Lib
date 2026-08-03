@@ -178,42 +178,6 @@ Method signature(s) for registering boat factories:
 <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, EntityType.EntityFactory<T> factory, boolean chest)
 ```
 
-## Totem Factories
-Totems are hard to duplicate in modding. Totem factories make this process a lot easier. All you have to do is create an instance of TotemFactory, and your totem will work as a normal totem of undying, like normal.
-
-Additionally, you can create custom totem logic that is applied when your totem is used. For example:
-
-```
-public class QuesoTotemFactory extends TotemFactory {
-
-    public QuesoTotemFactory(Properties properties, DeathProtection protection, ParticleOptions particle, int particleLifeTime) {
-        super(properties, protection, particle, particleLifeTime);
-    }
-
-    // This method is called when your totem is used. See the original TotemFactory for the super method
-    // If you don't want custom logic, you don't have to override this method
-    @Override
-    public void invokeTotemUse(LivingEntity living, ItemStack stack, DamageSource source) {
-        /* your custom logic goes here */
-    }
-}
-
-// QuesoItems.class (create the totem factory)
- public static final Item QUESO_TOTEM = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_TOTEM, properties -> new QuesoTotemFactory(properties, DeathProtection.TOTEM_OF_UNDYING, ParticleTypes.ANGRY_VILLAGER, 30));
-```
-
-As you can see, you can set the particles that appear when using the totem, and set the particle lifetime (the last parameter).
-
-There are two constructors for TotemFactories:
-
-```
-// Default factory, which uses default particles and particle lifetime
-public TotemFactory(Properties properties, DeathProtection protection)
-
-// Custom factory
-public TotemFactory(Properties properties, DeathProtection protection, ParticleOptions particle, int particleLifeTime)
-```
-
 ## Other Factories
 For other factories, registering them is similar to these other factories. Take a deeper look at this [Example Items Class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/fabric/src/test/java/net/dillon/quesoexample/item/QuesoTestItems.java) for a better understanding of how to create your factories.
 
