@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -154,10 +155,21 @@ public class ClientTasks {
     }
 
     /**
-     * Draws the update icon
+     * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace("icon/trial_available"), x, y, 8, 8);
+    }
+
+    /**
+     * Renders the update icon on a button.
+     */
+    public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, SpriteIconButton button, boolean hasUpdate) {
+        if (button == null || !hasUpdate) {
+            return;
+        }
+
+        ClientTasks.drawUpdateSprite(graphics, button.getX() + 14, button.getY() - 3);
     }
 
     /**
