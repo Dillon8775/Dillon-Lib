@@ -3,7 +3,10 @@ package net.dillon.dillonlib.task;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -19,6 +22,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -60,15 +64,33 @@ public class CommonTasks {
     /**
      * Sends an overlay message to a {@link Player}.
      */
-    public void sendOverlayMessage(Player player, Component message) {
+    public static void sendOverlayMessage(Player player, Component message) {
         player.sendOverlayMessage(message);
     }
 
     /**
      * Sends a system message to a {@link Player}.
      */
-    public void sendSystemMessage(Player player, Component message) {
+    public static void sendSystemMessage(Player player, Component message) {
         player.sendSystemMessage(message);
+    }
+
+    /**
+     * Sends a message to the player indicating their mod requires an update.
+     */
+    public static void sendUpdateMessage(Player player, Component modName, String linkToUpdate, int textColor) {
+        Component message = Component.translatable("dillonlib.update_required_message", modName)
+                .setStyle(
+                        Style.EMPTY
+                                .withHoverEvent(
+                                        new HoverEvent.ShowText(Component.translatable("dillonlib.update_required_tooltip", modName))
+                                )
+                                .withClickEvent(
+                                        new ClickEvent.OpenUrl(URI.create(linkToUpdate))
+                                ))
+                .withColor(textColor);
+
+        sendSystemMessage(player, message);
     }
 
     /**

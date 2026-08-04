@@ -6,5 +6,7 @@
   "dillonlib.lets_go": "Let's go!",
   "dillonlib.back": "Back",
   "dillonlib.next": "Next",
-  "dillonlib.ok": "Ok"
+  "dillonlib.ok": "Ok",
+  "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
+  "dillonlib.update_required_tooltip": "Click here to download the latest version of %s."
 }
