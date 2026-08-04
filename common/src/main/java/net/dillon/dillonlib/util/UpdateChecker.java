@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A utility to see if your mod needs an update.
@@ -51,6 +52,28 @@ public class UpdateChecker {
     }
 
     /**
+     * @return if a mod has an update.
+     */
+    public static boolean hasUpdate(CompletableFuture<Boolean> completableFuture) {
+        try {
+            if (completableFuture.get()) {
+                return true;
+            }
+        } catch (InterruptedException | ExecutionException o) {
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks whether the latest version is newer.
+     */
+    public static boolean compare(String currentVersion, String latestVersion) {
+        return compareVersions(latestVersion, currentVersion) > 0;
+    }
+
+    /**
      * @return if a mod has an update, based on the current version.
      */
     private static boolean hasUpdate(String response, String currentVersion) {
@@ -64,15 +87,8 @@ public class UpdateChecker {
 
         String latestVersionNumber = latestVersion.get("version_number").getAsString();
 
-        return isUpdateAvailable(currentVersion, latestVersionNumber
+        return compare(currentVersion, latestVersionNumber
         );
-    }
-
-    /**
-     * Checks whether the latest version is newer.
-     */
-    public static boolean isUpdateAvailable(String currentVersion, String latestVersion) {
-        return compareVersions(latestVersion, currentVersion) > 0;
     }
 
     /**

@@ -154,6 +154,13 @@ public class ClientTasks {
     }
 
     /**
+     * Draws the update icon
+     */
+    public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace("icon/trial_available"), x, y, 8, 8);
+    }
+
+    /**
      * Opens a link.
      */
     public static void openLink(Screen screen, String link, boolean trusted) {
