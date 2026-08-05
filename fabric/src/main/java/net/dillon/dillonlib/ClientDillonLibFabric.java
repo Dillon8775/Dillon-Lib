@@ -11,6 +11,7 @@ public class ClientDillonLibFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        FabricClientEvents.registerFabricJoinLeaveEvents();
         FabricClientEvents.registerFabricClientCommands();
         FabricClientEvents.registerFabricBoatRenderers();
 

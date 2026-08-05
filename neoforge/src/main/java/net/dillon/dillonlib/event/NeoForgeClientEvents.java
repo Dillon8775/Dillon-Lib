@@ -2,16 +2,19 @@ package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.core.DillonLibEvents;
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.data.BoatData;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
@@ -21,6 +24,16 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 @Dill(DillType.CLIENT)
 @EventBusSubscriber(modid = DillonLibMain.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEvents {
+
+    @SubscribeEvent
+    public static void onClientJoin(ClientPlayerNetworkEvent.LoggingIn event) {
+        DillonLibEvents.registerAllClientJoinEvents(Minecraft.getInstance(), event.getConnection().getPacketListener());
+    }
+
+    @SubscribeEvent
+    public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
+        DillonLibEvents.registerAllClientDisconnectEvents(Minecraft.getInstance());
+    }
 
     @SubscribeEvent
     public static void registerKeybindings(RegisterKeyMappingsEvent event) {
