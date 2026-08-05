@@ -2,11 +2,13 @@ package net.dillon.dillonlib.task;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.util.Texts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,6 +23,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -170,6 +173,35 @@ public class ClientTasks {
         }
 
         ClientTasks.drawUpdateSprite(graphics, button.getX() + 14, button.getY() - 3);
+    }
+
+    /**
+     * Creates a menu button.
+     */
+    public static SpriteIconButton createMenuButton(Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, boolean withTooltip) {
+        Component text = tooltip;
+        if (update.containsKey(true)) {
+            text = update.getOrDefault(true, Component.empty());
+        }
+        if (!withTooltip) {
+            text = Component.empty();
+        }
+
+        return createSpriteIconButton(sprite, onPress, text);
+    }
+
+    /**
+     * Creates a {@link SpriteIconButton}.
+     */
+    public static SpriteIconButton createSpriteIconButton(Identifier sprite, Button.OnPress onPress, Component tooltip) {
+        SpriteIconButton button = SpriteIconButton.builder(Texts.BLANK, onPress, false)
+                .width(20)
+                .sprite(sprite, 16, 16)
+                .build();
+        if (!tooltip.equals(Component.empty())) {
+            button.setTooltip(Tooltip.create(tooltip));
+        }
+        return button;
     }
 
     /**
