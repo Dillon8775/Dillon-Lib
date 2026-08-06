@@ -4,10 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.Platforms;
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.PacketListener;
 
 /**
  * All registry events for DillonLib.
@@ -22,20 +20,6 @@ public class DillonLibEvents {
     protected static void registerAllEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
         Platforms.getCommonPlatform().tickScheduledTasks();
-    }
-
-    /**
-     * Registers all {@code client} player join events.
-     */
-    public static void registerAllClientJoinEvents(Minecraft minecraft, PacketListener clientPacketListener) {
-        PlatformLoader.executeForEachClientPlatform(modPlatform -> modPlatform.registerClientJoinEvents(minecraft, clientPacketListener));
-    }
-
-    /**
-     * Registers all {@code client} player disconnect events.
-     */
-    public static void registerAllClientDisconnectEvents(Minecraft minecraft) {
-        PlatformLoader.executeForEachClientPlatform(modPlatform -> modPlatform.registerClientDisconnectEvents(minecraft));
     }
 
     /**

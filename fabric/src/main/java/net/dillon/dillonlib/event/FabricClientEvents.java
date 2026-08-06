@@ -6,7 +6,6 @@ import net.dillon.dillonlib.core.DillonLibEvents;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.data.BoatData;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -21,16 +20,6 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
  */
 @Dill(DillType.CLIENT)
 public class FabricClientEvents {
-
-    public static void registerFabricJoinLeaveEvents() {
-        ClientPlayConnectionEvents.JOIN.register((listener, packet, client) -> {
-            DillonLibEvents.registerAllClientJoinEvents(client, listener);
-        });
-
-        ClientPlayConnectionEvents.DISCONNECT.register((listener, client) -> {
-            DillonLibEvents.registerAllClientDisconnectEvents(client);
-        });
-    }
 
     public static void registerFabricClientCommands() {
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
