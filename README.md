@@ -114,6 +114,68 @@ There are three different platforms to ensure that Minecraft launches safely. We
 
 ---
 
+# Mixin Plugin Util
+Mixins are high in causing mod incompatibility, and that is what the ```MixinPluginUtil``` class is for. It allows you to easily control if mixins certain should be applied at initialization or not.
+
+[Click here to view MixinPluginUtil.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/mixinplugin/MixinPluginUtil.java).
+
+[Example use of MixinPluginUtil](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/core/DillonLibMixinPluginUtil.java).
+
+Once you create your ```MixinPluginUtil```, you can use it like this in your ```IMixinConfigPlugin```:
+
+```
+public class ConditionalMixinPlugin implements IMixinConfigPlugin {
+
+    @Override
+    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        DillonLibMixinPluginUtil mixinPluginUtil = new DillonLibMixinPluginUtil();
+        return !mixinPluginUtil.shouldNotApply(targetClassName, mixinClassName);
+    }
+```
+
+---
+
+# Update Checker
+This mod comes with a built-in update checker, to easily add implementation to see if your mod has an update available for users. View the class [here.](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/util/UpdateChecker.java)
+
+All you have to do is create a simple static boolean expression somewhere in your mod's common code (or a method that returns a boolean). For example:
+
+```
+public static final boolean HAS_UPDATE = UpdateChecker.hasUpdate(UpdateChecker.checkForUpdate(
+    "*your_modrinth-project-slug*", // ex. "dillonlib"
+    "*your_current_mod_version_as_a_string" // ex. "ModConstants.CURRENT_MOD_VERSION"
+))
+```
+
+Then, you can use this expression anywhere to run code if your mod has an update. The mod also comes with built-in update checker features for your convenience. For example, when a player joins a world/server, you can call this method from the ```CommonTasks class``` to inform the user that they should update their mod:
+
+```
+public static void sendUpdateMessage(Player player, Component modName, String linkToUpdate, int textColor)
+```
+
+This will send the message to the player, which is interactive.
+
+```modName``` - how your mod name should be displayed in chat.
+
+```linkToUpdate``` - where the user should be directed when they click the message in chat.
+
+```textColor``` - the general text color of the entire chat message (does not affect the ```modName``` color)
+
+Additionally, you can call these methods from the ```ClientTasks class``` to render an "update indicator" sprite when your mod has an update (this uses the same texture that [Mod Menu](https://modrinth.com/mod/modmenu) uses when it checks for mod updates):
+
+```
+// Draws the update sprite at a certain position on a screen
+public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y)
+
+// OR:
+
+// Draws the update sprite on a button with fixed position
+// "hasUpdate" paramter is simply your HAS_UPDATE expression
+public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, SpriteIconButton button, boolean hasUpdate)
+```
+
+---
+
 # Factories
 Factories allow you to create certain objects, such as items, boats and keybinds without the headache of registering miscellaneous behaviors for those items.
 
@@ -184,26 +246,6 @@ For other factories, registering them is similar to these other factories. Take 
 - For shear factories, dispenser behavior, block predicates and use-on entities is automatically registered.
 - For flint and steel and ignitable factories, dispenser behavior and use-on entities is automatically registered.
 - For bow and crossbow factories, player model and Fov modification is automatically registered.
-
----
-# Mixin Plugin Util
-Mixins are high in causing mod incompatibility, and that is what the ```MixinPluginUtil``` class is for. It allows you to easily control if mixins certain should be applied at initialization or not.
-
-[Click here to view MixinPluginUtil.class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/mixinplugin/MixinPluginUtil.java).
-
-[Example use of MixinPluginUtil](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/common/src/main/java/net/dillon/dillonlib/core/DillonLibMixinPluginUtil.java).
-
-Once you create your ```MixinPluginUtil```, you can use it like this in your ```IMixinConfigPlugin```:
-
-```
-public class ConditionalMixinPlugin implements IMixinConfigPlugin {
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        DillonLibMixinPluginUtil mixinPluginUtil = new DillonLibMixinPluginUtil();
-        return !mixinPluginUtil.shouldNotApply(targetClassName, mixinClassName);
-    }
-```
 
 ---
 
