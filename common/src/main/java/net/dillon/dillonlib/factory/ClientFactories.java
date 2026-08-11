@@ -26,7 +26,7 @@ public class ClientFactories {
      * Registers a {@code key binding factory,} with an functional action and a message to send.
      * @param category the group that this keybind should be in, found in the "Controls" menu.
      * @param key the translation key for the keybind
-     * @param code the keycode for the keybind (see {@link org.lwjgl.glfw.GLFW}.)
+     * @param code the keycode for the keybind (see {@link org.lwjgl.sdl.SDLKeycode}.)
      * @param consumer the {@link Consumer} that the keybind should execute (typically in-game).
      */
     public static KeyMapping createKeyMapping(String key, InputConstants.Type type, KeyMapping.Category category, int code, Consumer<LocalPlayer> consumer) {

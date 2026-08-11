@@ -37,7 +37,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -302,10 +302,10 @@ public class Factories {
     }
 
     /**
-     * Registers a {@code configured feature} tag.
+     * Registers a {@code feature} tag.
      */
-    public static TagKey<ConfiguredFeature<?, ?>> createConfiguredFeatureTag(Identifier id) {
-        return createRegisterableTag(Registries.CONFIGURED_FEATURE, id);
+    public static TagKey<Feature> createFeatureTag(Identifier id) {
+        return createRegisterableTag(Registries.FEATURE, id);
     }
 
     /**
