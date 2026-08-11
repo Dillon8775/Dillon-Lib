@@ -20,6 +20,8 @@
   ],
   "client": [
     "client.MinecraftMixin",
+    "client.PauseScreenMixin",
+    "client.TitleScreenMixin",
     "client.NeoForgeOptionInstanceMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.AvatarRendererFix",

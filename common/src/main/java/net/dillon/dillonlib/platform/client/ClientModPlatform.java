@@ -6,10 +6,13 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
+import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+
+import java.util.List;
 
 /**
  * An instance of {@link Loadable}. Similar to {@link ModPlatform}, all methods used inside this class should be {@code client-side} only methods, meaning they should not interfere with the common code.
@@ -40,5 +43,14 @@ public abstract class ClientModPlatform implements Loadable {
      * Registers client-side only commands.
      */
     public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
+    }
+
+    /**
+     * @return the menu button(s) for your mod, and is added to the title and pause menu screen, only if the corresponding conditions are true.
+     */
+    public List<PlatformMenuButton> menuButtons() {
+        return List.of(
+                new PlatformMenuButton(false, false, null, spriteIconButton -> {})
+        );
     }
 }

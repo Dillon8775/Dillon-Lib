@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 public class ClientTasks {
 
     /**
-     * Stops and closes the game with a runnable.
+     * Stops and closes the game with a consumer.
      */
     public static void stop(Runnable runnable) {
         runnable.run();
@@ -42,7 +42,7 @@ public class ClientTasks {
     }
 
     /**
-     * Disconnects from the current world with a runnable.
+     * Disconnects from the current world with a consumer.
      */
     public static void disconnect(Runnable runnable) {
         Minecraft minecraft = getMinecraft();
