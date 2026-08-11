@@ -18,6 +18,7 @@ import net.minecraft.resources.Identifier;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class ClientQuesoExampleImpl extends ClientModPlatform {
 
@@ -39,13 +40,13 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                new PlatformMenuButton(true, true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX()))
         );
     }
 

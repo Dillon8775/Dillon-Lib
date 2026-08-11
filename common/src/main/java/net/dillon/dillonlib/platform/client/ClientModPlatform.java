@@ -46,11 +46,11 @@ public abstract class ClientModPlatform implements Loadable {
     }
 
     /**
-     * @return the menu button(s) for your mod, and is added to the title and pause menu screen, only if the corresponding conditions are true.
+     * @return the menu button(s) for your mod, added to the title and pause menu screen, only if the corresponding conditions are true.
      */
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(false, false, null, spriteIconButton -> {})
+                new PlatformMenuButton(false, false, false, null, spriteIconButton -> {})
         );
     }
 }
