@@ -7,7 +7,7 @@ public class DillonLibOptions {
     public boolean applyFullBrightIfRequired = true;
     public boolean applyAbstractClientPlayerFix = true;
     public boolean applyAvaterRendererFix = true;
-    public boolean applyItemInHandRendererFix = true;
+    public boolean applyPersonHandsAndItemsRendererFix = true;
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
 

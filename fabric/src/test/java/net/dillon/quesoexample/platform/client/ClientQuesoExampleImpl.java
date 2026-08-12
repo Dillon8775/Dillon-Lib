@@ -18,7 +18,6 @@ import net.minecraft.resources.Identifier;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class ClientQuesoExampleImpl extends ClientModPlatform {
 

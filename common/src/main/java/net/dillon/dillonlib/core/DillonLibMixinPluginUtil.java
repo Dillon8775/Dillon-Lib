@@ -48,11 +48,10 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                 ),
                 new PredicateEntry(
                         new String[]{
-                                "client.fix.bow.ItemInHandRendererFix",
-                                "client.fix.bow.FabricItemInHandRendererFix"
+                                "client.fix.bow.FabricPersonHandsAndItemsRendererMixin"
                         },
-                        !DillonLibOptions.getLibInstance().applyItemInHandRendererFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_item_in_hand_renderer_fix\" is disabled.")
+                        !DillonLibOptions.getLibInstance().applyPersonHandsAndItemsRendererFix || !Platforms.shouldApplyFactories(),
+                        ofFactory("\"apply_person_hands_and_items_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(
                         new String[]{
