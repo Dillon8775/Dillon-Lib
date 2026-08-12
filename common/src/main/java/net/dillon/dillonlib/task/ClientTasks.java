@@ -167,13 +167,13 @@ public class ClientTasks {
     /**
      * Draws a mod version and icon in a main menu screen.
      */
-    public static void drawModInfo(GuiGraphicsExtractor graphics, Screen menuScreen, String version, int versionColor, int widthModifier, Identifier logo, boolean hasUpdate) {
+    public static void drawModInfo(GuiGraphicsExtractor graphics, Screen menuScreen, Component version, int widthModifier, Identifier logo, boolean hasUpdate) {
         int textWidth = menuScreen.width - 20;
         int textHeight = menuScreen.height - 21;
         int imageWidth = menuScreen.width - widthModifier;
         int imageHeight = menuScreen.height - 26;
 
-        graphics.centeredText(menuScreen.getFont(), version, textWidth, textHeight, versionColor);
+        graphics.centeredText(menuScreen.getFont(), version, textWidth, textHeight, CommonColors.WHITE);
         drawSprite(graphics, logo, imageWidth, imageHeight, 18, 18);
 
         if (hasUpdate) {
