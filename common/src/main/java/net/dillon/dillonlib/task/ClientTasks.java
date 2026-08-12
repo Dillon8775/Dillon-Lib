@@ -165,6 +165,23 @@ public class ClientTasks {
     }
 
     /**
+     * Draws a mod version and icon in a main menu screen.
+     */
+    public static void drawModInfo(GuiGraphicsExtractor graphics, Screen menuScreen, String version, int versionColor, int widthModifier, Identifier logo, boolean hasUpdate) {
+        int textWidth = menuScreen.width - 20;
+        int textHeight = menuScreen.height - 21;
+        int imageWidth = menuScreen.width - widthModifier;
+        int imageHeight = menuScreen.height - 26;
+
+        graphics.centeredText(menuScreen.getFont(), version, textWidth, textHeight, versionColor);
+        drawSprite(graphics, logo, imageWidth, imageHeight, 18, 18);
+
+        if (hasUpdate) {
+            drawUpdateSprite(graphics, imageWidth - 2, imageHeight - 2);
+        }
+    }
+
+    /**
      * Renders the update icon on a button.
      */
     public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, SpriteIconButton button, boolean hasUpdate) {
@@ -172,7 +189,7 @@ public class ClientTasks {
             return;
         }
 
-        ClientTasks.drawUpdateSprite(graphics, button.getX() + 14, button.getY() - 3);
+        drawUpdateSprite(graphics, button.getX() + 14, button.getY() - 3);
     }
 
     /**
