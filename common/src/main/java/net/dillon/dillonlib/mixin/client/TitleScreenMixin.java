@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -45,6 +46,10 @@ public abstract class TitleScreenMixin extends Screen {
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
 
             for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
+                if (numberOfButtons.get() > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
+                    return;
+                }
+
                 if (data != null && data.titleCondition() && data.menuButton() != null) {
                     numberOfButtons.set(numberOfButtons.get() + 1);
                 }
@@ -79,6 +84,11 @@ public abstract class TitleScreenMixin extends Screen {
         PlatformMenuButton.sortButtons(orderedButtons);
 
         for (PlatformMenuButton data : orderedButtons) {
+            if (b[0] > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
+                DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
+                return;
+            }
+
             SpriteIconButton button = data.menuButton();
 
             this.addRenderableWidget(button);

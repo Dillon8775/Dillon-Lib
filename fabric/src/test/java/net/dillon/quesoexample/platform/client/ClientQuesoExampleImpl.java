@@ -14,6 +14,7 @@ import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import java.util.List;
@@ -39,13 +40,24 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(true, true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, true, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton(), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                new PlatformMenuButton(true, false, true, menuButton("A"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, true, menuButton("a"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, false, menuButton("B"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, false, menuButton("C"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, true, menuButton("D"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("E"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX()))
         );
     }
 
@@ -54,7 +66,7 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
         dispatcher.register(QuesoClientCommand.clientTestCommand());
     }
 
-    public static SpriteIconButton menuButton() {
+    public static SpriteIconButton menuButton(String letter) {
         return ClientTasks.createMenuButton(
                 Identifier.withDefaultNamespace(""),
                 (button) -> {},
@@ -62,7 +74,7 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
                         false,
                         Texts.BLANK
                 ),
-                Texts.BLANK,
+                Component.literal(letter),
                 true);
     }
 }

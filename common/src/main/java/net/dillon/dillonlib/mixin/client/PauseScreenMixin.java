@@ -60,8 +60,7 @@ public class PauseScreenMixin extends Screen {
         int[] count = {0};
         iconButtonRow.visitChildren(layoutElement -> count[0]++);
         for (PlatformMenuButton data : orderedButtons) {
-            System.out.println("SIZE"+count[0]);
-            if (count[0] > 7) { // Capped value
+            if (count[0] > PlatformMenuButton.PAUSE_SCREEN_BUTTON_CAP) { // Capped value
                 DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
                 return;
             }

@@ -13,6 +13,8 @@ import java.util.function.Consumer;
  * Stores menu button data.
  */
 public record PlatformMenuButton(boolean titleCondition, boolean pauseCondition, boolean updateCondition, SpriteIconButton menuButton, Consumer<SpriteIconButton> consumer) {
+    public static final int TITLE_SCREEN_BUTTON_CAP = 16;
+    public static final int PAUSE_SCREEN_BUTTON_CAP = 7;
 
     /**
      * Renders all update icons on any {@link PlatformMenuButton}.
