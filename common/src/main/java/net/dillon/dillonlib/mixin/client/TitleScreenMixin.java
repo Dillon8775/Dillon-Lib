@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(TitleScreen.class)
+@Mixin(value = TitleScreen.class, priority = 2000)
 public abstract class TitleScreenMixin extends Screen {
     @Shadow
     protected abstract int getHorizontalPosition(int currentButton, int numberOfButtons, int buttonWidth);
@@ -60,21 +60,36 @@ public abstract class TitleScreenMixin extends Screen {
         int[] b = {currentButton};
 
         cachedButtons.clear();
+        List<PlatformMenuButton> orderedButtons = new ArrayList<>();
+
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
             for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
                 if (data == null) {
-                    return;
+                    continue;
                 }
 
                 SpriteIconButton button = data.menuButton();
+
                 if (data.titleCondition() && button != null) {
-                    this.addRenderableWidget(button);
-                    button.setPosition(this.getHorizontalPosition(++b[0], numberOfButtons, 20), topPos - 24);
-                    data.consumer().accept(button);
-                    cachedButtons.add(button);
+                    orderedButtons.add(data);
                 }
             }
         });
+
+        PlatformMenuButton.sortButtons(orderedButtons);
+
+        for (PlatformMenuButton data : orderedButtons) {
+            SpriteIconButton button = data.menuButton();
+
+            this.addRenderableWidget(button);
+            button.setPosition(
+                    this.getHorizontalPosition(++b[0], numberOfButtons, 20),
+                    topPos - 24
+            );
+
+            data.consumer().accept(button);
+            cachedButtons.add(button);
+        }
     }
 
     /**

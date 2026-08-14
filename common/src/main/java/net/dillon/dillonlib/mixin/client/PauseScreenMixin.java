@@ -7,7 +7,9 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.layouts.LayoutElement;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(PauseScreen.class)
+@Mixin(value = PauseScreen.class, priority = 2000)
 public class PauseScreenMixin extends Screen {
     @Unique
     private final List<SpriteIconButton> cachedButtons = new ArrayList<>();
@@ -39,29 +41,42 @@ public class PauseScreenMixin extends Screen {
     @Inject(method = "createPauseMenu", at = @At("MIXINEXTRAS:EXPRESSION"))
     private void addQualityOfQuesoButtons(CallbackInfo ci, @Local(name = "iconButtonRow") LinearLayout iconButtonRow) {
         this.cachedButtons.clear();
+        List<PlatformMenuButton> orderedButtons = new ArrayList<>();
+
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
 
-            int i = 0;
             for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
                 if (data == null) {
                     return;
                 }
 
-                if (i > 3) {
-                    DillonLibMain.LOGGER.warn("Cannot add more than 3 menu buttons to pause menu!");
-                    return;
-                }
-
                 SpriteIconButton button = data.menuButton();
                 if (data.pauseCondition() && button != null) {
-                    SpriteIconButton b = this.addRenderableOnly(button);
-                    iconButtonRow.addChild(b);
-                    cachedButtons.add(b);
+                    orderedButtons.add(data);
                 }
-
-                i++;
             }
         });
+
+        PlatformMenuButton.sortButtons(orderedButtons);
+
+        int[] count = {0};
+        iconButtonRow.visitChildren(layoutElement -> count[0]++);
+        for (PlatformMenuButton data : orderedButtons) {
+            System.out.println("SIZE"+count[0]);
+            if (count[0] > 7) { // Capped value
+                DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
+                return;
+            }
+
+            SpriteIconButton button = this.addRenderableOnly(data.menuButton());
+
+            iconButtonRow.addChild(button);
+
+            data.consumer().accept(button);
+            cachedButtons.add(button);
+
+            count[0]++;
+        }
     }
 
     /**

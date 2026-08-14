@@ -5,6 +5,7 @@ import net.dillon.dillonlib.task.ClientTasks;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SpriteIconButton;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -34,5 +35,15 @@ public record PlatformMenuButton(boolean titleCondition, boolean pauseCondition,
                 }
             }
         });
+    }
+
+    /**
+     * Sorts platform menu buttons in a correct order.
+     */
+    public static void sortButtons(List<PlatformMenuButton> buttons) {
+        buttons.sort(Comparator.comparing(
+                data -> data.menuButton().getMessage().getString(),
+                String.CASE_INSENSITIVE_ORDER
+        ));
     }
 }
