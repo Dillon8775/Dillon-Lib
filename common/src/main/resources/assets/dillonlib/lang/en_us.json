@@ -8,5 +8,7 @@
   "dillonlib.next": "Next",
   "dillonlib.ok": "Ok",
   "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
-  "dillonlib.update_required_tooltip": "Click here to download the latest version of %s."
+  "dillonlib.update_required_tooltip": "Click here to download the latest version of %s.",
+  "dillonlib.toast.title.yacl": "YetAnotherConfigLib Required",
+  "dillonlib.toast.yacl": "Please download YetAnotherConfigLib (YACL) to configure %s."
 }

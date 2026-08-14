@@ -2,13 +2,19 @@ package net.dillon.dillonlib.task;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.core.DillonLibModReferences;
+import net.dillon.dillonlib.platform.Platforms;
+import net.dillon.dillonlib.platform.info.ModReference;
 import net.dillon.dillonlib.util.Texts;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,6 +31,7 @@ import net.minecraft.util.Util;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Client-side only methods and tasks that can be commonly used throughout your mod.
@@ -178,6 +185,22 @@ public class ClientTasks {
 
         if (hasUpdate) {
             drawUpdateSprite(graphics, imageWidth - 2, imageHeight - 2);
+        }
+    }
+
+    /**
+     * Tries to open a {@code YetAnotherConfigLib} screen, if the mod is installed, and warns the user if it's not.
+     */
+    public static void tryOpenYaclScreen(Supplier<Screen> configScreen, Component modName) {
+        Gui gui = Minecraft.getInstance().gui;
+
+        if (!DillonLibModReferences.isModLoaded(DillonLibModReferences.YACL)) {
+            gui.toastManager().addToast(new SystemToast(
+                    SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
+                    Component.translatable("dillonlib.toast.title.yacl").withStyle(ChatFormatting.RED),
+                    Component.translatable("dillonlib.toast.yacl", modName)));
+        } else {
+            gui.setScreen(configScreen.get());
         }
     }
 
