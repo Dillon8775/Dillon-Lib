@@ -5,12 +5,15 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.dillonlib.util.KeybindScrollHelper;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.command.QuesoClientCommand;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ClientQuesoExampleImpl extends ClientModPlatform {
+    public static final KeyMapping.Category lol = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("qualityofqueso", "quality_of_queso"));
 
     @Override
     public String modId() {
@@ -57,7 +61,10 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     public static SpriteIconButton menuButton() {
         return ClientTasks.createMenuButton(
                 Identifier.withDefaultNamespace(""),
-                (button) -> {},
+                (button) -> {
+                    KeybindScrollHelper.request(lol);
+                    Minecraft.getInstance().gui.setScreen(new KeyBindsScreen(null, Minecraft.getInstance().options));
+                },
                 Map.of(
                         false,
                         Texts.BLANK

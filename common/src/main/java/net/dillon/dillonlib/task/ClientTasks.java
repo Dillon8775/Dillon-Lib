@@ -3,8 +3,6 @@ package net.dillon.dillonlib.task;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
-import net.dillon.dillonlib.platform.Platforms;
-import net.dillon.dillonlib.platform.info.ModReference;
 import net.dillon.dillonlib.util.Texts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

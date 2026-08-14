@@ -19,13 +19,14 @@
     "shear.MushroomCowFix"
   ],
   "client": [
+    "accessor.KeyBindsScreenAccessor",
+    "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",
     "client.NeoForgeOptionInstanceMixin",
     "client.PauseScreenMixin",
     "client.TitleScreenMixin",
     "client.fix.bow.AbstractClientPlayerFix",
-    "client.fix.bow.AvatarRendererFix",
-    "client.fix.bow.ItemInHandRendererFix"
+    "client.fix.bow.AvatarRendererFix"
   ],
   "server": [
   ],
