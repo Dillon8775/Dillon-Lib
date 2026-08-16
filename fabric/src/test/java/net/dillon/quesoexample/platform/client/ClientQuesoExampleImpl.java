@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
+import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.quesoexample.QuesoExampleMod;
@@ -40,24 +41,24 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(true, false, true, menuButton("A"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, true, menuButton("a"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, false, menuButton("B"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, false, menuButton("C"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, true, menuButton("D"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("E"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, false, menuButton("F"), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                new PlatformMenuButton(true, false, menuButton("A", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("a", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true,  menuButton("B", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, menuButton("C", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, menuButton("D", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("E", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX()))
         );
     }
 
@@ -66,13 +67,14 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
         dispatcher.register(QuesoClientCommand.clientTestCommand());
     }
 
-    public static SpriteIconButton menuButton(String letter) {
+    public static UpdatableSpriteButton menuButton(String letter, boolean shouldUpdate) {
         return ClientTasks.createMenuButton(
+                letter,
                 Identifier.withDefaultNamespace(""),
                 (button) -> {},
                 Map.of(
-                        false,
-                        Texts.BLANK
+                        shouldUpdate,
+                        Component.literal("YAY")
                 ),
                 Component.literal(letter),
                 true);

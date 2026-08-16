@@ -3,6 +3,7 @@ package net.dillon.dillonlib.task;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
+import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.dillon.dillonlib.util.Texts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -10,8 +11,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
@@ -205,8 +206,8 @@ public class ClientTasks {
     /**
      * Renders the update icon on a button.
      */
-    public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, SpriteIconButton button, boolean hasUpdate) {
-        if (button == null || !hasUpdate) {
+    public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, UpdatableSpriteButton button) {
+        if (button == null || !button.shouldRenderUpdateSprite()) {
             return;
         }
 
@@ -216,26 +217,24 @@ public class ClientTasks {
     /**
      * Creates a menu button.
      */
-    public static SpriteIconButton createMenuButton(Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, boolean withTooltip) {
+    public static UpdatableSpriteButton createMenuButton(String name, Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, boolean withTooltip) {
         Component text = tooltip;
-        if (update.containsKey(true)) {
+        boolean hasUpdate = update.containsKey(true);
+        if (hasUpdate) {
             text = update.getOrDefault(true, Component.empty());
         }
         if (!withTooltip) {
             text = Component.empty();
         }
 
-        return createSpriteIconButton(sprite, onPress, text);
+        return createSpriteIconButton(name, sprite, onPress, text, hasUpdate);
     }
 
     /**
-     * Creates a {@link SpriteIconButton}.
+     * Creates a {@link UpdatableSpriteButton}.
      */
-    public static SpriteIconButton createSpriteIconButton(Identifier sprite, Button.OnPress onPress, Component tooltip) {
-        SpriteIconButton button = SpriteIconButton.builder(Texts.BLANK, onPress, false)
-                .width(20)
-                .sprite(sprite, 16, 16)
-                .build();
+    public static UpdatableSpriteButton createSpriteIconButton(String name, Identifier sprite, Button.OnPress onPress, Component tooltip, boolean hasUpdate) {
+        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate);
         if (!tooltip.equals(Component.empty())) {
             button.setTooltip(Tooltip.create(tooltip));
         }
