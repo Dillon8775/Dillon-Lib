@@ -19,6 +19,7 @@
     "shear.MushroomCowFix"
   ],
   "client": [
+    "accessor.DebugScreenEntriesInvoker",
     "accessor.KeyBindsScreenAccessor",
     "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",
