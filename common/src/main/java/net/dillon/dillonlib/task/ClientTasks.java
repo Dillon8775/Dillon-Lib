@@ -130,28 +130,28 @@ public class ClientTasks {
     /**
      * Blits a small texture over a button.
      */
-    public static void blitSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        blitSmallSprite(graphics, sprite, button, 1.0F);
+    public static void blitSmallTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        blitSmallTexture(graphics, sprite, button, 1.0F);
     }
 
     /**
      * Blits a large texture over a button.
      */
-    public static void blitLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        blitLargeSprite(graphics, sprite, button, 1.0F);
+    public static void blitLargeTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        blitLargeTexture(graphics, sprite, button, 1.0F);
     }
 
     /**
      * Blits a large texture over a button with a custom alpha.
      */
-    public static void blitLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+    public static void blitLargeTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
         blitTexture(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
     }
 
     /**
      * Blits a small texture over a button with a custom alpha.
      */
-    public static void blitSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+    public static void blitSmallTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
         blitTexture(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
     }
 
