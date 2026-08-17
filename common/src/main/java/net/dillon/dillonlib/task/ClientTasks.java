@@ -163,6 +163,34 @@ public class ClientTasks {
     }
 
     /**
+     * Draws a small sprite over a button.
+     */
+    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        drawSmallSprite(graphics, sprite, button, 1.0F);
+    }
+
+    /**
+     * Draws a large sprite over a button.
+     */
+    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        drawLargeSprite(graphics, sprite, button, 1.0F);
+    }
+
+    /**
+     * Draws a large sprite over a button with a custom alpha.
+     */
+    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+        drawSprite(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
+    }
+
+    /**
+     * Draws a small sprite over a button with a custom alpha.
+     */
+    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+        drawSprite(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
+    }
+
+    /**
      * Draws a sprite.
      */
     public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
