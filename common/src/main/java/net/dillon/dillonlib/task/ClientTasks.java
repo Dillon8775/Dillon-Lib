@@ -4,7 +4,6 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.util.Texts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -122,52 +121,66 @@ public class ClientTasks {
     }
 
     /**
+     * Blits a texture.
+     */
+    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height) {
+        blitTexture(graphics, sprite, xOffset, yOffset, width, height, 1.0F);
+    }
+
+    /**
+     * Blits a small texture over a button.
+     */
+    public static void blitSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        blitSmallSprite(graphics, sprite, button, 1.0F);
+    }
+
+    /**
+     * Blits a large texture over a button.
+     */
+    public static void blitLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
+        blitLargeSprite(graphics, sprite, button, 1.0F);
+    }
+
+    /**
+     * Blits a large texture over a button with a custom alpha.
+     */
+    public static void blitLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+        blitTexture(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
+    }
+
+    /**
+     * Blits a small texture over a button with a custom alpha.
+     */
+    public static void blitSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
+        blitTexture(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
+    }
+
+    /**
+     * Blits a texture with a custom alpha value.
+     */
+    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height, float f) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, sprite, xOffset, yOffset, 0.0F, 0.0F, width, height, width, height, ARGB.color(f, CommonColors.WHITE));
+    }
+
+    /**
      * Draws a sprite.
      */
-    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height) {
-        drawSprite(graphics, sprite, xOffset, yOffset, width, height, 1.0F);
+    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
+        drawSprite(graphics, sprite, x, y, width, height, 1.0F);
     }
 
     /**
-     * Draws a small sprite over a button.
+     * Draws a sprite with a custom alpha fade.
      */
-    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        drawSmallSprite(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Draws a larger sprite over a button.
-     */
-    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        drawLargeSprite(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Draws a larger sprite over a button with a custom alpha.
-     */
-    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        drawSprite(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
-    }
-
-    /**
-     * Draws a small sprite over a button with a custom alpha.
-     */
-    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        drawSprite(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
-    }
-
-    /**
-     * Draws a sprite with a custom alpha value.
-     */
-    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height, float f) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, sprite, xOffset, yOffset, 0.0F, 0.0F, width, height, width, height, ARGB.color(f, CommonColors.WHITE));
+    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height, float f) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, height, ARGB.color(f, CommonColors.WHITE));
     }
 
     /**
      * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace("icon/trial_available"), x, y, 8, 8);
+        drawSprite(graphics, Identifier.withDefaultNamespace("icon/trial_available"), x, y, 8, 8);
     }
 
     /**

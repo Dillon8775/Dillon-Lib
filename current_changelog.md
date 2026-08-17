@@ -11,3 +11,4 @@
 - ClientTasks:
     - Add "drawModInfo" - draws mod information in a specified menu screen.
     - Add "tryOpenYaclScreen" - tries to open a [YetAnotherConfigLib](https://modrinth.com/mod/yacl) configuration screen, and warns the user if the mod is not installed
+    - Update "drawSprite" methods to "blitTexture", add separate "drawSprite" method, which actually draws a sprite from the "sprites" folder.
