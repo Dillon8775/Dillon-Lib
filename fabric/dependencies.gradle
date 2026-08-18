@@ -4,11 +4,14 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    implementation "net.litetex.mcm:dev-auth-neo:${project.devauth_neo_version}"
+
     compileOnly "maven.modrinth:sodium:${project.sodium_version}"
 
 //    implementation("net.blay09.mods:balm-fabric:${balm_version}") {
 //        changing = balm_version.contains('SNAPSHOT')
 //    }
+
     testImplementation sourceSets.main.output
     testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 

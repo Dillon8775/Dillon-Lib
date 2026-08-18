@@ -24,6 +24,8 @@ loom {
             setConfigName('Fabric Client')
             ideConfigGenerated(true)
             runDir('runs/client')
+
+            vmArgs.add("-Ddevauth.enabled=1")
         }
         server {
             server()
@@ -37,6 +39,8 @@ loom {
 
             runDir('runs/client')
             name = "Test Mod Client"
+
+            vmArgs.add("-Ddevauth.enabled=1")
         }
         datagen {
             inherit testmodClient
