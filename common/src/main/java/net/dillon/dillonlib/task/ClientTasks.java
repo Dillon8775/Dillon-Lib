@@ -3,6 +3,7 @@ package net.dillon.dillonlib.task;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
+import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -241,6 +243,16 @@ public class ClientTasks {
                     Component.translatable("dillonlib.toast.yacl", modName)));
         } else {
             gui.setScreen(configScreen.get());
+        }
+    }
+
+    /**
+     * Opens the {@link DebugOptionsScreen} with set text for the search bar.
+     */
+    public static void openDebugEntriesScreen(String text) {
+        openScreen(new DebugOptionsScreen());
+        if (getScreen() instanceof DebugOptionsScreen debugOptionsScreen) {
+            ((DebugOptionsScreenAccessor)debugOptionsScreen).getSearchBox().setValue(text);
         }
     }
 

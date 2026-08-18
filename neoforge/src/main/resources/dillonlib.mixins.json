@@ -19,6 +19,7 @@
     "shear.MushroomCowFix"
   ],
   "client": [
+    "accessor.DebugOptionsScreenAccessor",
     "accessor.DebugScreenEntriesInvoker",
     "accessor.KeyBindsScreenAccessor",
     "client.KeyBindsScreenMixin",
