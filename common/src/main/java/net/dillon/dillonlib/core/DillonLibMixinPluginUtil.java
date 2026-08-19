@@ -32,6 +32,11 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                         "FullBright is not enabled."
                 ),
                 new PredicateEntry(
+                        new String[]{"client.fix.screen.DebugOptionsScreenMixin",},
+                        !DillonLibOptions.getLibInstance().applyDebugOptionsScreenFix,
+                        "\"apply_debug_options_screen_fix\" is disabled."
+                ),
+                new PredicateEntry(
                         new String[]{"client.FabricSodiumConfigBuilderMixin"},
                         !Platforms.shouldApplyFullBright() || !Platforms.getDillonLibMixinPlatform().isModLoaded(DillonLibModReferences.SODIUM),
                         "FullBright is not enabled, or Sodium is not loaded."

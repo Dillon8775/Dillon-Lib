@@ -35,7 +35,8 @@
     "client.TitleScreenMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.AvatarRendererFix",
-    "client.fix.bow.FabricPersonHandsAndItemsRendererMixin"
+    "client.fix.bow.FabricPersonHandsAndItemsRendererMixin",
+    "client.fix.screen.DebugOptionsScreenMixin"
   ],
   "server": [
   ],

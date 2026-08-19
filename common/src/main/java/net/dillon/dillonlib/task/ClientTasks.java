@@ -5,6 +5,7 @@ import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
+import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -249,9 +250,10 @@ public class ClientTasks {
     /**
      * Opens the {@link DebugOptionsScreen} with set text for the search bar.
      */
-    public static void openDebugEntriesScreen(String text) {
+    public static void openDebugEntriesScreen(Screen parentScreen, String text) {
         openScreen(new DebugOptionsScreen());
         if (getScreen() instanceof DebugOptionsScreen debugOptionsScreen) {
+            ((DebugOptionsScreenImpl)debugOptionsScreen).setParent(parentScreen);
             ((DebugOptionsScreenAccessor)debugOptionsScreen).getSearchBox().setValue(text);
         }
     }
