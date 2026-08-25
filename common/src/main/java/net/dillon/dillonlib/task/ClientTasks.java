@@ -2,6 +2,7 @@ package net.dillon.dillonlib.task;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
@@ -126,8 +127,8 @@ public class ClientTasks {
     /**
      * Blits a texture.
      */
-    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height) {
-        blitTexture(graphics, sprite, xOffset, yOffset, width, height, 1.0F);
+    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
+        blitTexture(graphics, sprite, x, y, width, height, 1.0F);
     }
 
     /**
@@ -161,8 +162,8 @@ public class ClientTasks {
     /**
      * Blits a texture with a custom alpha value.
      */
-    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int xOffset, int yOffset, int width, int height, float f) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, sprite, xOffset, yOffset, 0.0F, 0.0F, width, height, width, height, ARGB.color(f, CommonColors.WHITE));
+    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height, float f) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, sprite, x, y, 0.0F, 0.0F, width, height, width, height, ARGB.color(f, CommonColors.WHITE));
     }
 
     /**
@@ -211,7 +212,7 @@ public class ClientTasks {
      * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
-        drawSprite(graphics, Identifier.withDefaultNamespace("icon/trial_available"), x, y, 8, 8);
+        drawSprite(graphics, Identifier.fromNamespaceAndPath(DillonLibMain.MOD_ID, "icon/update_available"), x, y, 8, 8);
     }
 
     /**
