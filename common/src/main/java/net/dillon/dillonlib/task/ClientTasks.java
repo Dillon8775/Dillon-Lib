@@ -6,6 +6,7 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
+import net.dillon.dillonlib.util.CommonSprites;
 import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -212,7 +213,7 @@ public class ClientTasks {
      * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
-        drawSprite(graphics, Identifier.fromNamespaceAndPath(DillonLibMain.MOD_ID, "icon/update_available"), x, y, 8, 8);
+        drawSprite(graphics, CommonSprites.UPDATE_AVAILABLE, x, y, 8, 8);
     }
 
     /**
