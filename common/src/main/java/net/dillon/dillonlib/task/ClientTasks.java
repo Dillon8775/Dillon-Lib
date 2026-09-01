@@ -274,6 +274,13 @@ public class ClientTasks {
      * Creates a menu button.
      */
     public static UpdatableSpriteButton createMenuButton(String name, Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, boolean withTooltip) {
+        return createMenuButton(name, sprite, onPress, update, tooltip, 16, 16, withTooltip);
+    }
+
+    /**
+     * Creates a menu button with a custom sprite width and height.
+     */
+    public static UpdatableSpriteButton createMenuButton(String name, Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, int spriteWidth, int spriteHeight, boolean withTooltip) {
         Component text = tooltip;
         boolean hasUpdate = update.containsKey(true);
         if (hasUpdate) {
@@ -283,18 +290,7 @@ public class ClientTasks {
             text = Component.empty();
         }
 
-        return createSpriteIconButton(name, sprite, onPress, text, hasUpdate);
-    }
-
-    /**
-     * Creates a {@link UpdatableSpriteButton} with the default sprite width and height.
-     */
-    public static UpdatableSpriteButton createSpriteIconButton(String name, Identifier sprite, Button.OnPress onPress, Component tooltip, boolean hasUpdate) {
-        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate, 16, 16);
-        if (!tooltip.equals(Component.empty())) {
-            button.setTooltip(Tooltip.create(tooltip));
-        }
-        return button;
+        return createSpriteIconButton(name, sprite, onPress, text, spriteWidth, spriteHeight, hasUpdate);
     }
 
     /**
