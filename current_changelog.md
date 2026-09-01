@@ -8,10 +8,12 @@
 - Add DebugScreenEntriesInvoker.
 - Add DebugOptionsScreenMixin.
   - Fixes a bug where closing the debug options screen always set the parent screen to null.
+- Add @InDanger.
 - ClientModPlatform:
     - Add overridable "menuButtons" method to configure PlatformMenuButtons.
 - ClientTasks:
     - Add "drawModInfo" - draws mod information in a specified menu screen.
     - Add "tryOpenYaclScreen" - tries to open a [YetAnotherConfigLib](https://modrinth.com/mod/yacl) configuration screen, and warns the user if the mod is not installed
     - Add "openDebugEntriesScreen".
+    - Add "isOnServer".
     - Update "drawSprite" methods to "blitTexture", add separate "drawSprite" method, which actually draws a sprite from the "sprites" folder.

@@ -17,7 +17,7 @@ public class QuesoCommand {
                 .requires(SimplePermissions::admin)
                 .executes(
                         context -> {
-                            CommonTasks.schedule(Arithmetics.sas(5), () -> {
+                            CommonTasks.schedule(Arithmetics.S_asTick(5), () -> {
                                 printMessage(context.getSource(), null, "Ran task!");
                             });
                             printMessage(context.getSource(), context.getSource().getPlayerOrException(), "Executed common-side command.");

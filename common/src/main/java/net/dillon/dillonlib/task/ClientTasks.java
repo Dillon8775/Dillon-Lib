@@ -2,7 +2,6 @@ package net.dillon.dillonlib.task;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
-import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
@@ -310,6 +309,14 @@ public class ClientTasks {
             }
             minecraft.gui.setScreen(screen);
         }, link, trusted));
+    }
+
+    /**
+     * @return if the current instance of Minecraft is on a server.
+     */
+    public static boolean isOnServer() {
+        Minecraft minecraft = getMinecraft();
+        return !minecraft.isLocalServer() && !(minecraft.getCurrentServer() == null);
     }
 
     /**

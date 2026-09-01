@@ -2,13 +2,17 @@ import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     id 'multiloader-loader'
-    id 'net.fabricmc.fabric-loom'
+    alias libs.plugins.fabricLoom
     alias libs.plugins.curseForgeGradle
     alias libs.plugins.modrinthMinotaur
 }
 
 apply from: rootProject.file('repositories.gradle')
 apply from: 'dependencies.gradle'
+
+Directory clientDir = project.layout.projectDirectory.dir('runs/client')
+Directory serverDir = project.layout.projectDirectory.dir('runs/server')
+Directory dataGenDir = project.layout.projectDirectory.dir('runs/datagen')
 
 loom {
     def aw = project(':fabric').file("src/main/resources/${mod_id}.accessWidener")
@@ -21,46 +25,46 @@ loom {
     runs {
         client {
             client()
-            setConfigName('Fabric Client')
-            ideConfigGenerated(true)
-            runDir('runs/client')
+            getDisplayName().set('Fabric Server')
+            getGenerateRunConfig().set(true)
+            getRunDirectory().set(clientDir)
 
-            vmArgs.add("-Ddevauth.enabled=" + "${devauth_enabled}")
+            jvmArguments.add("-Ddevauth.enabled=" + "${devauth_enabled}")
         }
         server {
             server()
-            setConfigName('Fabric Server')
-            ideConfigGenerated(true)
-            runDir('runs/server')
+            getDisplayName().set('Fabric Server')
+            getGenerateRunConfig().set(true)
+            getRunDirectory().set(serverDir)
         }
         testmodClient {
             client()
             source(sourceSets.test)
 
-            runDir('runs/client')
-            name = "Test Mod Client"
+            getRunDirectory().set(clientDir)
+            getDisplayName().set("Test Mod Client")
 
-            vmArgs.add("-Ddevauth.enabled=" + "${devauth_enabled}")
+            jvmArguments.add("-Ddevauth.enabled=" + "${devauth_enabled}")
         }
         datagen {
             inherit testmodClient
 
-            name = "Data Generation"
+            getDisplayName().set("Data Generation")
 
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/test/generated")}"
             vmArg "-Dfabric-api.datagen.strict-validation"
 
-            ideConfigGenerated = true
-            runDir "runs/datagen"
+            getGenerateRunConfig().set(true)
+            getRunDirectory().set(dataGenDir)
         }
 
         testmodServer {
             server()
             source(sourceSets.test)
 
-            runDir('runs/server')
-            name = "Test Mod Server"
+            getRunDirectory().set(project.layout.projectDirectory.dir('runs/server'))
+            getDisplayName().set("Test Mod Server")
         }
     }
 }

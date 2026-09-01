@@ -11,9 +11,9 @@ public class Arithmetics {
     private static final RandomSource RANDOM = RandomSource.create();
 
     /**
-     * Converts seconds to ticks (sas = seconds as ticks)
+     * Converts {@code seconds} to ticks.
      */
-    public static int sas(int secondsAsTicks) {
+    public static int S_asTick(int secondsAsTicks) {
         try {
             int testSeconds = 0;
             while (testSeconds < 525600) {
@@ -26,28 +26,28 @@ public class Arithmetics {
         } catch (NumberFormatException o) {
             DillonLibMain.LOGGER.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
             o.printStackTrace();
-            return mas(secondsAsTicks / 60);
+            return M_asTick(secondsAsTicks / 60);
         }
     }
 
     /**
-     * Converts minutes to ticks (mas = minutes as ticks).
+     * Converts {@code minutes} to ticks.
      */
-    public static int mas(int minutesAsTicks) {
+    public static int M_asTick(int minutesAsTicks) {
         return (minutesAsTicks * 60) * 20;
     }
 
     /**
      * Rounds the value to the nearest tenths place.
      */
-    public static double round(double d) {
+    public static double roundToTenths(double d) {
         return Math.round(d * 10.0) / 10.0;
     }
 
     /**
      * Rounds a value to the nearest hundredths place.
      */
-    public static double roundBig(double d) {
+    public static double roundToHundredths(double d) {
         return Math.round(d * 100.0) / 100.0;
     }
 
