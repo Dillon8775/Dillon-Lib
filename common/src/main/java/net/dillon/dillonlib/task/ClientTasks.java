@@ -287,10 +287,21 @@ public class ClientTasks {
     }
 
     /**
-     * Creates a {@link UpdatableSpriteButton}.
+     * Creates a {@link UpdatableSpriteButton} with the default sprite width and height.
      */
     public static UpdatableSpriteButton createSpriteIconButton(String name, Identifier sprite, Button.OnPress onPress, Component tooltip, boolean hasUpdate) {
-        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate);
+        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate, 16, 16);
+        if (!tooltip.equals(Component.empty())) {
+            button.setTooltip(Tooltip.create(tooltip));
+        }
+        return button;
+    }
+
+    /**
+     * Creates a {@link UpdatableSpriteButton} with a custom sprite width and height.
+     */
+    public static UpdatableSpriteButton createSpriteIconButton(String name, Identifier sprite, Button.OnPress onPress, Component tooltip, int spriteWidth, int spriteHeight, boolean hasUpdate) {
+        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate, spriteWidth, spriteHeight);
         if (!tooltip.equals(Component.empty())) {
             button.setTooltip(Tooltip.create(tooltip));
         }
