@@ -14,7 +14,11 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     private final boolean shouldRenderUpdateSprite;
 
     public UpdatableSpriteButton(String name, WidgetSprites sprite, OnPress onPress, boolean shouldRenderUpdateSprite) {
-        super(20, 20, Texts.BLANK, 16, 16, 0, 0, sprite, onPress, null, null, false);
+        this(name, sprite, onPress, shouldRenderUpdateSprite, 16, 16);
+    }
+
+    public UpdatableSpriteButton(String name, WidgetSprites sprite, OnPress onPress, boolean shouldRenderUpdateSprite, int spriteWidth, int spriteHeight) {
+        super(20, 20, Texts.BLANK, spriteWidth, spriteHeight, 0, 0, sprite, onPress, null, null, false);
         this.name = name;
         this.shouldRenderUpdateSprite = shouldRenderUpdateSprite;
     }
