@@ -24,7 +24,7 @@ public class MatchToolFix {
      */
     @Inject(method = "test(Lnet/minecraft/world/level/storage/loot/LootContext;)Z", at = @At("HEAD"), cancellable = true)
     private void dillonlib$test(LootContext context, CallbackInfoReturnable<Boolean> cir) {
-        ItemInstance tool = context.getOptionalParameter(LootContextParams.TOOL);
+        ItemInstance tool = context.getOptional(LootContextParams.TOOL);
 
         if (tool == null) {
             return;
