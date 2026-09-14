@@ -243,15 +243,62 @@ Method signature(s) for registering boat factories:
 ## Other Factories
 For other factories, registering them is similar to these other factories. Take a deeper look at this [Example Items Class](https://github.com/Dillon8775/Dillon-Lib/blob/mc26.2/fabric/src/test/java/net/dillon/quesoexample/item/QuesoTestItems.java) for a better understanding of how to create your factories.
 
-- For shear factories, dispenser behavior, block predicates and use-on entities is automatically registered.
-- For flint and steel and ignitable factories, dispenser behavior and use-on entities is automatically registered.
-- For bow and crossbow factories, player model and Fov modification is automatically registered.
+---
+
+# Platform Menu Button
+
+Utilizing platform abstraction, you can create a simple sprite menu button for your mod, which render on the title screen and/or pause screen under certain conditions.
+
+To create your platform menu button, simply override the "menuButtons" method.
+
+```
+// You can have multiple menu buttons for your mod if you'd like, which is why this method returns a List.
+// If you only need one, simply return like this
+@Override
+public List<PlatformMenuButton> menuButtons() {
+    return List.of(
+        new PlatformMenuButton(
+        false, // Condition for if the button should display on the title screen (can be anything from your mod)
+        false, // Condition for if the button should display on the pause screen (can be anything from your mod)
+        null, // Returns the actual button to display (UpdateableSpriteButton)
+        spriteIconButton -> {}) // Consumer to do something with your button, if neccessary
+    );
+}
+```
+
+To easily create a UpdatableSpriteButton to return in your ```menuButtons ```method, you can utilize the method in the ```ClientTasks``` class, as follows:
+
+```
+public static UpdatableSpriteButton createMenuButton(
+    String name, // Name of the button (used for sorting indexes)
+    Identifier sprite, // The sprite to display
+    Button.OnPress onPress, // The action when the button is pressed (ex. open your mod's main menu)
+    Map<Boolean, Component> update, // A map of a boolean on whether or not the mod requires an update, and the tooltip to display if it does need an update
+    Component tooltip, // The tooltip to display on the button regularly
+    boolean withTooltip // If the tooltip on the button should render at all
+)
+```
+
+By default, the default sprite size for the button is 16x16. However, if you are using a bigger sprite, you can use an alternative method to create your button, like the basic one:
+
+```
+public static UpdatableSpriteButton createMenuButton(
+    String name,
+    Identifier sprite,
+    Button.OnPress onPress,
+    Map<Boolean, Component> update,
+    Component tooltip,
+    int spriteWidth, // Custom width for your sprite
+    int spriteHeight, // Custom height for your sprite
+    boolean withTooltip
+)
+```
 
 ---
 
 # Learn More
 
-**DillonLib has many other modding utilities at hand,** including simple math operations, modern list widgets, a clean configuration system, UUID-based player storage, task scheduling, and more! Please view the [source code](https://github.com/Dillon8775/Dillon-Lib) if you want to learn more.
+**DillonLib has many other modding utilities at hand,** including simple math operations, button utils, a clean configuration system, UUID-based player storage, task scheduling, and more! Please view the [source code](https://github.com/Dillon8775/Dillon-Lib) if you want to learn more.
 
 Please make sure that your current version of DillonLib is kept up-to-date for all the latest features and utilities.
 
