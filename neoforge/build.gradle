@@ -11,7 +11,7 @@ apply from: rootProject.file('repositories.gradle')
 apply from: 'dependencies.gradle'
 
 neoForge {
-    version = neoforge_version
+    version = neoforge_loader_version
     // Automatically enable neoforge AccessTransformers if the file exists
     def at = project(':neoforge').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
@@ -27,9 +27,9 @@ neoForge {
         client {
             client()
         }
-        test {
-            client()
-        }
+//        test {
+//            client()
+//        }
         data {
             clientData()
 
@@ -45,24 +45,24 @@ neoForge {
         "${mod_id}" {
             sourceSet sourceSets.main
         }
-        "quesoinstance" {
-            sourceSet sourceSets.test
-        }
+//        "quesoinstance" {
+//            sourceSet sourceSets.test
+//        }
     }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 sourceSets {
-    test {
-        compileClasspath += sourceSets.main.output
-        runtimeClasspath += sourceSets.main.output
-    }
+//    test {
+//        compileClasspath += sourceSets.main.output
+//        runtimeClasspath += sourceSets.main.output
+//    }
 }
 
-tasks.named('test') {
-    enabled = false
-}
+//tasks.named('test') {
+//    enabled = false
+//}
 
 tasks.register('curseforge', TaskPublishCurseForge) {
     dependsOn('build')
