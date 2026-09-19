@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Dill(DillType.CLIENT)
 public class DillonLibClient {
+    public static boolean SHOWN_WARNING_TOAST = false;
 
     /**
      * Initializes the {@code client-side} of DillonLib.

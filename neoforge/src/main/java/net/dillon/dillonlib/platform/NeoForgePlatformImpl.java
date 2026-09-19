@@ -1,11 +1,9 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.info.LogoWidth;
-import net.dillon.dillonlib.platform.info.PlatformName;
-import net.dillon.dillonlib.platform.info.PlatformRelease;
+import net.dillon.dillonlib.platform.info.Platform;
+import net.dillon.dillonlib.platform.info.Release;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 public class NeoForgePlatformImpl extends ModPlatform {
 
@@ -15,8 +13,8 @@ public class NeoForgePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public @NotNull Logger logger() {
-        return DillonLibMain.LOGGER;
+    public @NotNull Release release() {
+        return Release.STABLE;
     }
 
     @Override
@@ -25,17 +23,7 @@ public class NeoForgePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public @NotNull PlatformName platformName() {
-        return PlatformName.NEOFORGE;
-    }
-
-    @Override
-    public @NotNull PlatformRelease platformRelease() {
-        return PlatformRelease.STABLE;
-    }
-
-    @Override
-    public @NotNull LogoWidth logoWidth() {
-        return LogoWidth.DEFAULT;
+    public @NotNull Platform platform() {
+        return Platform.NEOFORGE;
     }
 }

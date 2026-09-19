@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.dillonlib.util.SimplePermissions;
-import net.dillon.quesoexample.platform.QuesoExamplePlatformGetter;
+import net.dillon.quesoexample.QuesoExampleMod;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class QuesoCommand {
 
     protected static void printMessage(CommandSourceStack source, ServerPlayer player, String message) {
         if (player == null) {
-            QuesoExamplePlatformGetter.get().logger().info(message);
+            QuesoExampleMod.LOGGER.info(message);
         } else {
             player.sendSystemMessage(Component.literal(message));
         }

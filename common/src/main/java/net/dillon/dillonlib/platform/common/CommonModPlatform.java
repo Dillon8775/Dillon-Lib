@@ -44,7 +44,7 @@ public abstract class CommonModPlatform {
     public abstract boolean isDevelopmentEnvironment();
 
     /**
-     * @return the common mod version for Dillon's mods.
+     * @return the common mod version your mod.
      */
     public abstract String commonModVersion(String modId);
 

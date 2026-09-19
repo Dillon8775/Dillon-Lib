@@ -48,7 +48,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                 ),
                 new PredicateEntry(
                         new String[]{"client.fix.bow.AvatarRendererFix"},
-                        !DillonLibOptions.getLibInstance().applyAvaterRendererFix || !Platforms.shouldApplyFactories(),
+                        !DillonLibOptions.getLibInstance().applyAvatarRendererFix || !Platforms.shouldApplyFactories(),
                         ofFactory("\"apply_avatar_renderer_fix\" is disabled.")
                 ),
                 new PredicateEntry(

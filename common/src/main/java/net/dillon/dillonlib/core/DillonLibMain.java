@@ -49,7 +49,7 @@ public class DillonLibMain {
 
         LOGGER.info("DillonLib {} for {} has loaded",
                 PlatformGetter.getDillonLibPlatform().modVersion(),
-                PlatformGetter.getDillonLibPlatform().platformName().toString().toLowerCase(Locale.ROOT));
+                PlatformGetter.getDillonLibPlatform().platform().toString().toLowerCase(Locale.ROOT));
     }
 
     /**

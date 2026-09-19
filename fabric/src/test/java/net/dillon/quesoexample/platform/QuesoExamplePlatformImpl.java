@@ -3,9 +3,8 @@ package net.dillon.quesoexample.platform;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.platform.ModPlatform;
-import net.dillon.dillonlib.platform.info.LogoWidth;
-import net.dillon.dillonlib.platform.info.PlatformName;
-import net.dillon.dillonlib.platform.info.PlatformRelease;
+import net.dillon.dillonlib.platform.info.Platform;
+import net.dillon.dillonlib.platform.info.Release;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.command.QuesoCommand;
 import net.dillon.quesoexample.command.QuesoServerCommand;
@@ -17,9 +16,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -31,28 +27,18 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public @NotNull Logger logger() {
-        return LoggerFactory.getLogger("QuesoTest/Main");
+    public Release release() {
+        return Release.ALPHA;
+    }
+
+    @Override
+    public Platform platform() {
+        return Platform.FABRIC;
     }
 
     @Override
     public String modVersion() {
-        return "6.7";
-    }
-
-    @Override
-    public @NotNull PlatformName platformName() {
-        return PlatformName.FABRIC;
-    }
-
-    @Override
-    public @NotNull PlatformRelease platformRelease() {
-        return PlatformRelease.ALPHA;
-    }
-
-    @Override
-    public @NotNull LogoWidth logoWidth() {
-        return LogoWidth.LONG_PATCH;
+        return "1.7.16";
     }
 
     @Override

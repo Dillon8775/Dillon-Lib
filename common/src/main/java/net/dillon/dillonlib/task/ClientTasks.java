@@ -5,6 +5,7 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
+import net.dillon.dillonlib.platform.info.ModConfigLib;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.dillon.dillonlib.util.CommonSprites;
 import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
@@ -219,31 +220,39 @@ public class ClientTasks {
     /**
      * Draws a mod version and icon in a main menu screen.
      */
-    public static void drawModInfo(GuiGraphicsExtractor graphics, Screen menuScreen, Component version, int widthModifier, Identifier logo, boolean hasUpdate) {
-        int textWidth = menuScreen.width - 20;
-        int textHeight = menuScreen.height - 21;
-        int imageWidth = menuScreen.width - widthModifier;
-        int imageHeight = menuScreen.height - 26;
+    public static void drawModInfo(GuiGraphicsExtractor graphics, Screen menuScreen, Component version, Identifier logo, boolean hasUpdate) {
+        Font font = menuScreen.getFont();
 
-        graphics.centeredText(menuScreen.getFont(), version, textWidth, textHeight, CommonColors.WHITE);
-        drawSprite(graphics, logo, imageWidth, imageHeight, 18, 18);
+        int textWidth = font.width(version);
+
+        int rightMargin = 10;
+        int textX = menuScreen.width - rightMargin - textWidth;
+        int imageX = textX - 23;
+
+        int textY = menuScreen.height - 21;
+        int imageY = menuScreen.height - 26;
+
+        graphics.text(font, version, textX, textY, CommonColors.WHITE, true);
+        drawSprite(graphics, logo, imageX, imageY, 18, 18);
 
         if (hasUpdate) {
-            drawUpdateSprite(graphics, imageWidth - 2, imageHeight - 2);
+            drawUpdateSprite(graphics, imageX - 2, imageY - 2);
         }
     }
 
     /**
-     * Tries to open a {@code YetAnotherConfigLib} screen, if the mod is installed, and warns the user if it's not.
+     * Tries to open a {@code configuration} screen, if the config library mod is installed, and warns the user if it's not.
+     * @see ModConfigLib
      */
-    public static void tryOpenYaclScreen(Supplier<Screen> configScreen, Component modName) {
+    public static void tryOpenConfigScreen(Supplier<Screen> configScreen, Component yourModName, ModConfigLib libReference) {
         Gui gui = Minecraft.getInstance().gui;
 
-        if (!DillonLibModReferences.isModLoaded(DillonLibModReferences.YACL)) {
+        if (!DillonLibModReferences.isModLoaded(libReference.modReference())) {
             gui.toastManager().addToast(new SystemToast(
                     SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
-                    Component.translatable("dillonlib.toast.title.yacl").withStyle(ChatFormatting.RED),
-                    Component.translatable("dillonlib.toast.yacl", modName)));
+                    Component.translatable("dillonlib.toast.lib_required", libReference.libName())
+                            .withStyle(ChatFormatting.RED),
+                    Component.translatable("dillonlib.toast.download_lib", libReference.libName(), yourModName)));
         } else {
             gui.setScreen(configScreen.get());
         }

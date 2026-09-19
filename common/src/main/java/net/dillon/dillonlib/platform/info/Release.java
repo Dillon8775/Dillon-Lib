@@ -4,8 +4,9 @@ package net.dillon.dillonlib.platform.info;
  * Labels your mod release type.
  * @since 1.0
  */
-public enum PlatformRelease {
+public enum Release {
     STABLE,
     BETA,
-    ALPHA
+    ALPHA,
+    OTHER
 }

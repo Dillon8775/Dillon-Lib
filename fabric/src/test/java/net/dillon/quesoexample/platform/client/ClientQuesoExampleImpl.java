@@ -4,22 +4,16 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
-import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.Texts;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.command.QuesoClientCommand;
+import net.dillon.quesoexample.helper.ModHelper;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
 import java.util.List;
-import java.util.Map;
 
 public class ClientQuesoExampleImpl extends ClientModPlatform {
 
@@ -41,42 +35,29 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(true, false, menuButton("A", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("a", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true,  menuButton("B", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, menuButton("C", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, menuButton("D", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("E", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                new PlatformMenuButton(true, false, ModHelper.menuButton("A", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("a", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true,  ModHelper.menuButton("B", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, ModHelper.menuButton("C", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, true, ModHelper.menuButton("D", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("E", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX()))
         );
     }
 
     @Override
     public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
         dispatcher.register(QuesoClientCommand.clientTestCommand());
-    }
-
-    public static UpdatableSpriteButton menuButton(String letter, boolean shouldUpdate) {
-        return ClientTasks.createMenuButton(
-                letter,
-                Identifier.withDefaultNamespace(""),
-                (button) -> {},
-                Map.of(
-                        shouldUpdate,
-                        Component.literal("YAY")
-                ),
-                Component.literal(letter),
-                true);
     }
 }

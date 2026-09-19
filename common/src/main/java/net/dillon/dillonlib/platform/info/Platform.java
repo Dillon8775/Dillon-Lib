@@ -4,7 +4,7 @@ package net.dillon.dillonlib.platform.info;
  * All valid platforms that are commonly use in Minecraft modding that you can use with your mod. If you are coding a mod on multiple platforms, make sure each of your platforms return the correct platform id.
  * @since 1.0
  */
-public enum PlatformName {
+public enum Platform {
     FABRIC,
     NEOFORGE,
     FORGE,

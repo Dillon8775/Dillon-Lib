@@ -1,13 +1,10 @@
 package net.dillon.dillonlib.platform;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.dillon.dillonlib.platform.info.LogoWidth;
-import net.dillon.dillonlib.platform.info.PlatformName;
-import net.dillon.dillonlib.platform.info.PlatformRelease;
+import net.dillon.dillonlib.platform.info.Platform;
+import net.dillon.dillonlib.platform.info.Release;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 /**
  * A platform helper class. Can be used for various different calls and functions, and new methods can easily be added in the mod's specified platform.
@@ -25,29 +22,20 @@ public abstract class ModPlatform implements Loadable {
     public abstract String modId();
 
     /**
-     * @return the logger for your mod.
-     */
-    public abstract @NotNull Logger logger();
-
-    /**
      * @return your mod version.
+     * @see net.dillon.dillonlib.platform.common.CommonModPlatform#commonModVersion(String)
      */
     public abstract String modVersion();
 
     /**
-     * @return the {@link PlatformName} (fabric, neoforge, forge, etc.)
+     * @return the {@link Release} for your mod ({@code stable}, {@code beta}, {@code alpha}).
      */
-    public abstract @NotNull PlatformName platformName();
+    public abstract Release release();
 
     /**
-     * @return the {@link PlatformRelease} (stable/release, beta, or alpha).
+     * @return the {@link Platform} for your mod ({@code fabric}, {@code neoforge}, {@code forge}, etc.)
      */
-    public abstract @NotNull PlatformRelease platformRelease();
-
-    /**
-     * @return the {@link LogoWidth}. Used specifically in Dillon's mods, but you can branch your own logic with this if you'd like. Otherwise this doesn't do much.
-     */
-    public abstract @NotNull LogoWidth logoWidth();
+    public abstract Platform platform();
 
     /**
      * Registers events, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.

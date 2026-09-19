@@ -1,11 +1,8 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.info.LogoWidth;
-import net.dillon.dillonlib.platform.info.PlatformName;
-import net.dillon.dillonlib.platform.info.PlatformRelease;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
+import net.dillon.dillonlib.platform.info.Platform;
+import net.dillon.dillonlib.platform.info.Release;
 
 public class FabricModImpl extends ModPlatform {
 
@@ -15,27 +12,17 @@ public class FabricModImpl extends ModPlatform {
     }
 
     @Override
-    public @NotNull Logger logger() {
-        return DillonLibMain.LOGGER;
-    }
-
-    @Override
     public String modVersion() {
         return Platforms.getCommonPlatform().commonModVersion(DillonLibMain.MOD_ID);
     }
 
     @Override
-    public @NotNull PlatformName platformName() {
-        return PlatformName.FABRIC;
+    public Release release() {
+        return Release.STABLE;
     }
 
     @Override
-    public @NotNull PlatformRelease platformRelease() {
-        return PlatformRelease.STABLE;
-    }
-
-    @Override
-    public @NotNull LogoWidth logoWidth() {
-        return LogoWidth.DEFAULT;
+    public Platform platform() {
+        return Platform.FABRIC;
     }
 }

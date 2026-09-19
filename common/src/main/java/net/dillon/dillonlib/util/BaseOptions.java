@@ -64,7 +64,7 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * @return the file name.
+     * @return the file libName.
      */
     public String getFileName() {
         return this.fileName;

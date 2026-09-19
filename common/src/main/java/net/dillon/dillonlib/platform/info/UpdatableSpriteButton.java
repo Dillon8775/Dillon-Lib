@@ -30,7 +30,7 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     }
 
     /**
-     * @return the button name, used for correct alphabetical ordering.
+     * @return the button libName, used for correct alphabetical ordering.
      */
     public String getName() {
         return this.name;
