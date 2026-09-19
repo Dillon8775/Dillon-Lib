@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.mixin.client;
 
 import net.dillon.dillonlib.factory.ClientFactories;
-import net.dillon.dillonlib.mixinplugin.PredicateSigned;
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@PredicateSigned
+@Predicated
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 

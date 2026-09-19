@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
  * @see PredicateEntry
  */
 @Target(ElementType.TYPE)
-public @interface PredicateSigned {
+public @interface Predicated {
 }

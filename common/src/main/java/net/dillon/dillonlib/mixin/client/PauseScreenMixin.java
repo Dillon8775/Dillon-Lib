@@ -38,14 +38,14 @@ public class PauseScreenMixin extends Screen {
 
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
 
-            for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
-                if (data == null) {
+            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
+                if (p == null) {
                     return;
                 }
 
-                UpdatableSpriteButton button = data.menuButton();
-                if (data.pauseCondition() && button != null) {
-                    orderedButtons.add(data);
+                UpdatableSpriteButton button = p.button();
+                if (p.isOnPause() && button != null) {
+                    orderedButtons.add(p);
                 }
             }
         });
@@ -54,17 +54,17 @@ public class PauseScreenMixin extends Screen {
 
         int[] count = {0};
         iconButtonRow.visitChildren(layoutElement -> count[0]++);
-        for (PlatformMenuButton data : orderedButtons) {
+        for (PlatformMenuButton p : orderedButtons) {
             if (count[0] > PlatformMenuButton.PAUSE_SCREEN_BUTTON_CAP) { // Capped value
                 DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
                 return;
             }
 
-            UpdatableSpriteButton button = this.addRenderableOnly(data.menuButton());
+            UpdatableSpriteButton button = this.addRenderableOnly(p.button());
 
             iconButtonRow.addChild(button);
 
-            data.consumer().accept(button);
+            p.consumer().accept(button);
 
             count[0]++;
         }

@@ -14,7 +14,7 @@ public class MixinQuesoExampleImpl extends MixinModPlatform {
 
     @Override
     public boolean isModLoaded(ModReference mod) {
-        return FabricLoader.getInstance().isModLoaded(mod.modId());
+        return FabricLoader.getInstance().isModLoaded(mod.id());
     }
 
     @Override

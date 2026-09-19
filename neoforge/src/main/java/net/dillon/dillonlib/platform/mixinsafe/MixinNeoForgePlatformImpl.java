@@ -13,6 +13,6 @@ public class MixinNeoForgePlatformImpl extends MixinModPlatform {
 
     @Override
     public boolean isModLoaded(ModReference mod) {
-        return FMLLoader.getCurrent().getLoadingModList().getModFileById(mod.modId()) != null;
+        return FMLLoader.getCurrent().getLoadingModList().getModFileById(mod.id()) != null;
     }
 }

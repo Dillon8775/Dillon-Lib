@@ -35,24 +35,24 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(true, false, ModHelper.menuButton("A", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("a", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true,  ModHelper.menuButton("B", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, ModHelper.menuButton("C", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, true, ModHelper.menuButton("D", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("E", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                new PlatformMenuButton(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("A", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("a", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, true,  ModHelper.menuButton("B", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, true, ModHelper.menuButton("C", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, true, ModHelper.menuButton("D", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("E", false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
+                PlatformMenuButton.of(true, false, ModHelper.menuButton("F", true), spriteIconButton -> System.out.println(spriteIconButton.getX()))
         );
     }
 

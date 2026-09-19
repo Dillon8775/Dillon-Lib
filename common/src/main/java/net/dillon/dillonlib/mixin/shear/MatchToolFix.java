@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.mixin.shear;
 
 import net.dillon.dillonlib.factory.item.ShearsFactory;
-import net.dillon.dillonlib.mixinplugin.PredicateSigned;
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@PredicateSigned
+@Predicated
 @Mixin(MatchTool.class)
 public class MatchToolFix {
 

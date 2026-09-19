@@ -5,5 +5,24 @@ package net.dillon.dillonlib.platform.info;
  * @since 1.0
  * @param modId the mod identifier to reference when checking if a certain mod is loaded.
  */
-public record ModReference(String modId) {
+public class ModReference {
+    private final String modId;
+
+    private ModReference(final String modId) {
+        this.modId = modId;
+    }
+
+    /**
+     * Creates a new {@code ModReference}.
+     */
+    public static ModReference of(String modId) {
+        return new ModReference(modId);
+    }
+
+    /**
+     * @return the mod's {@code mod id}.
+     */
+    public String id() {
+        return this.modId;
+    }
 }

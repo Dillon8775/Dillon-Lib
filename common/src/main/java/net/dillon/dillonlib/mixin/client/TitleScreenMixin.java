@@ -42,12 +42,12 @@ public abstract class TitleScreenMixin extends Screen {
     private void adjustAmountOfIconButtons(CallbackInfo ci, @Local(name = "numberOfButtons") LocalIntRef numberOfButtons) {
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
 
-            for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
+            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
                 if (numberOfButtons.get() > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
                     return;
                 }
 
-                if (data != null && data.titleCondition() && data.menuButton() != null) {
+                if (p != null && p.isOnTitle() && p.button() != null) {
                     numberOfButtons.set(numberOfButtons.get() + 1);
                 }
             }
@@ -64,28 +64,28 @@ public abstract class TitleScreenMixin extends Screen {
         List<PlatformMenuButton> orderedButtons = new ArrayList<>();
 
         PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
-            for (PlatformMenuButton data : clientModPlatform.menuButtons()) {
-                if (data == null) {
+            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
+                if (p == null) {
                     continue;
                 }
 
-                UpdatableSpriteButton button = data.menuButton();
+                UpdatableSpriteButton button = p.button();
 
-                if (data.titleCondition() && button != null) {
-                    orderedButtons.add(data);
+                if (p.isOnTitle() && button != null) {
+                    orderedButtons.add(p);
                 }
             }
         });
 
         PlatformMenuButton.sortButtons(orderedButtons);
 
-        for (PlatformMenuButton data : orderedButtons) {
+        for (PlatformMenuButton p : orderedButtons) {
             if (b[0] > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
                 DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
                 return;
             }
 
-            UpdatableSpriteButton button = data.menuButton();
+            UpdatableSpriteButton button = p.button();
 
             this.addRenderableWidget(button);
             button.setPosition(
@@ -93,7 +93,7 @@ public abstract class TitleScreenMixin extends Screen {
                     topPos - 24
             );
 
-            data.consumer().accept(button);
+            p.consumer().accept(button);
         }
     }
 

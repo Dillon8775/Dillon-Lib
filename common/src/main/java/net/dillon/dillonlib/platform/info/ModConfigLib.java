@@ -10,5 +10,33 @@ import java.util.function.Supplier;
  * @since 1.2
  * @see ClientTasks#tryOpenConfigScreen(Supplier, Component, ModConfigLib)
  */
-public record ModConfigLib(Component libName, ModReference modReference) {
+public class ModConfigLib {
+    private final Component libName;
+    private final ModReference modReference;
+
+    private ModConfigLib(Component libName, ModReference modReference) {
+        this.libName = libName;
+        this.modReference = modReference;
+    }
+
+    /**
+     * Creates a new {@code ModConfigLib}.
+     */
+    public static ModConfigLib of(Component libName, ModReference modReference) {
+        return new ModConfigLib(libName, modReference);
+    }
+
+    /**
+     * @return the mod's {@code name}.
+     */
+    public Component name() {
+        return this.libName;
+    }
+
+    /**
+     * @return the mod's {@code mod reference}.
+     */
+    public ModReference reference() {
+        return this.modReference;
+    }
 }

@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.mixin.ignitable;
 
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
-import net.dillon.dillonlib.mixinplugin.PredicateSigned;
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.CandleCakeBlock;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@PredicateSigned
+@Predicated
 @Mixin(CandleCakeBlock.class)
 public class CandleCakeBlockFix {
 

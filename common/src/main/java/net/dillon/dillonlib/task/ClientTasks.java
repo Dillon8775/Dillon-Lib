@@ -3,7 +3,7 @@ package net.dillon.dillonlib.task;
 import com.mojang.blaze3d.Blaze3D;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
-import net.dillon.dillonlib.core.DillonLibModReferences;
+import net.dillon.dillonlib.core.DillonLibModConfigLibs;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.ModConfigLib;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
@@ -15,8 +15,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
@@ -36,6 +34,8 @@ import java.net.URI;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import static net.dillon.dillonlib.platform.info.UpdatableSpriteButton.of;
 
 /**
  * Client-side only methods and tasks that can be commonly used throughout your mod.
@@ -241,18 +241,26 @@ public class ClientTasks {
     }
 
     /**
+     * Tries to open a {@code YetAnotherConfigLib} screen, and warns the user if it's not.
+     * @see ModConfigLib
+     */
+    public static void tryOpenYaclScreen(Supplier<Screen> configScreen, Component yourModName) {
+        tryOpenConfigScreen(configScreen, yourModName, DillonLibModConfigLibs.YACL);
+    }
+
+    /**
      * Tries to open a {@code configuration} screen, if the config library mod is installed, and warns the user if it's not.
      * @see ModConfigLib
      */
-    public static void tryOpenConfigScreen(Supplier<Screen> configScreen, Component yourModName, ModConfigLib libReference) {
+    public static void tryOpenConfigScreen(Supplier<Screen> configScreen, Component yourModName, ModConfigLib lib) {
         Gui gui = Minecraft.getInstance().gui;
 
-        if (!DillonLibModReferences.isModLoaded(libReference.modReference())) {
+        if (!DillonLibModConfigLibs.isLibLoaded(lib)) {
             gui.toastManager().addToast(new SystemToast(
                     SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
-                    Component.translatable("dillonlib.toast.lib_required", libReference.libName())
+                    Component.translatable("dillonlib.toast.lib_required", lib.name())
                             .withStyle(ChatFormatting.RED),
-                    Component.translatable("dillonlib.toast.download_lib", libReference.libName(), yourModName)));
+                    Component.translatable("dillonlib.toast.download_lib", lib.name(), yourModName)));
         } else {
             gui.setScreen(configScreen.get());
         }
@@ -300,18 +308,7 @@ public class ClientTasks {
             text = Component.empty();
         }
 
-        return createSpriteIconButton(name, sprite, onPress, text, spriteWidth, spriteHeight, hasUpdate);
-    }
-
-    /**
-     * Creates a {@link UpdatableSpriteButton} with a custom sprite width and height.
-     */
-    public static UpdatableSpriteButton createSpriteIconButton(String name, Identifier sprite, Button.OnPress onPress, Component tooltip, int spriteWidth, int spriteHeight, boolean hasUpdate) {
-        UpdatableSpriteButton button = new UpdatableSpriteButton(name, new WidgetSprites(sprite), onPress, hasUpdate, spriteWidth, spriteHeight);
-        if (!tooltip.equals(Component.empty())) {
-            button.setTooltip(Tooltip.create(tooltip));
-        }
-        return button;
+        return of(name, sprite, onPress, text, spriteWidth, spriteHeight, hasUpdate);
     }
 
     /**
