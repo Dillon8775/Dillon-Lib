@@ -46,7 +46,6 @@ public abstract class DillonLibScreen extends OptionsSubScreen {
 
     /**
      * Renders basic mod information on the screen.
-     * @apiNote
      * <pre> {@code
      * ClientTasks.drawModInfo(
      *                 graphics,
@@ -64,7 +63,6 @@ public abstract class DillonLibScreen extends OptionsSubScreen {
     /**
      * A method to open your keybinds screen.
      * @see KeybindScrollHelper#request(KeyMapping.Category)
-     * @apiNote
      * <pre> {@code
      * KeybindScrollHelper.request(YOUR_KEYBIND_CATEGORY);
      * ClientTasks.openScreen(new KeyBindsScreen(this, this.options));
