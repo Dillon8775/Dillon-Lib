@@ -37,6 +37,12 @@ public abstract class DillonLibScreen extends OptionsSubScreen {
     }
 
     @Override
+    protected void init() {
+        super.init();
+        this.widgets();
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         super.extractRenderState(graphics, mouseX, mouseY, delta);
 
@@ -59,6 +65,12 @@ public abstract class DillonLibScreen extends OptionsSubScreen {
      * @see ClientTasks#drawModInfo(GuiGraphicsExtractor, Screen, Component, Identifier, boolean) 
      */
     protected abstract void renderModInfo(GuiGraphicsExtractor graphics);
+
+    /**
+     * The list of buttons to add on the screen.
+     */
+    protected void widgets() {
+    }
 
     /**
      * A method to open your keybinds screen.
