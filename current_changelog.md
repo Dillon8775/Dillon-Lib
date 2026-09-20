@@ -1,6 +1,7 @@
 # Version 1.2
 
 - Add ```Links``` class.
+- Add ```DillonLibScreen``` class.
 - ```ClientTasks.drawModInfo``` now calculates the size of your mod version text and automatically determines how to place the text and logo on a screen.
 - Renamed ```ClientTasks.tryOpenYaclScreen``` to ```ClientTasks.tryOpenConfigScreen``` and added a ```ModConfigLib``` parameter, to include which mod needs to be loaded to open a config screen.
 - Added ```ModConfigLib``` record, which takes in a Component ```libName``` as the literal mod's library name to display, and a ```ModReference``` to check if the library is loaded from mod id.
