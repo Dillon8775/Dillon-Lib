@@ -1,157 +1,237 @@
 package net.dillon.dillonlib.screen;
 
-import com.mojang.blaze3d.Blaze3D;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
-import net.dillon.dillonlib.platform.Platforms;
-import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.KeybindScrollHelper;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
+
+import static net.dillon.dillonlib.task.ClientTasks.getFont;
 
 /**
- * A common screen that contains basic mod information and access to configurations, resources and other things.
+ * A common interface for creating basic screens.
+ *
  * @since 1.2
+ * @see BasicDillonLibScreen
+ * @see DillonLibMenuScreen
  */
 @Dill(DillType.CLIENT)
-public abstract class DillonLibScreen extends OptionsSubScreen {
-    private Button doneButton;
+public interface DillonLibScreen {
 
-    public DillonLibScreen(Screen lastScreen, Component title) {
-        super(lastScreen, Minecraft.getInstance().options, title);
-    }
+    /**
+     * All widget data for a screen.
+     */
+    List<WidgetData> widgetData();
 
-    @Override
-    protected void addFooter() {
-        this.doneButton = this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose()).width(200).build());
-    }
+    /**
+     * Override this method to add your widgets to the screen.
+     */
+    void widgets();
 
-    @Override
-    protected void init() {
-        super.init();
-        this.widgets();
-    }
+    /**
+     * Creates a widget with custom active state, tooltip, and position.
+     *
+     * @param widget the widget
+     * @param shouldBeActive determines whether the widget is active
+     * @param conditionalTooltip supplies the widget's conditional tooltip
+     * @param x the widget's x position
+     * @param y the widget's y position
+     * @return the supplied widget
+     */
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            BooleanSupplier shouldBeActive,
+            Supplier<ConditionalTooltip> conditionalTooltip,
+            IntSupplier x,
+            IntSupplier y
+    ) {
+        widgetData().add(WidgetData.of(
+                widget,
+                shouldBeActive,
+                conditionalTooltip,
+                x,
+                y
+        ));
 
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
-        super.extractRenderState(graphics, mouseX, mouseY, delta);
-
-        this.renderModInfo(graphics);
-        this.activateButtons();
+        return widget;
     }
 
     /**
-     * Renders basic mod information on the screen.
-     * <pre> {@code
-     * ClientTasks.drawModInfo(
-     *                 graphics,
-     *                 this,
-     *                 VERSION,
-     *                 qoqIdentifier(CHEESE_WHEEL_TEXTURE),
-     *                 HAS_UPDATE
-     *         );
-     * }
-     * </pre>
-     * @see ClientTasks#drawModInfo(GuiGraphicsExtractor, Screen, Component, Identifier, boolean) 
+     * Creates a widget with custom active state and tooltip.
      */
-    protected abstract void renderModInfo(GuiGraphicsExtractor graphics);
-
-    /**
-     * The list of buttons to add on the screen.
-     */
-    protected void widgets() {
-    }
-
-    /**
-     * A method to open your keybinds screen.
-     * @see KeybindScrollHelper#request(KeyMapping.Category)
-     * <pre> {@code
-     * KeybindScrollHelper.request(YOUR_KEYBIND_CATEGORY);
-     * ClientTasks.openScreen(new KeyBindsScreen(this, this.options));
-     * }</pre>
-     */
-    protected void openKeybinds() {
-    }
-
-    /**
-     * A method to constantly change whether certain buttons should be active or not.
-     */
-    protected void activateButtons() {
-    }
-
-    /**
-     * Opens the default configuration directory.
-     */
-    public void openConfigDirectory() {
-        Blaze3D.openPath(
-                Platforms.getCommonPlatform().configDir()
-                        .toFile().toPath()
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            BooleanSupplier shouldBeActive,
+            Supplier<ConditionalTooltip> conditionalTooltip
+    ) {
+        return createWidget(
+                widget,
+                shouldBeActive,
+                conditionalTooltip,
+                () -> WidgetData.UNMODIFIED,
+                () -> WidgetData.UNMODIFIED
         );
     }
 
     /**
-     * @return a keybinds button to display on your screen.
+     * Creates a widget with custom active state and no tooltip.
      */
-    public AbstractWidget createOpenKeybindsButton(Component text) {
-        return Button.builder(text, button -> {
-            this.openKeybinds();
-        }).build();
-    }
-
-    /**
-     * @return the {@code done button}, which can be used as a reference for other buttons.
-     */
-    public AbstractWidget getDoneButton() {
-        return this.doneButton;
-    }
-
-    /**
-     * Creates a header.
-     */
-    public void addHeader(Component header) {
-        this.list.addHeader(header);
-    }
-
-    /**
-     * Adds a list of buttons to the screen.
-     */
-    public void addButtons(AbstractWidget... buttons) {
-        this.list.addSmall(
-                Arrays.stream(buttons).toList()
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            BooleanSupplier shouldBeActive
+    ) {
+        return createWidget(
+                widget,
+                shouldBeActive,
+                ConditionalTooltip::empty
         );
     }
 
     /**
-     * Creates a header with buttons.
+     * Creates an always-active widget with a tooltip.
      */
-    public void createHeader(Component header, AbstractWidget... buttons) {
-        addHeader(header);
-        addButtons(buttons);
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            Component tooltip
+    ) {
+        return createWidget(
+                widget,
+                () -> true,
+                () -> ConditionalTooltip.ofActive(tooltip)
+        );
     }
 
     /**
-     * Creates a header a big button at the top, and then a list of regular buttons below it.
+     * Creates an always-active widget with a conditional tooltip.
      */
-    public void createHeaderWithBig(Component header, AbstractWidget big, AbstractWidget... buttons) {
-        createHeader(header);
-        this.list.addBig(big);
-        addButtons(buttons);
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            Supplier<ConditionalTooltip> conditionalTooltip
+    ) {
+        return createWidget(
+                widget,
+                () -> true,
+                conditionalTooltip
+        );
     }
 
     /**
-     * Required method to override.
+     * Creates an always-active widget with no tooltip.
      */
-    @Override
-    protected void addOptions() {
+    default AbstractWidget createWidget(AbstractWidget widget) {
+        return createWidget(
+                widget,
+                () -> true
+        );
+    }
+
+    /**
+     * Creates a widget with custom active state and position.
+     */
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            BooleanSupplier shouldBeActive,
+            IntSupplier x,
+            IntSupplier y
+    ) {
+        return createWidget(
+                widget,
+                shouldBeActive,
+                ConditionalTooltip::empty,
+                x,
+                y
+        );
+    }
+
+    /**
+     * Creates an always-active widget with a custom tooltip and position.
+     */
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            Supplier<ConditionalTooltip> conditionalTooltip,
+            IntSupplier x,
+            IntSupplier y
+    ) {
+        return createWidget(
+                widget,
+                () -> true,
+                conditionalTooltip,
+                x,
+                y
+        );
+    }
+
+    /**
+     * Creates an always-active widget with a custom position.
+     */
+    default AbstractWidget createWidget(
+            AbstractWidget widget,
+            IntSupplier x,
+            IntSupplier y
+    ) {
+        return createWidget(
+                widget,
+                () -> true,
+                ConditionalTooltip::empty,
+                x,
+                y
+        );
+    }
+
+    /**
+     * Draws all widget data.
+     */
+    default void drawWidgetData(
+            GuiGraphicsExtractor graphics,
+            int mouseX,
+            int mouseY
+    ) {
+        for (WidgetData data : widgetData()) {
+            AbstractWidget widget = data.getWidget();
+
+            if (widget == null) {
+                continue;
+            }
+
+            setWidgetPositions(data);
+
+            boolean shouldBeActive = data.shouldBeActive().getAsBoolean();
+            widget.active = shouldBeActive;
+
+            ConditionalTooltip conditionalTooltip = data.getConditionalTooltip();
+            Component tooltip = conditionalTooltip.getTooltip(shouldBeActive);
+
+            if (widget.isHovered()
+                    && !conditionalTooltip.isEmptyOrNullTooltip(tooltip)) {
+                graphics.setTooltipForNextFrame(
+                        getFont(),
+                        getFont().split(tooltip, 200),
+                        mouseX,
+                        mouseY
+                );
+            }
+        }
+    }
+
+    /**
+     * Sets widget positions.
+     */
+    default void setWidgetPositions(WidgetData data) {
+        AbstractWidget widget = data.getWidget();
+
+        int x = data.getX();
+        if (x != WidgetData.UNMODIFIED) {
+            widget.setX(x);
+        }
+
+        int y = data.getY();
+        if (y != WidgetData.UNMODIFIED) {
+            widget.setY(y);
+        }
     }
 }

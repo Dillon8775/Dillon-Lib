@@ -11,9 +11,10 @@ public class DillonLibOptions {
     public boolean applyPersonHandsAndItemsRendererFix = true;
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
+    public boolean fortniteBattlePass = false;
 
     /**
-     * @return the dillonlib options instance.
+     * @return the DillonLib options instance.
      */
     public static DillonLibOptions getLibInstance() {
         return DillonLibOptions.INSTANCE.getInstance();

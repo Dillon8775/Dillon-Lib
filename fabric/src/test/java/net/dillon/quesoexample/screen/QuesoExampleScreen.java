@@ -1,33 +1,27 @@
 package net.dillon.quesoexample.screen;
 
-import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.quesoexample.platform.QuesoExamplePlatformGetter;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
+import net.dillon.dillonlib.screen.BasicDillonLibScreen;
+import net.dillon.dillonlib.screen.ScreenBuilder;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
-public class QuesoExampleScreen extends OptionsSubScreen {
+public class QuesoExampleScreen extends BasicDillonLibScreen {
 
-    public QuesoExampleScreen(Screen lastScreen) {
-        super(lastScreen, Minecraft.getInstance().options, Component.literal("Testing Screen!"));
+    public QuesoExampleScreen() {
+        super(Component.literal("Testing Screen!"), ScreenBuilder::ofTopCentered);
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float deltaTicks) {
-        ClientTasks.drawModInfo(
-                graphics,
-                this,
-                Component.literal(QuesoExamplePlatformGetter.get().modVersion()).withStyle(ChatFormatting.RED),
-                Identifier.fromNamespaceAndPath("quesoexamplemod", "test_icon"),
-                false
-        );
+    protected void drawGraphics(GuiGraphicsExtractor graphics) {
+        builder().renderHeight(40).apply();
+
+        builder().textCenterAndHeightDown(graphics, Component.literal("Woah!")).apply();
+        builder().textCenterAndHeightDown(graphics, Component.literal("Yay!")).apply();
+        builder().textCenterAndHeightDown(graphics, Component.literal("WOOOOOOOOO"), 40).apply();
+        builder().textCenterAndHeightDown(graphics, Component.literal("ok!")).apply();
     }
 
     @Override
-    protected void addOptions() {
+    public void widgets() {
     }
 }

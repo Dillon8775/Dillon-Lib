@@ -1,7 +1,7 @@
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     implementation "net.litetex.mcm:dev-auth-neo:${project.devauth_neo_version}"
@@ -13,7 +13,7 @@ dependencies {
 //    }
 
     testImplementation sourceSets.main.output
-    testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    testImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
     afterEvaluate {
         subprojects.each {
