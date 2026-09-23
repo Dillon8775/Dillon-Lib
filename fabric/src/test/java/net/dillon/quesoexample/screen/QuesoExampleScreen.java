@@ -8,12 +8,13 @@ import net.minecraft.network.chat.Component;
 public class QuesoExampleScreen extends BasicDillonLibScreen {
 
     public QuesoExampleScreen() {
-        super(Component.literal("Testing Screen!"), ScreenBuilder::ofTopCentered);
+        super(Component.literal("Testing Screen!"));
     }
 
     @Override
     protected void drawGraphics(GuiGraphicsExtractor graphics) {
-        builder().renderHeight(40).apply();
+        builder().renderHeightTop().apply();
+        builder().renderHeightDown(40).apply();
 
         builder().textCenterAndHeightDown(graphics, Component.literal("Woah!")).apply();
         builder().textCenterAndHeightDown(graphics, Component.literal("Yay!")).apply();

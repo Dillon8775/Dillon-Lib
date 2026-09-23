@@ -304,13 +304,6 @@ public class ScreenBuilder {
     }
 
     /**
-     * Sets the render width.
-     */
-    public ScreenValue renderWidth(int amount) {
-        return valueAdd(amount, 0, Type.RENDER_WIDTH);
-    }
-
-    /**
      * Calculates the current render width moved right by {@link ScreenBuilder#defaultRenderOffset()}, and returns the new value.
      */
     public ScreenValue renderWidthRight() {
@@ -435,13 +428,6 @@ public class ScreenBuilder {
      */
     public ScreenValue renderHeightTop() {
         return height(ScreenPos.TOP_CENTER, Type.RENDER_HEIGHT);
-    }
-
-    /**
-     * Sets the render height.
-     */
-    public ScreenValue renderHeight(int amount) {
-        return valueAdd(amount, 0, Type.RENDER_HEIGHT);
     }
 
     /**
