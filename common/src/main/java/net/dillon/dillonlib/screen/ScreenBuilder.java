@@ -7,6 +7,9 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
+import net.minecraft.util.FormattedCharSequence;
+
+import java.util.List;
 
 import static net.dillon.dillonlib.task.ClientTasks.getFont;
 
@@ -20,15 +23,11 @@ import static net.dillon.dillonlib.task.ClientTasks.getFont;
 @Dill(DillType.CLIENT)
 public class ScreenBuilder {
     private final Screen screen;
-    private int initialWidth = 0; // The first width initialized
-    private int initialHeight = 0; // The first height initialized
-    private int currentWidth = 0; // The current width of the screen builder
-    private int currentHeight = 0; // The current height of the screen builder
-    private int renderWidth = 0; // The current width of the screen builder, which is updated and then reset every frame. Really should only be used for text or constant renderable things
-    private int renderHeight = 0; // The current height of the screen builder, which is updated and then reset every frame. Really should only be used for text or constant renderable things
+    private final Positions positions;
 
     private ScreenBuilder(Screen screen) {
         this.screen = screen;
+        this.positions = new Positions();
     }
 
     /**
@@ -52,8 +51,8 @@ public class ScreenBuilder {
         builder.width(pos, Type.WIDTH).apply();
         builder.height(pos, Type.HEIGHT).apply();
 
-        builder.initialWidth = builder.getCurrentWidth();
-        builder.initialHeight = builder.getCurrentHeight();
+        builder.positions.initialWidth = builder.getCurrentWidth();
+        builder.positions.initialHeight = builder.getCurrentHeight();
 
         return builder;
     }
@@ -111,42 +110,42 @@ public class ScreenBuilder {
      * @return the current width for this builder.
      */
     private int getCurrentWidth() {
-        return currentWidth;
+        return positions.currentWidth;
     }
 
     /**
      * @return the current height for this builder.
      */
     private int getCurrentHeight() {
-        return currentHeight;
+        return positions.currentHeight;
     }
 
     /**
      * Captures the width in its current place.
      */
     public int captureWidth() {
-        return new ScreenValue(currentWidth, Type.WIDTH).pop();
+        return new ScreenValue(positions.currentWidth, Type.WIDTH).pop();
     }
 
     /**
      * Captures the height in its current place.
      */
     public int captureHeight() {
-        return new ScreenValue(currentHeight, Type.HEIGHT).pop();
+        return new ScreenValue(positions.currentHeight, Type.HEIGHT).pop();
     }
 
     /**
-     * Captures the render width in its current place.
+     * Captures the graphics width in its current place.
      */
-    public int captureRenderWidth() {
-        return new ScreenValue(renderWidth, Type.RENDER_WIDTH).pop();
+    public int captureGraphicsWidth() {
+        return new ScreenValue(positions.graphicsWidth, Type.GRAPHICS_WIDTH).pop();
     }
 
     /**
-     * Captures the render height in its current place.
+     * Captures the graphics height in its current place.
      */
-    public int captureRenderHeight() {
-        return new ScreenValue(renderHeight, Type.RENDER_HEIGHT).pop();
+    public int captureGraphicsHeight() {
+        return new ScreenValue(positions.graphicsHeight, Type.GRAPHICS_HEIGHT).pop();
     }
 
     /**
@@ -157,9 +156,9 @@ public class ScreenBuilder {
     }
 
     /**
-     * @return the default render offset for modifying render width and render height.
+     * @return the default render offset for modifying graphics width and graphics height.
      */
-    public int defaultRenderOffset() {
+    public int defaultGraphicsOffset() {
         return 20;
     }
 
@@ -167,40 +166,114 @@ public class ScreenBuilder {
      * Resets the width and height to the initial values.
      */
     public void resetBounds() {
-        currentWidth = initialWidth;
-        currentHeight = initialHeight;
+        positions.currentWidth = positions.initialWidth;
+        positions.currentHeight = positions.initialHeight;
     }
 
     /**
      * Resets the render bounds to the initial values.
      */
     public void resetRenderBounds() {
-        renderWidth = initialWidth;
-        renderHeight = initialHeight;
+        positions.graphicsWidth = positions.initialWidth;
+        positions.graphicsHeight = positions.initialHeight;
+    }
+
+    /**
+     * @return the center pos for text.
+     */
+    private int getTextCenter() {
+        return width(ScreenPos.CENTER, Type.WIDTH).pop();
+    }
+
+    /**
+     * Draws title text on a screen.
+     */
+    public ScreenValue textTitle(GuiGraphicsExtractor graphics) {
+        return textTitle(graphics, screen.getTitle());
+    }
+
+    /**
+     * Draws custom title text on a screen.
+     */
+    public ScreenValue textTitle(GuiGraphicsExtractor graphics, Component title) {
+        int height = graphicsHeightTop().pop() + graphicsHeightDown(13).pop();
+        return textCenter(graphics, title, height);
     }
 
     /**
      * Draws text and then moves the height down.
      */
-    public ScreenValue textCenterAndHeightDown(GuiGraphicsExtractor graphics, Component text) {
-        return textCenterAndHeightDown(graphics, text, defaultRenderOffset());
+    public ScreenValue textCenterAndGraphicsHeightDown(GuiGraphicsExtractor graphics, Component text) {
+        return textCenterAndGraphicsHeightDown(graphics, text, defaultGraphicsOffset());
     }
 
     /**
      * Draws text and then moves the height down by a specific amount.
      */
-    public ScreenValue textCenterAndHeightDown(GuiGraphicsExtractor graphics, Component text, int amount) {
+    public ScreenValue textCenterAndGraphicsHeightDown(GuiGraphicsExtractor graphics, Component text, int amount) {
         textCenter(graphics, text);
-        return renderHeightDown(amount);
+        return graphicsHeightDown(amount);
     }
 
     /**
      * Draws text in a centered fashion.
      */
     public ScreenValue textCenter(GuiGraphicsExtractor graphics, Component text) {
-        int position = (width(ScreenPos.CENTER, Type.WIDTH).pop()) - getFont().width(text) / 2;
-        graphics.text(screen.getFont(), text, position, renderHeight, CommonColors.WHITE);
-        return new ScreenValue(position, Type.RENDER_HEIGHT);
+        return textCenter(graphics, text, positions.graphicsHeight);
+    }
+
+    /**
+     * Draws text in a centered fashion at a specific height.
+     */
+    public ScreenValue textCenter(GuiGraphicsExtractor graphics, Component text, int height) {
+        int position = getTextCenter() - getFont().width(text) / 2;
+
+        graphics.text(
+                screen.getFont(),
+                text,
+                position,
+                height,
+                CommonColors.WHITE
+        );
+
+        return new ScreenValue(position, Type.GRAPHICS_HEIGHT);
+    }
+
+    /**
+     * Draws wrapped text centered and moves the height down after each line.
+     */
+    public ScreenValue textCenterAndGraphicsHeightDownWrapped(GuiGraphicsExtractor graphics, Component text) {
+        return textCenterAndGraphicsHeightDownWrapped(graphics, text, 400);
+    }
+
+    /**
+     * Draws wrapped text centered and moves the height down after each line, with a custom max width.
+     */
+    public ScreenValue textCenterAndGraphicsHeightDownWrapped(GuiGraphicsExtractor graphics, Component text, int maxWidth) {
+        return textCenterAndGraphicsHeightDownWrapped(graphics, text, maxWidth, defaultGraphicsOffset());
+    }
+
+    /**
+     * Draws wrapped text centered and moves the height down by a specific amount after each line, with a custom max width and amount for each line.
+     */
+    public ScreenValue textCenterAndGraphicsHeightDownWrapped(GuiGraphicsExtractor graphics, Component text, int maxWidth, int amount) {
+        List<FormattedCharSequence> lines = getFont().split(text, maxWidth);
+
+        for (FormattedCharSequence line : lines) {
+            int position = getTextCenter() - getFont().width(line) / 2;
+
+            graphics.text(
+                    screen.getFont(),
+                    line,
+                    position,
+                    positions.graphicsHeight,
+                    CommonColors.WHITE
+            );
+
+            graphicsHeightDown(amount).apply();
+        }
+
+        return new ScreenValue(positions.graphicsHeight, Type.GRAPHICS_HEIGHT);
     }
 
     /**
@@ -257,7 +330,7 @@ public class ScreenBuilder {
      * Calculates the current width moved right, and returns the new value.
      */
     public ScreenValue widthRight(int amount) {
-        return valueAdd(currentWidth, amount, Type.WIDTH);
+        return valueAdd(positions.currentWidth, amount, Type.WIDTH);
     }
 
     /**
@@ -271,64 +344,64 @@ public class ScreenBuilder {
      * Calculates the current width moved left, and returns the new value.
      */
     public ScreenValue widthLeft(int amount) {
-        return valueNegate(currentWidth, amount, Type.WIDTH);
+        return valueNegate(positions.currentWidth, amount, Type.WIDTH);
     }
 
     /**
-     * @param widget the widget to reset render width to.
-     * @return the render width at the widget's position.
+     * @param widget the widget to reset graphics width to.
+     * @return the graphics width at the widget's position.
      */
-    public ScreenValue renderWidth(AbstractWidget widget) {
-        return new ScreenValue(widget.getX(), Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidth(AbstractWidget widget) {
+        return new ScreenValue(widget.getX(), Type.GRAPHICS_WIDTH);
     }
 
     /**
-     * Calculates the render width at the center, and returns the new value.
+     * Calculates the graphics width at the center, and returns the new value.
      */
-    public ScreenValue renderWidthCenter() {
-        return width(ScreenPos.CENTER, Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidthCenter() {
+        return width(ScreenPos.CENTER, Type.GRAPHICS_WIDTH);
     }
 
     /**
-     * Calculates the render width at the bottom left, and returns the new value.
+     * Calculates the graphics width at the bottom left, and returns the new value.
      */
-    public ScreenValue renderWidthSideLeft() {
-        return width(ScreenPos.BOTTOM_LEFT, Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidthSideLeft() {
+        return width(ScreenPos.BOTTOM_LEFT, Type.GRAPHICS_WIDTH);
     }
 
     /**
-     * Calculates the render width at the bottom right, and returns the new value.
+     * Calculates the graphics width at the bottom right, and returns the new value.
      */
-    public ScreenValue renderWidthSideRight() {
-        return width(ScreenPos.BOTTOM_RIGHT, Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidthSideRight() {
+        return width(ScreenPos.BOTTOM_RIGHT, Type.GRAPHICS_WIDTH);
     }
 
     /**
-     * Calculates the current render width moved right by {@link ScreenBuilder#defaultRenderOffset()}, and returns the new value.
+     * Calculates the current graphics width moved right by {@link ScreenBuilder#defaultGraphicsOffset()}, and returns the new value.
      */
-    public ScreenValue renderWidthRight() {
-        return renderWidthRight(defaultRenderOffset());
+    public ScreenValue graphicsWidthRight() {
+        return graphicsWidthRight(defaultGraphicsOffset());
     }
 
     /**
-     * Calculates the current render width moved right, and returns the new value.
+     * Calculates the current graphics width moved right, and returns the new value.
      */
-    public ScreenValue renderWidthRight(int amount) {
-        return valueAdd(renderWidth, amount, Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidthRight(int amount) {
+        return valueAdd(positions.graphicsWidth, amount, Type.GRAPHICS_WIDTH);
     }
 
     /**
-     * Calculates the current render width moved left by {@link ScreenBuilder#defaultRenderOffset()}, and returns the new value.
+     * Calculates the current graphics width moved left by {@link ScreenBuilder#defaultGraphicsOffset()}, and returns the new value.
      */
-    public ScreenValue renderWidthLeft() {
-        return renderWidthLeft(defaultRenderOffset());
+    public ScreenValue graphicsWidthLeft() {
+        return graphicsWidthLeft(defaultGraphicsOffset());
     }
 
     /**
-     * Calculates the current render width moved left, and returns the new value.
+     * Calculates the current graphics width moved left, and returns the new value.
      */
-    public ScreenValue renderWidthLeft(int amount) {
-        return valueNegate(renderWidth, amount, Type.RENDER_WIDTH);
+    public ScreenValue graphicsWidthLeft(int amount) {
+        return valueNegate(positions.graphicsWidth, amount, Type.GRAPHICS_WIDTH);
     }
 
     /**
@@ -384,7 +457,7 @@ public class ScreenBuilder {
      * Calculates the current height moved down, and returns the new value.
      */
     public ScreenValue heightDown(int amount) {
-        return valueAdd(currentHeight, amount, Type.HEIGHT);
+        return valueAdd(positions.currentHeight, amount, Type.HEIGHT);
     }
 
     /**
@@ -398,64 +471,64 @@ public class ScreenBuilder {
      * Calculates the current height moved up, and returns the new value.
      */
     public ScreenValue heightUp(int amount) {
-        return valueNegate(currentHeight, amount, Type.HEIGHT);
+        return valueNegate(positions.currentHeight, amount, Type.HEIGHT);
     }
 
     /**
-     * @param widget the widget to reset render height to.
-     * @return the render height at the widget's position.
+     * @param widget the widget to reset graphics height to.
+     * @return the graphics height at the widget's position.
      */
-    public ScreenValue renderHeight(AbstractWidget widget) {
-        return new ScreenValue(widget.getY(), Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeight(AbstractWidget widget) {
+        return new ScreenValue(widget.getY(), Type.GRAPHICS_HEIGHT);
     }
 
     /**
-     * Calculates the render height at the bottom center, and returns the new value.
+     * Calculates the graphics height at the bottom center, and returns the new value.
      */
-    public ScreenValue renderHeightBottom() {
-        return height(ScreenPos.BOTTOM_CENTER, Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeightBottom() {
+        return height(ScreenPos.BOTTOM_CENTER, Type.GRAPHICS_HEIGHT);
     }
 
     /**
-     * Calculates the render height at the center, and returns the new value.
+     * Calculates the graphics height at the center, and returns the new value.
      */
-    public ScreenValue renderHeightCenter() {
-        return height(ScreenPos.CENTER, Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeightCenter() {
+        return height(ScreenPos.CENTER, Type.GRAPHICS_HEIGHT);
     }
 
     /**
-     * Calculates the render height at the top center, and returns the new value.
+     * Calculates the graphics height at the top center, and returns the new value.
      */
-    public ScreenValue renderHeightTop() {
-        return height(ScreenPos.TOP_CENTER, Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeightTop() {
+        return height(ScreenPos.TOP_CENTER, Type.GRAPHICS_HEIGHT);
     }
 
     /**
-     * Calculates the current render height moved down by {@link ScreenBuilder#defaultRenderOffset()}, and returns the new value.
+     * Calculates the current graphics height moved down by {@link ScreenBuilder#defaultGraphicsOffset()}, and returns the new value.
      */
-    public ScreenValue renderHeightDown() {
-        return renderHeightDown(defaultRenderOffset());
+    public ScreenValue graphicsHeightDown() {
+        return graphicsHeightDown(defaultGraphicsOffset());
     }
 
     /**
-     * Calculates the current render height moved down, and returns the new value.
+     * Calculates the current graphics height moved down, and returns the new value.
      */
-    public ScreenValue renderHeightDown(int amount) {
-        return valueAdd(renderHeight, amount, Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeightDown(int amount) {
+        return valueAdd(positions.graphicsHeight, amount, Type.GRAPHICS_HEIGHT);
     }
 
     /**
-     * Calculates the current render height moved up by {@link ScreenBuilder#defaultOffset()}, and returns the new value.
+     * Calculates the current graphics height moved up by {@link ScreenBuilder#defaultOffset()}, and returns the new value.
      */
-    public ScreenValue renderHeightUp() {
-        return renderHeightUp(defaultRenderOffset());
+    public ScreenValue graphicsHeightUp() {
+        return graphicsHeightUp(defaultGraphicsOffset());
     }
 
     /**
-     * Calculates the current render height moved up, and returns the new value.
+     * Calculates the current graphics height moved up, and returns the new value.
      */
-    public ScreenValue renderHeightUp(int amount) {
-        return valueNegate(renderHeight, amount, Type.RENDER_HEIGHT);
+    public ScreenValue graphicsHeightUp(int amount) {
+        return valueNegate(positions.graphicsHeight, amount, Type.GRAPHICS_HEIGHT);
     }
 
     /**
@@ -491,10 +564,10 @@ public class ScreenBuilder {
         public int apply() {
             if (!applied) {
                 switch (type) {
-                    case WIDTH -> currentWidth = value;
-                    case HEIGHT -> currentHeight = value;
-                    case RENDER_WIDTH -> renderWidth = value;
-                    case RENDER_HEIGHT -> renderHeight = value;
+                    case WIDTH -> positions.currentWidth = value;
+                    case HEIGHT -> positions.currentHeight = value;
+                    case GRAPHICS_WIDTH -> positions.graphicsWidth = value;
+                    case GRAPHICS_HEIGHT -> positions.graphicsHeight = value;
                 }
 
                 applied = true;
@@ -517,8 +590,8 @@ public class ScreenBuilder {
     enum Type {
         WIDTH,
         HEIGHT,
-        RENDER_WIDTH,
-        RENDER_HEIGHT
+        GRAPHICS_WIDTH,
+        GRAPHICS_HEIGHT
     }
 
     /**

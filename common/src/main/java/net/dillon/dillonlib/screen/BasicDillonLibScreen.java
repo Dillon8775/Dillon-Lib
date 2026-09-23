@@ -61,7 +61,7 @@ public abstract class BasicDillonLibScreen extends Screen implements DillonLibSc
 
     /**
      * Draws graphics on the screen.
-     * @see ScreenBuilder#textCenterAndHeightDown(GuiGraphicsExtractor, Component)
+     * @see ScreenBuilder#textCenterAndGraphicsHeightDown(GuiGraphicsExtractor, Component)
      */
     protected void drawGraphics(GuiGraphicsExtractor graphics) {
     }

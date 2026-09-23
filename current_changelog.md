@@ -30,6 +30,7 @@
 ---
 - Move DillonLib core config to utilize Balm's config system.
 - Add ```Links``` class.
+- Add a couple more texts.
 - Add doc comment to ```modVersion``` method in ModPlatform to use ```CommonModPlatform.commonModVersion()```.
 - Rename ```PredicateSigned``` annotation to ```Predicated```.
 - Removed deprecated ```RecipeSerializerFactory```.

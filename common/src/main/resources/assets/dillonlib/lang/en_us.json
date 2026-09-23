@@ -7,6 +7,8 @@
   "dillonlib.back": "Back",
   "dillonlib.next": "Next",
   "dillonlib.ok": "Ok",
+  "dillonlib.okay": "Okay",
+  "dillonlib.proceed": "Proceed",
   "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
   "dillonlib.update_required_tooltip": "Click here to download the latest version of %s.",
   "dillonlib.toast.lib_required": "%s Required",

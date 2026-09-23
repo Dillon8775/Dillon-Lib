@@ -1,7 +1,6 @@
 package net.dillon.quesoexample.screen;
 
 import net.dillon.dillonlib.screen.BasicDillonLibScreen;
-import net.dillon.dillonlib.screen.ScreenBuilder;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
@@ -13,13 +12,13 @@ public class QuesoExampleScreen extends BasicDillonLibScreen {
 
     @Override
     protected void drawGraphics(GuiGraphicsExtractor graphics) {
-        builder().renderHeightTop().apply();
-        builder().renderHeightDown(40).apply();
+        builder().graphicsHeightTop().apply();
+        builder().graphicsHeightDown(40).apply();
 
-        builder().textCenterAndHeightDown(graphics, Component.literal("Woah!")).apply();
-        builder().textCenterAndHeightDown(graphics, Component.literal("Yay!")).apply();
-        builder().textCenterAndHeightDown(graphics, Component.literal("WOOOOOOOOO"), 40).apply();
-        builder().textCenterAndHeightDown(graphics, Component.literal("ok!")).apply();
+        builder().textCenterAndGraphicsHeightDown(graphics, Component.literal("Woah!")).apply();
+        builder().textCenterAndGraphicsHeightDown(graphics, Component.literal("Yay!")).apply();
+        builder().textCenterAndGraphicsHeightDown(graphics, Component.literal("WOOOOOOOOO"), 40).apply();
+        builder().textCenterAndGraphicsHeightDown(graphics, Component.literal("ok!")).apply();
     }
 
     @Override

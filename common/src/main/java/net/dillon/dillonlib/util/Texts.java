@@ -16,4 +16,6 @@ public class Texts {
     public static final Component BACK = Component.translatable("dillonlib.back");
     public static final Component NEXT = Component.translatable("dillonlib.next");
     public static final Component OK = Component.translatable("dillonlib.ok");
+    public static final Component OKAY = Component.translatable("dillonlib.okay");
+    public static final Component PROCEED = Component.translatable("dillonlib.proceed");
 }
