@@ -26,10 +26,14 @@
   - "platformRelease()" method in ModPlatform is now named ```release()```.
   - "platformName()" method in ModPlatform is now named ```platform`()``.
 - Reorder methods in ModPlatform.
+
 ---
 - Move DillonLib core config to utilize Balm's config system.
 - Add ```Links``` class.
 - Add doc comment to ```modVersion``` method in ModPlatform to use ```CommonModPlatform.commonModVersion()```.
 - Rename ```PredicateSigned``` annotation to ```Predicated```.
 - Removed deprecated ```RecipeSerializerFactory```.
-- Created a screen to open the config file.
+
+---
+- Added a screen to directly open the config file.
+- Fixed DillonLib config not loading upon game launch.
