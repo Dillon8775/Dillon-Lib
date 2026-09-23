@@ -13,8 +13,8 @@ public class Positions {
 
     /// The current width and height of the screen builder.
     /// Modify these in builder methods, like init() or widgets().
-    protected int currentWidth;
-    protected int currentHeight;
+    protected int screenWidth;
+    protected int screenHeight;
 
     /// The current graphics width and graphics height of the screen builder, which is updated and then reset every frame to keep correct positions.
     /// Only modify these in render methods, like extractRenderState() and drawText().

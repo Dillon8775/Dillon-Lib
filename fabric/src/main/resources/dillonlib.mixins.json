@@ -27,6 +27,7 @@
     "accessor.DebugOptionsScreenAccessor",
     "accessor.DebugScreenEntriesInvoker",
     "accessor.KeyBindsScreenAccessor",
+    "accessor.ScreenInvoker",
     "client.FabricOptionInstanceMixin",
     "client.FabricSodiumConfigBuilderMixin",
     "client.KeyBindsScreenMixin",

@@ -2,8 +2,10 @@ package net.dillon.dillonlib.screen;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.mixin.accessor.ScreenInvoker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.MultiLineTextWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
@@ -15,10 +17,11 @@ import static net.dillon.dillonlib.task.ClientTasks.getFont;
 
 /**
  * Makes building screens easier.
- * @since 1.2
+ *
  * @see BasicDillonLibScreen
  * @see DillonLibMenuScreen
  * @see WidgetData
+ * @since 1.2
  */
 @Dill(DillType.CLIENT)
 public class ScreenBuilder {
@@ -32,6 +35,7 @@ public class ScreenBuilder {
 
     /**
      * Creates a new {@code ScreenBuilder}.
+     *
      * @param screen the screen to build on.
      * @return a new screen builder.
      */
@@ -41,8 +45,9 @@ public class ScreenBuilder {
 
     /**
      * Creates a new {@code ScreenBuilder} with a specific position.
+     *
      * @param screen the screen to build on.
-     * @param pos the position.
+     * @param pos    the position.
      * @return a screen builder.
      */
     private static ScreenBuilder ofPos(Screen screen, ScreenPos pos) {
@@ -110,28 +115,28 @@ public class ScreenBuilder {
      * @return the current width for this builder.
      */
     private int getCurrentWidth() {
-        return positions.currentWidth;
+        return positions.screenWidth;
     }
 
     /**
      * @return the current height for this builder.
      */
     private int getCurrentHeight() {
-        return positions.currentHeight;
+        return positions.screenHeight;
     }
 
     /**
      * Captures the width in its current place.
      */
     public int captureWidth() {
-        return new ScreenValue(positions.currentWidth, Type.WIDTH).pop();
+        return new ScreenValue(positions.screenWidth, Type.WIDTH).pop();
     }
 
     /**
      * Captures the height in its current place.
      */
     public int captureHeight() {
-        return new ScreenValue(positions.currentHeight, Type.HEIGHT).pop();
+        return new ScreenValue(positions.screenHeight, Type.HEIGHT).pop();
     }
 
     /**
@@ -166,8 +171,8 @@ public class ScreenBuilder {
      * Resets the width and height to the initial values.
      */
     public void resetBounds() {
-        positions.currentWidth = positions.initialWidth;
-        positions.currentHeight = positions.initialHeight;
+        positions.screenWidth = positions.initialWidth;
+        positions.screenHeight = positions.initialHeight;
     }
 
     /**
@@ -188,16 +193,16 @@ public class ScreenBuilder {
     /**
      * Draws title text on a screen.
      */
-    public ScreenValue textTitle(GuiGraphicsExtractor graphics) {
-        return textTitle(graphics, screen.getTitle());
+    public ScreenValue textTitleGraphicsHeight(GuiGraphicsExtractor graphics) {
+        return textTitleGraphicsHeight(graphics, screen.getTitle());
     }
 
     /**
      * Draws custom title text on a screen.
      */
-    public ScreenValue textTitle(GuiGraphicsExtractor graphics, Component title) {
+    public ScreenValue textTitleGraphicsHeight(GuiGraphicsExtractor graphics, Component title) {
         int height = graphicsHeightTop().pop() + graphicsHeightDown(13).pop();
-        return textCenter(graphics, title, height);
+        return textCenterGraphicsHeight(graphics, title, height);
     }
 
     /**
@@ -211,21 +216,21 @@ public class ScreenBuilder {
      * Draws text and then moves the height down by a specific amount.
      */
     public ScreenValue textCenterAndGraphicsHeightDown(GuiGraphicsExtractor graphics, Component text, int amount) {
-        textCenter(graphics, text);
+        textCenterGraphicsHeight(graphics, text);
         return graphicsHeightDown(amount);
     }
 
     /**
      * Draws text in a centered fashion.
      */
-    public ScreenValue textCenter(GuiGraphicsExtractor graphics, Component text) {
-        return textCenter(graphics, text, positions.graphicsHeight);
+    public ScreenValue textCenterGraphicsHeight(GuiGraphicsExtractor graphics, Component text) {
+        return textCenterGraphicsHeight(graphics, text, positions.graphicsHeight);
     }
 
     /**
      * Draws text in a centered fashion at a specific height.
      */
-    public ScreenValue textCenter(GuiGraphicsExtractor graphics, Component text, int height) {
+    public ScreenValue textCenterGraphicsHeight(GuiGraphicsExtractor graphics, Component text, int height) {
         int position = getTextCenter() - getFont().width(text) / 2;
 
         graphics.text(
@@ -277,8 +282,33 @@ public class ScreenBuilder {
     }
 
     /**
-     * @return the width at a specific screen position.
+     * Adds a centered multi-line text widget and then moves the height down.
+     */
+    public ScreenValue multiLineTextCenterAndHeightDown(Component text) {
+        return multiLineTextCenterAndHeightDown(text, 400);
+    }
+
+    /**
+     * Adds a centered multi-line text widget with a custom max width and then moves the height down.
+     */
+    public ScreenValue multiLineTextCenterAndHeightDown(Component text, int maxWidth) {
+        return multiLineTextCenterAndHeightDown(text, maxWidth, defaultGraphicsOffset());
+    }
+
+    /**
+     * Adds a centered multi-line text widget with a custom max width and height offset.
+     */
+    public ScreenValue multiLineTextCenterAndHeightDown(Component text, int maxWidth, int amount) {
+        MultiLineTextWidget widget = new MultiLineTextWidget(positions.screenWidth, positions.screenHeight, text, getFont())
+                .setMaxWidth(maxWidth)
+                .setCentered(true);
+        ((ScreenInvoker) screen).addRenderableModWidget(widget);
+        return heightDown(widget.getHeight() + amount);
+    }
+
+    /**
      * @param pos the screen position.
+     * @return the width at a specific screen position.
      */
     public ScreenValue width(ScreenPos pos, Type type) {
         int value = switch (pos) {
@@ -330,7 +360,7 @@ public class ScreenBuilder {
      * Calculates the current width moved right, and returns the new value.
      */
     public ScreenValue widthRight(int amount) {
-        return valueAdd(positions.currentWidth, amount, Type.WIDTH);
+        return valueAdd(positions.screenWidth, amount, Type.WIDTH);
     }
 
     /**
@@ -344,7 +374,7 @@ public class ScreenBuilder {
      * Calculates the current width moved left, and returns the new value.
      */
     public ScreenValue widthLeft(int amount) {
-        return valueNegate(positions.currentWidth, amount, Type.WIDTH);
+        return valueNegate(positions.screenWidth, amount, Type.WIDTH);
     }
 
     /**
@@ -457,7 +487,7 @@ public class ScreenBuilder {
      * Calculates the current height moved down, and returns the new value.
      */
     public ScreenValue heightDown(int amount) {
-        return valueAdd(positions.currentHeight, amount, Type.HEIGHT);
+        return valueAdd(positions.screenHeight, amount, Type.HEIGHT);
     }
 
     /**
@@ -471,7 +501,7 @@ public class ScreenBuilder {
      * Calculates the current height moved up, and returns the new value.
      */
     public ScreenValue heightUp(int amount) {
-        return valueNegate(positions.currentHeight, amount, Type.HEIGHT);
+        return valueNegate(positions.screenHeight, amount, Type.HEIGHT);
     }
 
     /**
@@ -564,8 +594,8 @@ public class ScreenBuilder {
         public int apply() {
             if (!applied) {
                 switch (type) {
-                    case WIDTH -> positions.currentWidth = value;
-                    case HEIGHT -> positions.currentHeight = value;
+                    case WIDTH -> positions.screenWidth = value;
+                    case HEIGHT -> positions.screenHeight = value;
                     case GRAPHICS_WIDTH -> positions.graphicsWidth = value;
                     case GRAPHICS_HEIGHT -> positions.graphicsHeight = value;
                 }
