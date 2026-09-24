@@ -50,6 +50,7 @@ public interface DillonLibScreen {
             IntSupplier x,
             IntSupplier y
     ) {
+        widget.active = shouldBeActive.getAsBoolean();
         widgetData().add(WidgetData.of(
                 widget,
                 shouldBeActive,
