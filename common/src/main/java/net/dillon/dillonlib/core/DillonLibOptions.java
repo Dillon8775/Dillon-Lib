@@ -12,6 +12,7 @@ public class DillonLibOptions {
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
     public boolean fortniteBattlePass = false;
+    public boolean checkForUpdates = true;
 
     /**
      * @return the DillonLib options instance.

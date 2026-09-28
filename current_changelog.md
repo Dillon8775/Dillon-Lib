@@ -1,3 +1,4 @@
-# Version 1.2.1
+# Version 1.2.2
 
-- Make ```DillonLibScreen.createWidget``` return the widget with the active attribute, which fixes flashing when initializing a new screen.
+- Fix DillonLib config not loading.
+- Add option to disable update checkers.

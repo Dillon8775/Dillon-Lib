@@ -3,6 +3,7 @@ package net.dillon.dillonlib.util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.dillon.dillonlib.core.DillonLibOptions;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -55,6 +56,10 @@ public class UpdateChecker {
      * @return if a mod has an update.
      */
     public static boolean hasUpdate(CompletableFuture<Boolean> completableFuture) {
+        if (!DillonLibOptions.getLibInstance().checkForUpdates) {
+            return false;
+        }
+
         try {
             if (completableFuture.get()) {
                 return true;
