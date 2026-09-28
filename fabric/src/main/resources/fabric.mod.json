@@ -24,6 +24,9 @@
     ],
     "main": [
       "net.dillon.dillonlib.DillonLibFabric"
+    ],
+    "modmenu": [
+      "net.dillon.dillonlib.impl.ModMenuImpl"
     ]
   },
   "mixins": [

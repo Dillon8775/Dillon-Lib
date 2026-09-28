@@ -20,6 +20,8 @@ public class DillonLibMain {
      * Initializes DillonLib on {@code all environment sides}.
      */
     public static void initialize() {
+        DillonLibOptions.INSTANCE.load();
+
         DillonLibMain.commonInitializers().forEach(Runnable::run);
 
         DillonLibEvents.registerAllEvents();
