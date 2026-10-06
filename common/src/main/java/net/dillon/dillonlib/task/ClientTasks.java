@@ -91,6 +91,27 @@ public class ClientTasks {
     }
 
     /**
+     * @return if the user has the {@code ALT} key pressed.
+     */
+    public static boolean hasAltDown() {
+        return Minecraft.getInstance().hasAltDown();
+    }
+
+    /**
+     * @return if the user has the {@code SHIFT} key pressed.
+     */
+    public static boolean hasShiftDown() {
+        return Minecraft.getInstance().hasShiftDown();
+    }
+
+    /**
+     * @return if the user has the {@code CTRL} key pressed.
+     */
+    public static boolean hasCtrlDown() {
+        return Minecraft.getInstance().hasControlDown();
+    }
+
+    /**
      * @return the GUI width.
      */
     public static int getGuiWidth(GuiGraphicsExtractor context) {

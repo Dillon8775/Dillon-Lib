@@ -1,4 +1,3 @@
-# Version 1.2.2
+# Version 1.2.3
 
-- Fix DillonLib config not loading.
-- Add option to disable update checkers.
+- Add `hasAltDown()`, `hasShiftDown()` and `hasCtrlDown()` to `ClientTasks`.
