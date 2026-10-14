@@ -1,4 +1,4 @@
-[![DillonLib Logo.](https://github.com/Dillon8775/ImageGIFs/blob/universal/9i8dnw.gif?raw=true)](https://youtu.be/CurMwVkAqWo)
+![DillonLib Logo.](https://github.com/Dillon8775/ImageGIFs/blob/universal/9i8dnw.gif?raw=true)
 
 # Base Library/API for Dillon's mods.
 
@@ -26,8 +26,6 @@ DillonLib does not require any other outside resources or mods, other than [Fabr
 You can view the **[source code](https://github.com/Dillon8775/Dillon-Lib)** for all features and utilities.
 
 Please make sure that your current version of DillonLib is kept up-to-date for all the latest features and utilities.
-
-Report any issues you may to the [Issue Tracker,](https://github.com/Dillon8775/Dillon-Lib/issues) including game crashes or inconsistencies.
 
 Created and regularly maintained by: [Dillon8775](https://www.youtube.com/@dillon8775).
 
