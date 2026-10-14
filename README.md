@@ -27,6 +27,6 @@ You can view the **[source code](https://github.com/Dillon8775/Dillon-Lib)** for
 
 Please make sure that your current version of DillonLib is kept up-to-date for all the latest features and utilities.
 
-Created and regularly maintained by: [Dillon8775](https://www.youtube.com/@dillon8775).
+Created by Dillon8775.
 
 #### All rights reserved unless explicitly stated.
