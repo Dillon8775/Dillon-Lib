@@ -1,3 +1,4 @@
-# Version 1.2.3
+# Version 1.2.4
 
-- Add `hasAltDown()`, `hasShiftDown()` and `hasCtrlDown()` to `ClientTasks`.
+- Removed social links.
+- Removed the fortnite battle pass.

@@ -11,7 +11,6 @@ public class DillonLibOptions {
     public boolean applyPersonHandsAndItemsRendererFix = true;
     public boolean applyShearFactories = true;
     public boolean applyIgnitableFactories = true;
-    public boolean fortniteBattlePass = false;
     public boolean checkForUpdates = true;
 
     /**
