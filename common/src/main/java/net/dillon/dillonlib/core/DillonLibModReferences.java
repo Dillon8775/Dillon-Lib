@@ -9,9 +9,13 @@ public class DillonLibModReferences {
     public static final ModReference SIMPLE_KEYBINDS = ModReference.of("simple_keybinds");
     public static final ModReference SURVIVAL_FLY = ModReference.of("survival_fly");
     public static final ModReference YACL = ModReference.of("yet_another_config_lib_v3");
-    public static final ModReference SODIUM = ModReference.of("sodium");
+    public static final ModReference SODIUM = ModReference.of("sodium", "0.9.3-beta.1");
 
     public static boolean isModLoaded(ModReference reference) {
         return Platforms.getDillonLibMixinPlatform().isModLoaded(reference);
+    }
+
+    public static boolean isVersionPresent(ModReference reference) {
+        return Platforms.getDillonLibMixinPlatform().isVersionPresent(reference);
     }
 }

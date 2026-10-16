@@ -47,7 +47,7 @@ public abstract class MixinPluginUtil {
                     for (String s : entry.mixins()) {
                         String name = this.mixinDirectory() + s;
                         if (name.equals(mixinClassName)) {
-                            message(entry, mixinClassName, targetClassName);
+                            message(entry, mixinClassName);
                             return true;
                         }
                     }
@@ -63,10 +63,13 @@ public abstract class MixinPluginUtil {
     /**
      * The message that is sent to the console. This can be over-ridden if you wish to change the message.
      */
-    public void message(PredicateEntry entry, String mixinClassName, String targetClassName) {
-        sendMessage(entry, "Skipping mixin {} for class {}: {}", mixinClassName,
-                targetClassName,
-                entry.reason());
+    public void message(PredicateEntry entry, String mixinClassName) {
+        String reason = entry.reason();
+        String suffix = entry.reason().endsWith(".")
+                ? " Not applying {}"
+                : ", not applying {}";
+
+        sendMessage(entry, reason + suffix, mixinClassName);
     }
 
     /**

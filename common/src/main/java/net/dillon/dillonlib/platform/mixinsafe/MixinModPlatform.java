@@ -25,6 +25,13 @@ public abstract class MixinModPlatform implements Loadable {
     }
 
     /**
+     * @return if a mod is loaded on a specific platform, and if a mod's version is greater or equal to it's specified version in the reference.
+     */
+    public boolean isVersionPresent(ModReference mod) {
+        return false;
+    }
+
+    /**
      * Specifies if factories should be applied. If any instance of {@link MixinModPlatform} returns {@code true} here, unless a mixin is manually disabled, factories will be applied.
      * @return {@code false} by default because not all of Dillon's mods use factories. This returns false by default as a safety feature in order to prevent mod incompatibility with other mods when factories aren't even being used.
      * You must {@code override this to return true} if you plan on using {@link net.dillon.dillonlib.factory}s!

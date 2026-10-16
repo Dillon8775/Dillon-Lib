@@ -8,10 +8,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(SodiumConfigBuilder.class)
-public class FabricSodiumConfigBuilderMixin {
+public class FabricOldSodiumConfigBuilderMixin {
 
     /**
-     * Modifies {@code Sodium's} gamma options so that the correct brightness value can be applied with the sodium mod.
+     * Directly modifies Sodium's gamma option so that the correct brightness value can be applied to the mod.
+     * @since {@code <= 0.9.2} of Sodium.
      */
     @ModifyArgs(method = "buildGeneralPage", at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/sodium/api/config/structure/IntegerOptionBuilder;setRange(III)Lnet/caffeinemc/mods/sodium/api/config/structure/IntegerOptionBuilder;"))
     private void modifyGammaRange(Args args) {

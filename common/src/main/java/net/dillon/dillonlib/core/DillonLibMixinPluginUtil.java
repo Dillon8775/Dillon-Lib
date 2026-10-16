@@ -28,33 +28,35 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "client.FabricOptionInstanceMixin",
                                 "client.NeoForgeOptionInstanceMixin"
                         ),
-                        !DillonLibOptions.getLibInstance().applyFullBrightIfRequired || !Platforms.shouldApplyFullBright(),
+                        !Platforms.shouldApplyFullBright() || !DillonLibOptions.getLibInstance().applyFullBrightIfRequired,
                         "FullBright is not enabled."
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single("client.fix.screen.DebugOptionsScreenMixin"),
                         !DillonLibOptions.getLibInstance().applyDebugOptionsScreenFix,
-                        "\"apply_debug_options_screen_fix\" is disabled."
+                        "apply_debug_options_screen_fix is disabled."
                 ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single("client.FabricSodiumConfigBuilderMixin"),
-                        !Platforms.shouldApplyFullBright() || !Platforms.getDillonLibMixinPlatform().isModLoaded(DillonLibModReferences.SODIUM),
-                        "FullBright is not enabled, or Sodium is not loaded."
+                PredicateEntry.ofInfo(
+                        PredicateEntry.single("client.FabricOldSodiumConfigBuilderMixin"),
+                        !Platforms.shouldApplyFullBright()
+                                || !DillonLibModReferences.isModLoaded(DillonLibModReferences.SODIUM)
+                                || DillonLibModReferences.isVersionPresent(DillonLibModReferences.SODIUM),
+                        "FullBright is not enabled, or old Sodium is not loaded."
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single("client.fix.bow.AbstractClientPlayerFix"),
                         !DillonLibOptions.getLibInstance().applyAbstractClientPlayerFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_abstract_client_player_fix\" is disabled.")
+                        ofFactory("apply_abstract_client_player_fix is disabled.")
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single("client.fix.bow.AvatarRendererFix"),
                         !DillonLibOptions.getLibInstance().applyAvatarRendererFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_avatar_renderer_fix\" is disabled.")
+                        ofFactory("apply_avatar_renderer_fix is disabled.")
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single("client.fix.bow.FabricPersonHandsAndItemsRendererMixin"),
                         !DillonLibOptions.getLibInstance().applyPersonHandsAndItemsRendererFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_person_hands_and_items_renderer_fix\" is disabled.")
+                        ofFactory("apply_person_hands_and_items_renderer_fix is disabled.")
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.ddouble(
@@ -62,7 +64,7 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "ignitable.TntBlockFix"
                         ),
                         !DillonLibOptions.getLibInstance().applyIgnitableFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_ignitable_factories\" is disabled.")
+                        ofFactory("apply_ignitable_factories is disabled.")
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.multiple(
@@ -78,12 +80,12 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 "shear.FabricTripWireBlockFix"
                         ),
                         !DillonLibOptions.getLibInstance().applyShearFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_shear_factories\" is disabled.")
+                        ofFactory("apply_shear_factories is disabled.")
                 ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single("entity.fix.SulfurCubeFix"),
                         (!DillonLibOptions.getLibInstance().applyShearFactories && !DillonLibOptions.getLibInstance().applyIgnitableFactories) || !Platforms.shouldApplyFactories(),
-                        ofFactory("\"apply_shear_factories\" and \"apply_ignitable_factories\" is disabled.")
+                        ofFactory("apply_shear_factories and apply_ignitable_factories is disabled.")
                 )
         );
     }

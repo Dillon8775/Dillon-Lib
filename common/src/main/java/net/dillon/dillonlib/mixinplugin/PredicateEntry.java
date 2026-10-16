@@ -60,6 +60,17 @@ public class PredicateEntry {
     }
 
     /**
+     * Creates a new {@code PredicateEntry} and picks a mixin to disable based on the {@code condition}.
+     */
+    public static PredicateEntry prefer(String desired, String notDesired, boolean condition, String reason, MessageType messageType) {
+        return of(single(condition ? notDesired : desired),
+                condition,
+                reason,
+                messageType
+        );
+    }
+
+    /**
      * @return a string array with a single mixin.
      */
     public static String[] single(String mixin) {
