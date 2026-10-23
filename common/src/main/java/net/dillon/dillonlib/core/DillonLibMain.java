@@ -1,8 +1,8 @@
 package net.dillon.dillonlib.core;
 
 import net.dillon.dillonlib.factory.Factories;
-import net.dillon.dillonlib.platform.PlatformGetter;
 import net.dillon.dillonlib.platform.PlatformLoader;
+import net.dillon.dillonlib.platform.Platforms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +50,8 @@ public class DillonLibMain {
         );
 
         LOGGER.info("DillonLib {} for {} has loaded",
-                PlatformGetter.getDillonLibPlatform().modVersion(),
-                PlatformGetter.getDillonLibPlatform().platform().toString().toLowerCase(Locale.ROOT));
+                Platforms.getDillonLibPlatform().modVersion(),
+                Platforms.getDillonLibPlatform().platform().toString().toLowerCase(Locale.ROOT));
     }
 
     /**

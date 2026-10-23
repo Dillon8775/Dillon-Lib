@@ -8,8 +8,8 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 import java.util.function.IntSupplier;
-import java.util.function.Supplier;
 
 import static net.dillon.dillonlib.task.ClientTasks.getFont;
 
@@ -38,7 +38,7 @@ public interface DillonLibScreen {
      *
      * @param widget the widget
      * @param shouldBeActive determines whether the widget is active
-     * @param conditionalTooltip supplies the widget's conditional tooltip
+     * @param tooltip supplies the widget's conditional tooltip
      * @param x the widget's x position
      * @param y the widget's y position
      * @return the supplied widget
@@ -46,7 +46,7 @@ public interface DillonLibScreen {
     default AbstractWidget createWidget(
             AbstractWidget widget,
             BooleanSupplier shouldBeActive,
-            Supplier<ConditionalTooltip> conditionalTooltip,
+            Function<Boolean, Component> tooltip,
             IntSupplier x,
             IntSupplier y
     ) {
@@ -54,7 +54,7 @@ public interface DillonLibScreen {
         widgetData().add(WidgetData.of(
                 widget,
                 shouldBeActive,
-                conditionalTooltip,
+                tooltip,
                 x,
                 y
         ));
@@ -68,12 +68,12 @@ public interface DillonLibScreen {
     default AbstractWidget createWidget(
             AbstractWidget widget,
             BooleanSupplier shouldBeActive,
-            Supplier<ConditionalTooltip> conditionalTooltip
+            Function<Boolean, Component> tooltip
     ) {
         return createWidget(
                 widget,
                 shouldBeActive,
-                conditionalTooltip,
+                tooltip,
                 () -> WidgetData.UNMODIFIED,
                 () -> WidgetData.UNMODIFIED
         );
@@ -89,7 +89,7 @@ public interface DillonLibScreen {
         return createWidget(
                 widget,
                 shouldBeActive,
-                ConditionalTooltip::empty
+                isActive -> Component.empty()
         );
     }
 
@@ -103,7 +103,7 @@ public interface DillonLibScreen {
         return createWidget(
                 widget,
                 () -> true,
-                () -> ConditionalTooltip.ofActive(tooltip)
+                isActive -> tooltip
         );
     }
 
@@ -112,12 +112,12 @@ public interface DillonLibScreen {
      */
     default AbstractWidget createWidget(
             AbstractWidget widget,
-            Supplier<ConditionalTooltip> conditionalTooltip
+            Function<Boolean, Component> tooltip
     ) {
         return createWidget(
                 widget,
                 () -> true,
-                conditionalTooltip
+                tooltip
         );
     }
 
@@ -143,7 +143,7 @@ public interface DillonLibScreen {
         return createWidget(
                 widget,
                 shouldBeActive,
-                ConditionalTooltip::empty,
+                isActive -> Component.empty(),
                 x,
                 y
         );
@@ -154,14 +154,14 @@ public interface DillonLibScreen {
      */
     default AbstractWidget createWidget(
             AbstractWidget widget,
-            Supplier<ConditionalTooltip> conditionalTooltip,
+            Function<Boolean, Component> tooltip,
             IntSupplier x,
             IntSupplier y
     ) {
         return createWidget(
                 widget,
                 () -> true,
-                conditionalTooltip,
+                tooltip,
                 x,
                 y
         );
@@ -178,7 +178,7 @@ public interface DillonLibScreen {
         return createWidget(
                 widget,
                 () -> true,
-                ConditionalTooltip::empty,
+                isActive -> Component.empty(),
                 x,
                 y
         );
@@ -201,14 +201,11 @@ public interface DillonLibScreen {
 
             setWidgetPositions(data);
 
-            boolean shouldBeActive = data.shouldBeActive().getAsBoolean();
-            widget.active = shouldBeActive;
+            widget.active = data.shouldBeActive().getAsBoolean();
 
-            ConditionalTooltip conditionalTooltip = data.getConditionalTooltip();
-            Component tooltip = conditionalTooltip.getTooltip(shouldBeActive);
+            Component tooltip = data.getTooltip();
 
-            if (widget.isHovered()
-                    && !conditionalTooltip.isEmptyOrNullTooltip(tooltip)) {
+            if (widget.isHovered()) {
                 graphics.setTooltipForNextFrame(
                         getFont(),
                         getFont().split(tooltip, 200),

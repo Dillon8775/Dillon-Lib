@@ -1,6 +1,5 @@
 package net.dillon.quesoexample.screen;
 
-import net.dillon.dillonlib.screen.ConditionalTooltip;
 import net.dillon.dillonlib.screen.DillonLibMenuScreen;
 import net.dillon.dillonlib.screen.ScreenBuilder;
 import net.dillon.dillonlib.task.ClientTasks;
@@ -34,10 +33,13 @@ public class QuesoExampleMenuScreen extends DillonLibMenuScreen {
                         .bounds(builder().captureWidth(), builder().captureHeight(), 20, 20)
                         .build(),
                 () -> false,
-                () -> ConditionalTooltip.of(
-                        Component.literal("this is ON tooltip!"),
-                        Component.literal("this is OFF tooltip!")
-                )
+                isActive -> {
+                    if (isActive) {
+                        return Component.literal("this is ON tooltip!");
+                    } else {
+                        return Component.literal("this is OFF tooltip!");
+                    }
+                }
         );
     }
 

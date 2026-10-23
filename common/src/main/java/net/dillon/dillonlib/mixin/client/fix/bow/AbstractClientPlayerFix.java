@@ -2,7 +2,7 @@ package net.dillon.dillonlib.mixin.client.fix.bow;
 
 import net.dillon.dillonlib.factory.item.BowFactory;
 import net.dillon.dillonlib.mixinplugin.Predicated;
-import net.dillon.dillonlib.platform.PlatformGetter;
+import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +18,7 @@ public class AbstractClientPlayerFix {
      */
     @Redirect(method = "getFieldOfViewModifier", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
     private boolean redirectToConventionalTag(ItemStack heldItem, Object o) {
-        return PlatformGetter.getDillonLibPlatform().platform().neoforge()
+        return Platforms.getDillonLibPlatform().platform().neoforge()
                 ? BowFactory.NEOFORGE.test(heldItem) : BowFactory.DEFAULT.test(heldItem);
     }
 }

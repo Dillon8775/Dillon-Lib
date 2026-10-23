@@ -15,11 +15,16 @@ import java.util.function.Predicate;
  */
 public class Platforms {
     private static final CommonModPlatform COMMON_PLATFORM = loadCommonPlatform();
+    private static final ModPlatform PLATFORM = PlatformLoader.load(ModPlatform.class, DillonLibMain.MOD_ID);
     private static final MixinModPlatform MIXIN_PLATFORM = PlatformLoader.load(MixinModPlatform.class, DillonLibMain.MOD_ID);
     private static final ClientModPlatform CLIENT_PLATFORM = PlatformLoader.load(ClientModPlatform.class, DillonLibMain.MOD_ID);
 
     public static CommonModPlatform getCommonPlatform() {
         return COMMON_PLATFORM;
+    }
+
+    public static ModPlatform getDillonLibPlatform() {
+        return PLATFORM;
     }
 
     public static MixinModPlatform getDillonLibMixinPlatform() {

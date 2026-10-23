@@ -1,5 +1,6 @@
 package net.dillon.dillonlib.util;
 
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
 /**
@@ -18,4 +19,8 @@ public class Texts {
     public static final Component OK = Component.translatable("dillonlib.ok");
     public static final Component OKAY = Component.translatable("dillonlib.okay");
     public static final Component PROCEED = Component.translatable("dillonlib.proceed");
+    public static final Component CONFIRM = Component.translatable("dillonlib.confirm");
+    public static final Component OPEN_FILE = Component.translatable("dillonlib.open_file");
+    public static final Component OPEN_DIRECTORY = Component.translatable("dillonlib.open_directory");
+    public static final Component SEARCH = Component.translatable("dillonlib.gui.search").withStyle(EditBox.SEARCH_HINT_STYLE);
 }

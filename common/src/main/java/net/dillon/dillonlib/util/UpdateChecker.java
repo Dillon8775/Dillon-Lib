@@ -56,7 +56,7 @@ public class UpdateChecker {
      * @return if a mod has an update.
      */
     public static boolean hasUpdate(CompletableFuture<Boolean> completableFuture) {
-        if (!DillonLibOptions.getLibInstance().checkForUpdates) {
+        if (!DillonLibOptions.getLibInstance().core().checkForUpdates) {
             return false;
         }
 
@@ -100,9 +100,8 @@ public class UpdateChecker {
      * Compares two numeric versions.
      */
     public static int compareVersions(String version1, String version2) {
-        String[] version1Parts = version1.split("\\.");
-
-        String[] version2Parts = version2.split("\\.");
+        String[] version1Parts = version1.split("[.-]");
+        String[] version2Parts = version2.split("[.-]");
 
         int length = Math.max(version1Parts.length, version2Parts.length);
 

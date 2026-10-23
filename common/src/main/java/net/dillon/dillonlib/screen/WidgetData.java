@@ -3,10 +3,11 @@ package net.dillon.dillonlib.screen;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.Component;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 import java.util.function.IntSupplier;
-import java.util.function.Supplier;
 
 /**
  * Holds data for a widget.
@@ -19,15 +20,15 @@ import java.util.function.Supplier;
 public class WidgetData {
     private final AbstractWidget widget;
     private final BooleanSupplier shouldBeActive;
-    private final Supplier<ConditionalTooltip> conditionalTooltip;
+    private final Function<Boolean, Component> tooltip;
     private final IntSupplier x;
     private final IntSupplier y;
     public static final int UNMODIFIED = -1;
 
-    private WidgetData(AbstractWidget widget, BooleanSupplier shouldBeActive, Supplier<ConditionalTooltip> conditionalTooltip, IntSupplier x, IntSupplier y) {
+    private WidgetData(AbstractWidget widget, BooleanSupplier shouldBeActive, Function<Boolean, Component> tooltip, IntSupplier x, IntSupplier y) {
         this.widget = widget;
         this.shouldBeActive = shouldBeActive;
-        this.conditionalTooltip = conditionalTooltip;
+        this.tooltip = tooltip;
         this.x = x;
         this.y = y;
     }
@@ -35,11 +36,11 @@ public class WidgetData {
     /**
      * Creates new {@code Widget Data}.
      */
-    public static WidgetData of(AbstractWidget widget, BooleanSupplier shouldBeActive, Supplier<ConditionalTooltip> conditionalTooltip, IntSupplier x, IntSupplier y) {
+    public static WidgetData of(AbstractWidget widget, BooleanSupplier shouldBeActive, Function<Boolean, Component> tooltip, IntSupplier x, IntSupplier y) {
         return new WidgetData(
                 widget,
                 shouldBeActive,
-                conditionalTooltip,
+                tooltip,
                 x,
                 y
         );
@@ -62,8 +63,8 @@ public class WidgetData {
     /**
      * @return the conditional tooltip.
      */
-    public ConditionalTooltip getConditionalTooltip() {
-        return this.conditionalTooltip.get();
+    public Component getTooltip() {
+        return this.tooltip.apply(this.shouldBeActive.getAsBoolean());
     }
 
     /**

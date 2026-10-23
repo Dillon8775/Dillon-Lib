@@ -1,9 +1,12 @@
-# Version 1.2.4
+# Version 1.2.5
 
-- New PredicateEntry method `prefer`, which decides on two mixins based on a certain condition.
-- Tweaked the way `PredicateEntry` messages are sent.
-- Add `version` attribute to `ModReference`.
-    - Only applicable on Fabric platform.
-- Compatibility for Sodium version 0.9.3-beta.1.
-- Removed social links.
-- Removed the fortnite battle pass.
+- All of Dillon's mods must be updated to their latest version because of this update, or your game will crash.
+
+
+- Remove `ConditionalTooltip`, replace with a Component function as `Function<Boolean, Component>`, where the `boolean` is the button's active state.
+- Remove `PlatformGetter` class, and move `getDillonLibPlatform` method to `Platforms` class.
+- Remove all [Speedrunner Mod](https://modrinth.com/mod/speedrunner-mod) sound files, as this project has been discontinued and only works on DillonLib version 1.2.4.
+- Split `DillonLibOptions` into different categories (`Core` and `Factories`).
+- Added `LevelSelectorScreen`, with a consumable action to do something on world/server selection.
+- Added `"Search..."`, `"Confirm"`, `"Open File"` and `"Open Directory"` texts.
+- Make `UpdateChecker` allow parsing for `.`s and `-`s.

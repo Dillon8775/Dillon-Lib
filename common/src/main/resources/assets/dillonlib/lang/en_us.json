@@ -9,9 +9,14 @@
   "dillonlib.ok": "Ok",
   "dillonlib.okay": "Okay",
   "dillonlib.proceed": "Proceed",
+  "dillonlib.confirm": "Confirm",
+  "dillonlib.open_file": "Open File",
+  "dillonlib.open_directory": "Open Directory",
   "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
   "dillonlib.update_required_tooltip": "Click here to download the latest version of %s.",
   "dillonlib.toast.lib_required": "%s Required",
   "dillonlib.toast.download_lib": "Please download %s to configure %s.",
-  "dillonlib.libs.yacl": "YetAnotherConfigLib"
+  "dillonlib.libs.yacl": "YetAnotherConfigLib",
+
+  "dillonlib.gui.search": "Search..."
 }
