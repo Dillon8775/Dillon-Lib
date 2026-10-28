@@ -3,6 +3,7 @@ package net.dillon.dillonlib.core;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.Platforms;
+import net.dillon.dillonlib.util.UpdateChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,10 @@ import java.util.Locale;
 public class DillonLibMain {
     public static final String MOD_ID = "dillonlib";
     public static final Logger LOGGER = LoggerFactory.getLogger("DillonLib/Main");
+    public static boolean HAS_UPDATE = UpdateChecker.hasUpdate(UpdateChecker.checkForUpdate(
+            "dillon-lib",
+            Platforms.getDillonLibPlatform().modVersion())
+    );
 
     /**
      * Initializes DillonLib on {@code all environment sides}.

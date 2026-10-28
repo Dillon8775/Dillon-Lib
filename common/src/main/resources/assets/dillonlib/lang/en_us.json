@@ -1,4 +1,8 @@
 {
+  "dillonlib": "DillonLib",
+  "dillonlib.mods": "Dillon's Mods",
+  "dillonlib.mods_none": "No mods found to configure!",
+
   "dillonlib.on": "ON",
   "dillonlib.off": "OFF",
   "dillonlib.yes": "YES",
@@ -6,14 +10,19 @@
   "dillonlib.lets_go": "Let's go!",
   "dillonlib.back": "Back",
   "dillonlib.next": "Next",
+  "dillonlib.next_page": ">",
+  "dillonlib.previous_page": "<",
   "dillonlib.ok": "Ok",
   "dillonlib.okay": "Okay",
   "dillonlib.proceed": "Proceed",
   "dillonlib.confirm": "Confirm",
   "dillonlib.open_file": "Open File",
   "dillonlib.open_directory": "Open Directory",
+  "dillonlib.update_available": "A newer version of %s is available",
+  "dillonlib.updates_available": "One or more mods have an update available",
   "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
   "dillonlib.update_required_tooltip": "Click here to download the latest version of %s.",
+
   "dillonlib.toast.lib_required": "%s Required",
   "dillonlib.toast.download_lib": "Please download %s to configure %s.",
   "dillonlib.libs.yacl": "YetAnotherConfigLib",

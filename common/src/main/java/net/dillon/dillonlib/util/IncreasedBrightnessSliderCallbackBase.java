@@ -1,12 +1,15 @@
-package net.dillon.dillonlib.client;
+package net.dillon.dillonlib.util;
 
 import com.mojang.serialization.Codec;
+import net.dillon.dillonlib.annotation.Dill;
+import net.dillon.dillonlib.annotation.DillType;
 
 import java.util.Optional;
 
 /**
  * A base callback for implementing full bright into the game.
  */
+@Dill(DillType.CLIENT)
 public class IncreasedBrightnessSliderCallbackBase {
     public static final double min = 0.0D;
     public static final double max = 12.0D;

@@ -1,5 +1,7 @@
 package net.dillon.dillonlib.util;
 
+import net.dillon.dillonlib.annotation.Dill;
+import net.dillon.dillonlib.annotation.DillType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
 /**
  * Utility class for scrolling to a certain keybinds list.
  */
+@Dill(DillType.CLIENT)
 public class KeybindScrollHelper {
     private static KeyMapping.Category pendingCategory = null;
 

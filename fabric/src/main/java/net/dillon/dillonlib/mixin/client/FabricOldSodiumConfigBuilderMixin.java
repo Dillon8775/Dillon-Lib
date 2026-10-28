@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.mixin.client;
 
 import net.caffeinemc.mods.sodium.client.gui.SodiumConfigBuilder;
-import net.dillon.dillonlib.client.IncreasedBrightnessSliderCallbackBase;
+import net.dillon.dillonlib.util.IncreasedBrightnessSliderCallbackBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;

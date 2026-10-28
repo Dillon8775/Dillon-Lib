@@ -31,11 +31,8 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 
 import java.net.URI;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import static net.dillon.dillonlib.platform.info.UpdatableSpriteButton.of;
 
 /**
  * Client-side only methods and tasks that can be commonly used throughout your mod.
@@ -265,15 +262,15 @@ public class ClientTasks {
      * Tries to open a {@code YetAnotherConfigLib} screen, and warns the user if it's not.
      * @see ModConfigLib
      */
-    public static void tryOpenYaclScreen(Supplier<Screen> configScreen, Component yourModName) {
-        tryOpenConfigScreen(configScreen, yourModName, DillonLibModConfigLibs.YACL);
+    public static void tryOpenYaclScreen(Supplier<Screen> configScreen, Component modName) {
+        tryOpenConfigScreen(configScreen, modName, DillonLibModConfigLibs.YACL);
     }
 
     /**
      * Tries to open a {@code configuration} screen, if the config library mod is installed, and warns the user if it's not.
      * @see ModConfigLib
      */
-    public static void tryOpenConfigScreen(Supplier<Screen> configScreen, Component yourModName, ModConfigLib lib) {
+    public static void tryOpenConfigScreen(Supplier<Screen> configScreen, Component modName, ModConfigLib lib) {
         Gui gui = Minecraft.getInstance().gui;
 
         if (!DillonLibModConfigLibs.isLibLoaded(lib)) {
@@ -281,7 +278,7 @@ public class ClientTasks {
                     SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
                     Component.translatable("dillonlib.toast.lib_required", lib.name())
                             .withStyle(ChatFormatting.RED),
-                    Component.translatable("dillonlib.toast.download_lib", lib.name(), yourModName)));
+                    Component.translatable("dillonlib.toast.download_lib", lib.name(), modName)));
         } else {
             gui.setScreen(configScreen.get());
         }
@@ -299,37 +296,14 @@ public class ClientTasks {
     }
 
     /**
-     * Renders the update icon on a button.
+     * Renders the update icon on a button with custom position modifiers.
      */
     public static void renderUpdateIconOnButton(GuiGraphicsExtractor graphics, UpdatableSpriteButton button) {
-        if (button == null || !button.shouldRenderUpdateSprite()) {
+        if (button == null || !button.shouldRenderUpdateSprite().getAsBoolean()) {
             return;
         }
 
-        drawUpdateSprite(graphics, button.getX() + 14, button.getY() - 3);
-    }
-
-    /**
-     * Creates a menu button.
-     */
-    public static UpdatableSpriteButton createMenuButton(String name, Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, boolean withTooltip) {
-        return createMenuButton(name, sprite, onPress, update, tooltip, 16, 16, withTooltip);
-    }
-
-    /**
-     * Creates a menu button with a custom sprite width and height.
-     */
-    public static UpdatableSpriteButton createMenuButton(String name, Identifier sprite, Button.OnPress onPress, Map<Boolean, Component> update, Component tooltip, int spriteWidth, int spriteHeight, boolean withTooltip) {
-        Component text = tooltip;
-        boolean hasUpdate = update.containsKey(true);
-        if (hasUpdate) {
-            text = update.getOrDefault(true, Component.empty());
-        }
-        if (!withTooltip) {
-            text = Component.empty();
-        }
-
-        return of(name, sprite, onPress, text, spriteWidth, spriteHeight, hasUpdate);
+        drawUpdateSprite(graphics, button.getX() + (button.getWidth() - 5), button.getY() - 3);
     }
 
     /**

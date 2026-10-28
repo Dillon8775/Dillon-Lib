@@ -50,7 +50,7 @@ public abstract class ClientModPlatform implements Loadable {
      */
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                PlatformMenuButton.of(false, false, null, spriteIconButton -> {})
+                PlatformMenuButton.of(null, spriteIconButton -> {})
         );
     }
 }

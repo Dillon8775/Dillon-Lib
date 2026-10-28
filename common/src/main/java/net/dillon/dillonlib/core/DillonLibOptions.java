@@ -16,6 +16,7 @@ public class DillonLibOptions {
     }
 
     public static class Core {
+        public boolean configureModsButton = true;
         public boolean checkForUpdates = true;
         public boolean applyFullBrightIfRequired = true;
     }

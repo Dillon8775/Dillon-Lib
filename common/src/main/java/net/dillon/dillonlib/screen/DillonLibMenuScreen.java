@@ -5,6 +5,7 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.dillonlib.util.CommonWidgets;
 import net.dillon.dillonlib.util.KeybindScrollHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,6 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
@@ -30,7 +30,7 @@ import java.util.function.Function;
  */
 @Dill(DillType.CLIENT)
 public abstract class DillonLibMenuScreen extends OptionsSubScreen implements DillonLibScreen {
-    private Button doneButton;
+    private AbstractWidget doneButton;
     private List<WidgetData> widgets;
     private final ScreenBuilder screenBuilder;
 
@@ -60,7 +60,7 @@ public abstract class DillonLibMenuScreen extends OptionsSubScreen implements Di
 
     @Override
     protected void addFooter() {
-        this.doneButton = this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose()).width(200).build());
+        this.doneButton = this.layout.addToFooter(CommonWidgets.createDoneButton(this));
     }
 
     @Override

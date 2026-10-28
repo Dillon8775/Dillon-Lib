@@ -1,12 +1,9 @@
-# Version 1.2.5
+# Version 1.3
 
-- All of Dillon's mods must be updated to their latest version because of this update, or your game will crash.
-
-
-- Remove `ConditionalTooltip`, replace with a Component function as `Function<Boolean, Component>`, where the `boolean` is the button's active state.
-- Remove `PlatformGetter` class, and move `getDillonLibPlatform` method to `Platforms` class.
-- Remove all [Speedrunner Mod](https://modrinth.com/mod/speedrunner-mod) sound files, as this project has been discontinued and only works on DillonLib version 1.2.4.
-- Split `DillonLibOptions` into different categories (`Core` and `Factories`).
-- Added `LevelSelectorScreen`, with a consumable action to do something on world/server selection.
-- Added `"Search..."`, `"Confirm"`, `"Open File"` and `"Open Directory"` texts.
-- Make `UpdateChecker` allow parsing for `.`s and `-`s.
+- Updated default `UpdatableSpriteButton` constructor and added options for custom button size.
+- Updated `PlatformMenuButton` - does not have pause or title conditions anymore. All menu buttons are now placed inside a universal screen called `Dillon's Mods`.
+- All registered `PlatformMenuButtons` will be placed inside the `Dillon's Mods` screen.
+- Completely changed `ClientTasks` menu button methods.
+- Removed `titleCondition` and `pauseCondition` from menu buttons, as they are never placed on the title or pause screen - only the new Dillon's Mods screen.
+- Moved `ClientTasks` menu button methods to a new class called `CommonWidgets`, which contains helpful widgets.
+- Removed `UpdatableSpriteButton` builder methods, you must either use 

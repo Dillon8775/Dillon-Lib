@@ -6,9 +6,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
-import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.PlatformLoader;
-import net.dillon.dillonlib.platform.info.PlatformMenuButton;
+import net.dillon.dillonlib.core.DillonLibClient;
+import net.dillon.dillonlib.core.DillonLibOptions;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,9 +20,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Mixin(value = TitleScreen.class, priority = 2000)
 public abstract class TitleScreenMixin extends Screen {
     @Shadow
@@ -34,74 +30,38 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Increases the maximum amount of buttons that should be displayed on the title screen.
+     * Calls the horizontal position again.
+     */
+    @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;getHorizontalPosition(III)I"))
+    private int replaceInlinedConstant(TitleScreen instance, int currentButton, int numberOfButtons, int buttonWidth, Operation<Integer> original, @Local(name = "numberOfButtons") int actualNumberOfButtons) {
+        return original.call(instance, currentButton, actualNumberOfButtons, buttonWidth);
+    }
+
+    /**
+     * Increases the maximum number of buttons according to the {@code configure mods button}.
      */
     @Definition(id = "numberOfButtons", local = @Local(type = int.class, name = "numberOfButtons"))
     @Expression("numberOfButtons = ?")
     @Inject(method = "init", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
     private void adjustAmountOfIconButtons(CallbackInfo ci, @Local(name = "numberOfButtons") LocalIntRef numberOfButtons) {
-        PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
+        if (!DillonLibOptions.getLibInstance().core().configureModsButton) {
+            return;
+        }
 
-            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
-                if (numberOfButtons.get() > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
-                    return;
-                }
-
-                if (p != null && p.isOnTitle() && p.button() != null) {
-                    numberOfButtons.set(numberOfButtons.get() + 1);
-                }
-            }
-        });
+        numberOfButtons.set(numberOfButtons.get() + 1);
     }
 
     /**
-     * Adds all {@link PlatformMenuButton}s to the title screen.
+     * Adds the {@code configure mods button} to the title screen.
      */
     @Inject(method = "init", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void addButtonsAndWarning(CallbackInfo ci, int copyrightWidth, int copyrightX, int spacing, int topPos, int numberOfButtons, int currentButton, SpriteIconButton language, SpriteIconButton accessibility) {
-        int[] b = {currentButton};
-
-        List<PlatformMenuButton> orderedButtons = new ArrayList<>();
-
-        PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
-            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
-                if (p == null) {
-                    continue;
-                }
-
-                UpdatableSpriteButton button = p.button();
-
-                if (p.isOnTitle() && button != null) {
-                    orderedButtons.add(p);
-                }
-            }
-        });
-
-        PlatformMenuButton.sortButtons(orderedButtons);
-
-        for (PlatformMenuButton p : orderedButtons) {
-            if (b[0] > PlatformMenuButton.TITLE_SCREEN_BUTTON_CAP) { // Capped value
-                DillonLibMain.LOGGER.warn("Tried to add too many buttons!");
-                return;
-            }
-
-            UpdatableSpriteButton button = p.button();
-
-            this.addRenderableWidget(button);
-            button.setPosition(
-                    this.getHorizontalPosition(++b[0], numberOfButtons, 20),
-                    topPos - 24
-            );
-
-            p.consumer().accept(button);
+        if (!DillonLibOptions.getLibInstance().core().configureModsButton) {
+            return;
         }
-    }
 
-    /**
-     * Calls the horizontal position again so {@link PlatformMenuButton}s are placed correctly.
-     */
-    @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;getHorizontalPosition(III)I"))
-    private int replaceInlinedConstant(TitleScreen instance, int currentButton, int numberOfButtons, int buttonWidth, Operation<Integer> original, @Local(name = "numberOfButtons") int actualNumberOfButtons) {
-        return original.call(instance, currentButton, actualNumberOfButtons, buttonWidth);
+        UpdatableSpriteButton configureModsButton = DillonLibClient.configureModsButton(this);
+        configureModsButton.setPosition(this.getHorizontalPosition(++currentButton, numberOfButtons, 20), topPos - 24);
+        this.addRenderableWidget(configureModsButton);
     }
 }

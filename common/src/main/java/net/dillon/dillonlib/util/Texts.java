@@ -16,6 +16,8 @@ public class Texts {
     public static final Component LETS_GO = Component.translatable("dillonlib.lets_go");
     public static final Component BACK = Component.translatable("dillonlib.back");
     public static final Component NEXT = Component.translatable("dillonlib.next");
+    public static final Component NEXT_PAGE = Component.translatable("dillonlib.next_page");
+    public static final Component PREVIOUS_PAGE = Component.translatable("dillonlib.previous_page");
     public static final Component OK = Component.translatable("dillonlib.ok");
     public static final Component OKAY = Component.translatable("dillonlib.okay");
     public static final Component PROCEED = Component.translatable("dillonlib.proceed");

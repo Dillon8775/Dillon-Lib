@@ -33,6 +33,7 @@
     "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",
     "client.PauseScreenMixin",
+    "client.SpriteIconButtonMixin",
     "client.TitleScreenMixin",
     "client.fix.bow.AbstractClientPlayerFix",
     "client.fix.bow.AvatarRendererFix",
