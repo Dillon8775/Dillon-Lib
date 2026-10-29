@@ -12,6 +12,6 @@ import static net.dillon.dillonlib.core.DillonLibMain.dillonLibIdentifier;
 @Dill(DillType.CLIENT)
 public class WidespreadSprites {
     public static final Identifier MENU_BUTTON = dillonLibIdentifier("icon/menu_button");
-    public static final Identifier UPDATE_AVAILABLE = dillonLibIdentifier("icon/update_available");
+    public static final Identifier UPDATE_AVAILABLE = Identifier.withDefaultNamespace("icon/trial_available");
     public static final Identifier CHECKMARK = Identifier.withDefaultNamespace("icon/checkmark");
 }

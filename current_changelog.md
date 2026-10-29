@@ -11,10 +11,10 @@
     - (See below) `WidespreadWidgets` is also located in this directory.
 
 ### Sprites
-- Updated the `Update Available` sprite to match the Dillon color theme.
+- Updated the `Update Available` sprite to the new vanilla texture.
 - *Removed* container sprites (only used by the now discontinued [Speedrunner Mod](https://modrinth.com/mod/speedrunner-mod)).
 
-### Miscellaneous
+### Other Notes
 - Updated `ClientTasks` menu button methods, and moved them to a new class called `WidespreadWidgets`.
 - Updated default `UpdatableSpriteButton` constructor, added options for custom button size and sprite size.
 - *Removed* built-in `UpdatableSpriteButton` builder methods, you must either use its constructor (now public), or `ClientTask`s methods.

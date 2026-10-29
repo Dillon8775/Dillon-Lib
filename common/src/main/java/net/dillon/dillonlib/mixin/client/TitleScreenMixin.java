@@ -2,8 +2,6 @@ package net.dillon.dillonlib.mixin.client;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.dillon.dillonlib.core.DillonLibClient;
@@ -30,21 +28,13 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Calls the horizontal position again.
-     */
-    @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;getHorizontalPosition(III)I"))
-    private int replaceInlinedConstant(TitleScreen instance, int currentButton, int numberOfButtons, int buttonWidth, Operation<Integer> original, @Local(name = "numberOfButtons") int actualNumberOfButtons) {
-        return original.call(instance, currentButton, actualNumberOfButtons, buttonWidth);
-    }
-
-    /**
      * Increases the maximum number of buttons according to the {@code configure mods button}.
      */
     @Definition(id = "numberOfButtons", local = @Local(type = int.class, name = "numberOfButtons"))
     @Expression("numberOfButtons = ?")
     @Inject(method = "init", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
     private void adjustAmountOfIconButtons(CallbackInfo ci, @Local(name = "numberOfButtons") LocalIntRef numberOfButtons) {
-        if (!DillonLibOptions.getLibInstance().core().configureModsButton) {
+        if (!DillonLibOptions.getLibInstance().core().dillonsModsButton) {
             return;
         }
 
@@ -56,7 +46,7 @@ public abstract class TitleScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void addButtonsAndWarning(CallbackInfo ci, int copyrightWidth, int copyrightX, int spacing, int topPos, int numberOfButtons, int currentButton, SpriteIconButton language, SpriteIconButton accessibility) {
-        if (!DillonLibOptions.getLibInstance().core().configureModsButton) {
+        if (!DillonLibOptions.getLibInstance().core().dillonsModsButton) {
             return;
         }
 
