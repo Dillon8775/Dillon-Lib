@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.platform.info;
 
 import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.Texts;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -18,7 +18,7 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     private final BooleanSupplier shouldRenderUpdateSprite;
 
     public UpdatableSpriteButton(String orderName, int width, int height, int spriteWidth, int spriteHeight, BooleanSupplier shouldRenderUpdateSprite, Component tooltip, WidgetSprites sprite, OnPress onPress) {
-        super(width, height, Texts.BLANK, spriteWidth, spriteHeight, 0, 0, sprite, onPress, null, null, false);
+        super(width, height, WidespreadTexts.BLANK, spriteWidth, spriteHeight, 0, 0, sprite, onPress, null, null, false);
         this.orderName = orderName;
         if (!tooltip.equals(Component.empty())) {
             this.setTooltip(Tooltip.create(tooltip));

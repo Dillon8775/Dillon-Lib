@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.util;
+package net.dillon.dillonlib.widespread;
 
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
  * Common texts that can be used throughout your mod.
  * @since 1.0
  */
-public class Texts {
+public class WidespreadTexts {
     public static final Component BLANK = Component.literal("");
     public static final Component ON = Component.translatable("dillonlib.on");
     public static final Component OFF = Component.translatable("dillonlib.off");

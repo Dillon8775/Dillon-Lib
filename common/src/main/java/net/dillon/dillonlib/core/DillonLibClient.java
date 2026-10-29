@@ -7,11 +7,11 @@ import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.dillon.dillonlib.screen.DillonsModsScreen;
+import net.dillon.dillonlib.widespread.WidespreadSprites;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class DillonLibClient {
                 DillonLibMain.HAS_UPDATE
                         ? Component.translatable("dillonlib.update_available", Component.translatable("dillonlib"))
                         : defaultTooltip[0],
-                new WidgetSprites(Identifier.fromNamespaceAndPath(DillonLibMain.MOD_ID, "icon/menu_button")),
+                new WidgetSprites(WidespreadSprites.MENU_BUTTON),
                 onPress -> openScreen(new DillonsModsScreen(parent))
         );
     }

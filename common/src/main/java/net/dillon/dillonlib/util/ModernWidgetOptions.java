@@ -2,6 +2,7 @@ package net.dillon.dillonlib.util;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -18,11 +19,11 @@ import java.util.function.BiFunction;
 @Dill(DillType.CLIENT)
 public class ModernWidgetOptions {
     public static final OptionInstance.CaptionBasedToString<Boolean> ON_OFF_TEXT = (component, bl) -> bl
-            ? Texts.ON
-            : Texts.OFF;
+            ? WidespreadTexts.ON
+            : WidespreadTexts.OFF;
     public static final OptionInstance.CaptionBasedToString<Boolean> YES_NO_TEXT = (component, bl) -> bl
-            ? Texts.YES
-            : Texts.NO;
+            ? WidespreadTexts.YES
+            : WidespreadTexts.NO;
 
     /**
      * Creates an option widget from an {@link OptionInstance}.

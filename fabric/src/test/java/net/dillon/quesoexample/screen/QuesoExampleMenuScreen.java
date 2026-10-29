@@ -3,7 +3,7 @@ package net.dillon.quesoexample.screen;
 import net.dillon.dillonlib.screen.DillonLibMenuScreen;
 import net.dillon.dillonlib.screen.ScreenBuilder;
 import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.Texts;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
 import net.dillon.quesoexample.platform.QuesoExamplePlatformGetter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -28,7 +28,7 @@ public class QuesoExampleMenuScreen extends DillonLibMenuScreen {
 
     private AbstractWidget button() {
         return this.createWidget(
-                Button.builder(Texts.BLANK, b -> {
+                Button.builder(WidespreadTexts.BLANK, b -> {
                         })
                         .bounds(builder().captureWidth(), builder().captureHeight(), 20, 20)
                         .build(),

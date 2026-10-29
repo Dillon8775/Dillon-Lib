@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.screen;
 
 import com.ibm.icu.text.Collator;
-import net.dillon.dillonlib.util.Texts;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -72,7 +72,7 @@ public class LevelSelectorScreen extends BasicDillonLibScreen {
         header.addChild(new StringWidget(this.getTitle(), this.font));
 
         EditBox search = header.addChild(new EditBox(this.font, 200, 15, Component.empty()));
-        search.setHint(Texts.SEARCH);
+        search.setHint(WidespreadTexts.SEARCH);
         this.levelList = this.layout.addToContents(new LevelList(this.listOfServers, this.validWorldPredicate));
         search.setResponder(this.levelList::filterEntries);
 

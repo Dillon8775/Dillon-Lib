@@ -7,8 +7,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.info.PlatformMenuButton;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.util.CommonWidgets;
-import net.dillon.dillonlib.util.Texts;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
+import net.dillon.dillonlib.widespread.WidespreadWidgets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.FocusableTextWidget;
@@ -46,7 +46,7 @@ public class DillonsModsScreen extends BasicDillonLibScreen {
     @Override
     public boolean keyPressed(KeyEvent event) {
         // Dont try to navigate if cant
-        if (!(buttons.size() > 4)) {
+        if (!moreThanFour()) {
             return super.keyPressed(event);
         }
 
@@ -63,6 +63,13 @@ public class DillonsModsScreen extends BasicDillonLibScreen {
         }
 
         return super.keyPressed(event);
+    }
+
+    /**
+     * @return if the current size of the button list is greater than 4.
+     */
+    private boolean moreThanFour() {
+        return buttons.size() > 4;
     }
 
     /**
@@ -133,13 +140,13 @@ public class DillonsModsScreen extends BasicDillonLibScreen {
         LinearLayout footer = LinearLayout.horizontal().spacing(8);
 
         // Create previous button
-        previous = Button.builder(Texts.PREVIOUS_PAGE, button -> previous())
+        previous = Button.builder(WidespreadTexts.PREVIOUS_PAGE, button -> previous())
                 .width(20)
                 .build();
         previous.active = currentPage > 1;
 
         // Create next button
-        next = Button.builder(Texts.NEXT_PAGE, button -> next())
+        next = Button.builder(WidespreadTexts.NEXT_PAGE, button -> next())
                 .width(20)
                 .build();
         next.active = buttons.size() > 1 && currentPage != buttons.size();
@@ -159,15 +166,14 @@ public class DillonsModsScreen extends BasicDillonLibScreen {
                 ((ModifiableSpriteIconButton)button).setSpriteSize(64, 64);
                 box.addChild(button);
             });
-
-            if (buttons.size() > 4) {
-                footer.addChild(previous);
-                footer.addChild(next);
-            }
         }
 
+        if (moreThanFour()) footer.addChild(previous);
+        footer.addChild(WidespreadWidgets.checkmarkButton(b -> onClose()));
+        if (moreThanFour()) footer.addChild(next);
+
         // Align buttons
-        CommonWidgets.centerGrid(this, grid);
+        WidespreadWidgets.centerGrid(this, grid);
 
         // Add title
         headerAndFooter.addTitleHeader(

@@ -1,8 +1,7 @@
 package net.dillon.quesoexample.helper;
 
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.CommonWidgets;
+import net.dillon.dillonlib.widespread.WidespreadWidgets;
 import net.dillon.quesoexample.screen.QuesoExampleMenuScreen;
 import net.dillon.quesoexample.screen.QuesoExampleScreen;
 import net.minecraft.network.chat.Component;
@@ -13,7 +12,7 @@ import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 public class ModHelper {
 
     public static UpdatableSpriteButton menuButton(String letter, boolean shouldUpdate, boolean menuScreen) {
-        return CommonWidgets.createSmallUpdatableSpriteButton(
+        return WidespreadWidgets.createSmallUpdatableSpriteButton(
                 letter,
                 Component.literal("QuesoExample"),
                 () -> shouldUpdate,

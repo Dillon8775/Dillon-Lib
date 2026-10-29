@@ -4,7 +4,7 @@ import com.mojang.blaze3d.Blaze3D;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.platform.Platforms;
-import net.dillon.dillonlib.util.Texts;
+import net.dillon.dillonlib.widespread.WidespreadTexts;
 import net.minecraft.client.gui.screens.Screen;
 
 /**
@@ -14,7 +14,7 @@ import net.minecraft.client.gui.screens.Screen;
 public class OpenConfigScreen extends BasicDillonLibScreen {
 
     public OpenConfigScreen(Screen parent) {
-        super(Texts.BLANK);
+        super(WidespreadTexts.BLANK);
     }
 
     @Override

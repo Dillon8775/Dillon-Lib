@@ -5,8 +5,8 @@ import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.util.CommonWidgets;
 import net.dillon.dillonlib.util.KeybindScrollHelper;
+import net.dillon.dillonlib.widespread.WidespreadWidgets;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -60,7 +60,7 @@ public abstract class DillonLibMenuScreen extends OptionsSubScreen implements Di
 
     @Override
     protected void addFooter() {
-        this.doneButton = this.layout.addToFooter(CommonWidgets.createDoneButton(this));
+        this.doneButton = this.layout.addToFooter(WidespreadWidgets.createDoneButton(this));
     }
 
     @Override

@@ -7,8 +7,8 @@ import net.dillon.dillonlib.core.DillonLibModConfigLibs;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.ModConfigLib;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.util.CommonSprites;
 import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
+import net.dillon.dillonlib.widespread.WidespreadSprites;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -232,7 +232,7 @@ public class ClientTasks {
      * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
-        drawSprite(graphics, CommonSprites.UPDATE_AVAILABLE, x, y, 8, 8);
+        drawSprite(graphics, WidespreadSprites.UPDATE_AVAILABLE, x, y, 8, 8);
     }
 
     /**

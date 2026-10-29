@@ -1,3 +1,4 @@
+
 package net.dillon.dillonlib;
 
 import net.dillon.dillonlib.annotation.Dill;

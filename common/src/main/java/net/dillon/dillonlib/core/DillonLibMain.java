@@ -4,6 +4,7 @@ import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.util.UpdateChecker;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +58,13 @@ public class DillonLibMain {
         LOGGER.info("DillonLib {} for {} has loaded",
                 Platforms.getDillonLibPlatform().modVersion(),
                 Platforms.getDillonLibPlatform().platform().toString().toLowerCase(Locale.ROOT));
+    }
+
+    /**
+     * @return an identifier from DillonLib.
+     */
+    public static Identifier dillonLibIdentifier(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     /**

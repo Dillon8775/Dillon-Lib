@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.util;
+package net.dillon.dillonlib.widespread;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillType;
@@ -6,6 +6,7 @@ import net.dillon.dillonlib.mixin.accessor.ScreenInvoker;
 import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
@@ -20,7 +21,7 @@ import java.util.function.BooleanSupplier;
  * Utility class for creating common widgets.
  */
 @Dill(DillType.CLIENT)
-public class CommonWidgets {
+public class WidespreadWidgets {
 
     /**
      * @return a done button.
@@ -34,6 +35,16 @@ public class CommonWidgets {
      */
     public static AbstractWidget createDoneButton(Screen screen, int width) {
         return Button.builder(CommonComponents.GUI_DONE, button -> screen.onClose()).width(width).build();
+    }
+
+    /**
+     * @return a checkmark button.
+     */
+    public static SpriteIconButton checkmarkButton(Button.OnPress onPress) {
+        return SpriteIconButton.builder(WidespreadTexts.BACK, onPress, true)
+                .sprite(WidespreadSprites.CHECKMARK, 9, 8)
+                .width(20)
+                .build();
     }
 
     /**
