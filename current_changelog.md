@@ -1,9 +1,9 @@
 # Version 1.3
 
 - Updated default `UpdatableSpriteButton` constructor and added options for custom button size.
-- Updated `PlatformMenuButton` - does not have pause or title conditions anymore. All menu buttons are now placed inside a universal screen called `Dillon's Mods`.
-- All registered `PlatformMenuButtons` will be placed inside the `Dillon's Mods` screen.
-- Completely changed `ClientTasks` menu button methods.
-- Removed `titleCondition` and `pauseCondition` from menu buttons, as they are never placed on the title or pause screen - only the new Dillon's Mods screen.
-- Moved `ClientTasks` menu button methods to a new class called `CommonWidgets`, which contains helpful widgets.
-- Removed `UpdatableSpriteButton` builder methods, you must either use 
+- Updated `PlatformMenuButton` - does not have pause or title conditions anymore.
+- All `PlatformMenuButton`s are now placed inside a new screen called `Dillon's Mods`.
+- The `Dillon's Screen` mod is accessible via the title and pause screen through a button with a purple cape. This button can be disabled via the DillonLib config.
+- Updated the `Update Available` sprite to match Dillon's color theme.
+- Updated `ClientTasks` menu button methods, and moved them to a new class called `CommonWidgets`.
+- Removed `UpdatableSpriteButton` builder methods, you must either use its constructor (now public), or `ClientTask`s methods.
