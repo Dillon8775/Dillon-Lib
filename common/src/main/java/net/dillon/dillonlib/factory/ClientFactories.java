@@ -2,7 +2,7 @@ package net.dillon.dillonlib.factory;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.client.KeyMapping;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  * Stores client-side factories for different Minecraft items and blocks.
  * @since 1.0
  */
-@Dill(DillType.CLIENT)
+@Dill(env = DillEnv.CLIENT)
 public class ClientFactories {
     public static final Map<KeyMapping, Consumer<LocalPlayer>> NON_KUMA_KEY_MAPPING_FACTORIES = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ClientFactories {
      * @param consumer the {@link Consumer} that the keybind should execute (typically in-game).
      */
     public static KeyMapping createKeyMapping(String key, InputConstants.Type type, KeyMapping.Category category, int code, Consumer<LocalPlayer> consumer) {
-        KeyMapping keyBind = Platforms.getDillonLibClientPlatform().registerKeyMapping(key, type, category, code);
+        KeyMapping keyBind = Platforms.getClientUniversalPlatform().registerKeyMapping(key, type, category, code);
         NON_KUMA_KEY_MAPPING_FACTORIES.put(keyBind, consumer);
         DillonLibMain.LOGGER.info("Registered key mapping {} with keycode {}", key, code);
         return keyBind;
@@ -39,6 +39,7 @@ public class ClientFactories {
     /**
      * @return the texture path for a {@code normal boat.}
      */
+    @Deprecated(forRemoval = true)
     public static ModelLayerLocation boatModelLayer(String namespace, String id) {
         return new ModelLayerLocation(Identifier.fromNamespaceAndPath(namespace, "boat/" + id), "main");
     }
@@ -46,6 +47,7 @@ public class ClientFactories {
     /**
      * @return the texture path for a {@code chest boat.}
      */
+    @Deprecated(forRemoval = true)
     public static ModelLayerLocation chestBoatModelLayer(String namespace, String id) {
         return new ModelLayerLocation(Identifier.fromNamespaceAndPath(namespace, "chest_boat/" + id), "main");
     }

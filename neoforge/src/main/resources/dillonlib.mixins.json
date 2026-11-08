@@ -23,6 +23,7 @@
     "accessor.DebugScreenEntriesInvoker",
     "accessor.KeyBindsScreenAccessor",
     "accessor.ScreenInvoker",
+    "client.FocusableTextWidgetMixin",
     "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",
     "client.NeoForgeOptionInstanceMixin",

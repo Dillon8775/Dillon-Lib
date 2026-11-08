@@ -1,9 +1,8 @@
 package net.dillon.quesoexample.screen;
 
-import net.dillon.dillonlib.screen.DillonLibMenuScreen;
-import net.dillon.dillonlib.screen.ScreenBuilder;
+import net.dillon.dillonlib.client.screen.DillonLibMenuScreen;
 import net.dillon.dillonlib.task.ClientTasks;
-import net.dillon.dillonlib.widespread.WidespreadTexts;
+import net.dillon.dillonlib.widespread.DillonsTexts;
 import net.dillon.quesoexample.platform.QuesoExamplePlatformGetter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -16,21 +15,21 @@ import net.minecraft.resources.Identifier;
 public class QuesoExampleMenuScreen extends DillonLibMenuScreen {
 
     public QuesoExampleMenuScreen(Screen lastScreen) {
-        super(lastScreen, Component.literal("Testing Screen!"), ScreenBuilder::ofTopCentered);
+        super(lastScreen, Component.literal("Testing Screen!"));
     }
 
     @Override
     public void widgets() {
         this.addRenderableWidget(button());
-        builder().widthRight().apply();
+//        builder().widthRight().apply();
         this.addRenderableWidget(button());
     }
 
     private AbstractWidget button() {
         return this.createWidget(
-                Button.builder(WidespreadTexts.BLANK, b -> {
+                Button.builder(DillonsTexts.BLANK, b -> {
                         })
-                        .bounds(builder().captureWidth(), builder().captureHeight(), 20, 20)
+                        .size(20, 20)
                         .build(),
                 () -> false,
                 isActive -> {

@@ -1,5 +1,6 @@
 {
   "dillonlib": "DillonLib",
+  "dillonlib.menu": "DillonLib Main Menu",
   "dillonlib.mods": "Dillon's Mods",
   "dillonlib.mods_none": "No mods found to configure!",
 
@@ -16,16 +17,38 @@
   "dillonlib.okay": "Okay",
   "dillonlib.proceed": "Proceed",
   "dillonlib.confirm": "Confirm",
+  "dillonlib.exit": "Exit",
   "dillonlib.open_file": "Open File",
   "dillonlib.open_directory": "Open Directory",
+  "dillonlib.up_to_date": "Mod is §aup-to-date",
+  "dillonlib.version": "Version: %s",
   "dillonlib.update_available": "A newer version of %s is available",
   "dillonlib.updates_available": "One or more mods have an update available",
-  "dillonlib.update_required_message": "A newer version of %s is available. Click here to download.",
-  "dillonlib.update_required_tooltip": "Click here to download the latest version of %s.",
+  "dillonlib.update_available_message": "A newer version of %s is available. Click here to download.",
+  "dillonlib.update_available_tooltip": "Click here to download the latest version of %s",
 
   "dillonlib.toast.lib_required": "%s Required",
   "dillonlib.toast.download_lib": "Please download %s to configure %s.",
   "dillonlib.libs.yacl": "YetAnotherConfigLib",
 
-  "dillonlib.gui.search": "Search..."
+  "dillonlib.gui.search": "Search...",
+
+  "dillonlib.header.options": "§l§nOptions",
+  "dillonlib.header.other_mods": "§a§l§nDownload Now!",
+
+  "dillonlib.gui.config": "Open DillonLib Config...",
+  "dillonlib.gui.mods": "Mods...",
+
+  "dillonlib.mod.quality_of_queso": "§6Quality of Queso...",
+  "dillonlib.mod.quality_of_queso.tooltip": "A Fabric/(Neo)Forge mod that adds various different QoL features, including container searching, precise inventory management, cool visual effects, and so much more!",
+  "dillonlib.mod.survival_fly": "Survival Fly...",
+  "dillonlib.mod.survival_fly.tooltip": "A Fabric/(Neo)Forge mod that lets server owners allow players to fly in survival mode.",
+  "dillonlib.mod.simple_keybinds": "§7Simple Keybinds...",
+  "dillonlib.mod.simple_keybinds.tooltip": "A Fabric/(Neo)Forge mod that adds simple(r) keybinds to Minecraft.",
+  "dillonlib.mod.enchantment_transferring": "§6Enchantment Transferring...",
+  "dillonlib.mod.enchantment_transferring.tooltip": "A Fabric mod that lets you transfer enchantments from one item to another.",
+  "dillonlib.mod.the_nofog_mod": "The NoFog Mod...",
+  "dillonlib.mod.the_nofog_mod.tooltip": "A simple Fabric/(Neo)Forge mod that removes Minecraft's annoying fog.",
+  "dillonlib.mod.speedrunner_mod": "§bThe Speedrunner Mod...",
+  "dillonlib.mod.speedrunner_mod.tooltip": "A Fabric mod that makes Minecraft speedrunning, easier."
 }

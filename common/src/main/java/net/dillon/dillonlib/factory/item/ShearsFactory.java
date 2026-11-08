@@ -12,6 +12,7 @@ import net.minecraft.world.item.ShearsItem;
  * @see MatchToolFix
  * @see DillonLibEvents
  */
+@Deprecated(forRemoval = true)
 public class ShearsFactory extends ShearsItem {
     public static final ItemFactoryPredicate DEFAULT = stack -> stack.is(Items.SHEARS) || stack.getItem() instanceof ShearsFactory;
     public final boolean registerDispenserBehavior;

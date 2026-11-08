@@ -1,6 +1,6 @@
 package net.dillon.dillonlib.mixin.client.fix.screen;
 
-import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
+import net.dillon.dillonlib.client.impl.DebugOptionsScreenImpl;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.network.chat.Component;
@@ -24,11 +24,6 @@ public class DebugOptionsScreenMixin extends Screen implements DebugOptionsScree
     @Override
     public void setParent(Screen parent) {
         this.parent = parent;
-    }
-
-    @Override
-    public Screen getParent() {
-        return this.parent;
     }
 
     @Override

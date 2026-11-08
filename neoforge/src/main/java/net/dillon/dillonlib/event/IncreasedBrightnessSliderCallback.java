@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.event;
 
 import com.mojang.serialization.Codec;
-import net.dillon.dillonlib.util.IncreasedBrightnessSliderCallbackBase;
+import net.dillon.dillonlib.client.util.IncreasedBrightnessSliderCallbackBase;
 import net.minecraft.client.OptionInstance;
 
 import java.util.Optional;

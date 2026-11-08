@@ -15,6 +15,7 @@ import java.util.Optional;
  * A default {@link ShieldItem}, which contains correct data for shields.
  * @since 1.0
  */
+@Deprecated(forRemoval = true)
 public class ShieldFactory extends ShieldItem {
     public static final ItemFactoryPredicate THIS = stack -> stack.getItem() instanceof ShieldFactory;
 

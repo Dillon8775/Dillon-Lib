@@ -21,12 +21,12 @@ public class UpdateChecker {
 
     /**
      * Checks Modrinth for an update.
-     * @param projectId the Modrinth project ID or slug
+     * @param modrinthSlug the Modrinth project ID or slug
      * @param currentVersion the installed mod version
      * @return a future containing true if an update is available
      */
-    public static CompletableFuture<Boolean> checkForUpdate(String projectId, String currentVersion) {
-        String url = "https://api.modrinth.com/v2/project/" + projectId + "/version";
+    public static CompletableFuture<Boolean> checkForUpdate(String modrinthSlug, String currentVersion) {
+        String url = "https://api.modrinth.com/v2/project/" + modrinthSlug + "/version";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -92,16 +92,23 @@ public class UpdateChecker {
 
         String latestVersionNumber = latestVersion.get("version_number").getAsString();
 
-        return compare(currentVersion, latestVersionNumber
-        );
+        return compare(currentVersion, latestVersionNumber);
     }
 
     /**
-     * Compares two numeric versions.
+     * Compares two mod versions, ignoring Minecraft versions and mod loaders.
      */
     public static int compareVersions(String version1, String version2) {
-        String[] version1Parts = version1.split("[.-]");
-        String[] version2Parts = version2.split("[.-]");
+        version1 = version1.contains("-")
+                ? version1.split("-")[1]
+                : version1;
+
+        version2 = version2.contains("-")
+                ? version2.split("-")[1]
+                : version2;
+
+        String[] version1Parts = version1.split("\\.");
+        String[] version2Parts = version2.split("\\.");
 
         int length = Math.max(version1Parts.length, version2Parts.length);
 

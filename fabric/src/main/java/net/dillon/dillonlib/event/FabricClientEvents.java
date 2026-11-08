@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.core.DillonLibEvents;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.factory.Factories;
@@ -18,7 +18,7 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 /**
  * {@code Client-side Fabric events} for DillonLib.
  */
-@Dill(DillType.CLIENT)
+@Dill(env = DillEnv.CLIENT)
 public class FabricClientEvents {
 
     public static void registerFabricClientCommands() {
@@ -27,6 +27,7 @@ public class FabricClientEvents {
         });
     }
 
+    @Deprecated(forRemoval = true)
     public static void registerFabricBoatRenderers() {
         for (BoatData boat : Factories.BOATS) {
             String namespace = boat.id().getNamespace();
@@ -44,6 +45,7 @@ public class FabricClientEvents {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public static void registerBoatRenderer(EntityType<? extends AbstractBoat> type,
                                      ModelLayerLocation modelLayerLocation,
                                      boolean chestBoat

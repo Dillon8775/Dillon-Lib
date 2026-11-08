@@ -3,7 +3,7 @@ package net.dillon.quesoexample.platform.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
-import net.dillon.dillonlib.platform.info.PlatformMenuButton;
+import net.dillon.dillonlib.client.component.PlatformMenuButton;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.dillon.quesoexample.command.QuesoClientCommand;
 import net.dillon.quesoexample.helper.ModHelper;
@@ -23,11 +23,6 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     }
 
     @Override
-    public KeyMapping registerKeyMapping(String name, InputConstants.Type type, KeyMapping.Category category, int value) {
-        return KeyMappingHelper.registerKeyMapping(new KeyMapping(name, value, category));
-    }
-
-    @Override
     public boolean canSendPacket(LocalPlayer localPlayer) {
         return true;
     }
@@ -35,25 +30,69 @@ public class ClientQuesoExampleImpl extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                PlatformMenuButton.of(ModHelper.menuButton("A", true, true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("a", false, true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("B", false, true), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("C", false, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("D", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("E", false, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX())),
-                PlatformMenuButton.of(ModHelper.menuButton("F", true, false), spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                PlatformMenuButton.builder(ModHelper.menuButton("Quality", "qoq", true, true))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("Simple", "simplekeybinds", false, true))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("C", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("D", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("E", "qoq", false, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build(),
+                PlatformMenuButton.builder(ModHelper.menuButton("F", "qoq", true, false))
+                        .consumer(spriteIconButton -> System.out.println(spriteIconButton.getX()))
+                        .build()
         );
     }
 

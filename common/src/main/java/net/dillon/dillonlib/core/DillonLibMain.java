@@ -19,7 +19,7 @@ public class DillonLibMain {
     public static final Logger LOGGER = LoggerFactory.getLogger("DillonLib/Main");
     public static boolean HAS_UPDATE = UpdateChecker.hasUpdate(UpdateChecker.checkForUpdate(
             "dillon-lib",
-            Platforms.getDillonLibPlatform().modVersion())
+            Platforms.getUniversalPlatform().commonModVersion(DillonLibMain.MOD_ID))
     );
 
     /**

@@ -12,11 +12,6 @@ public class FabricModImpl extends ModPlatform {
     }
 
     @Override
-    public String modVersion() {
-        return Platforms.getCommonPlatform().commonModVersion(DillonLibMain.MOD_ID);
-    }
-
-    @Override
     public Release release() {
         return Release.STABLE;
     }

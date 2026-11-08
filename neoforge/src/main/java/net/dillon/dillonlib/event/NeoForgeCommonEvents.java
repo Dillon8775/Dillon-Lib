@@ -14,11 +14,11 @@ public class NeoForgeCommonEvents {
     public static void registerCommands(RegisterCommandsEvent dispatcher) {
         DillonLibEvents.registerAllCommonCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
 
-        if (Platforms.getCommonPlatform().isEnvironmentClient()) {
+        if (Platforms.getUniversalPlatform().isEnvironmentClient()) {
             DillonLibEvents.registerAllClientCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
         }
 
-        if (Platforms.getCommonPlatform().isEnvironmentServer()) {
+        if (Platforms.getUniversalPlatform().isEnvironmentServer()) {
             DillonLibEvents.registerAllServerCommands(dispatcher.getDispatcher(), dispatcher.getBuildContext());
         }
     }

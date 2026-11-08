@@ -37,7 +37,7 @@ public class MixinFabricPlatformImpl extends MixinModPlatform {
                         return VersionPredicate.parse(">=" + mod.version())
                                 .test(
                                         Version.parse(
-                                                Platforms.getCommonPlatform().commonModVersion(mod.id())
+                                                Platforms.getUniversalPlatform().commonModVersion(mod.id())
                                         )
                                 );
                     } catch (VersionParsingException e) {

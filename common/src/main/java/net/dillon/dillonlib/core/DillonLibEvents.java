@@ -19,7 +19,7 @@ public class DillonLibEvents {
      */
     protected static void registerAllEvents() {
         PlatformLoader.executeForEachPlatform(ModPlatform::registerEvents);
-        Platforms.getCommonPlatform().tickScheduledTasks();
+        Platforms.getUniversalPlatform().tickScheduledTasks();
     }
 
     /**

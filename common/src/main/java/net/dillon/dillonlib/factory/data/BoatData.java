@@ -11,5 +11,6 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
  * @param id the id for the boat entity (including the mod's namespace and entity id)
  * @param chest determines if the boat entity should be a chest boat
  */
+@Deprecated(forRemoval = true)
 public record BoatData(EntityType<? extends AbstractBoat> entityType, Identifier id, boolean chest) {
 }

@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.mixin.client;
 
+import net.dillon.dillonlib.client.util.KeybindScrollHelper;
 import net.dillon.dillonlib.mixin.accessor.KeyBindsScreenAccessor;
-import net.dillon.dillonlib.util.KeybindScrollHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;

@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
  * @see net.dillon.dillonlib.mixin.ignitable
  * @see DillonLibEvents
  */
+@Deprecated(forRemoval = true)
 public class IgnitableFactory extends Item {
     public static final ItemFactoryPredicate THIS_OR_STEEL = stack -> stack.getItem() instanceof IgnitableFactory || stack.getItem() instanceof IgnitableFactory.FlintAndSteel;
 

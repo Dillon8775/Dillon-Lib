@@ -1,14 +1,14 @@
 package net.dillon.dillonlib.core;
 
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
 
 import java.util.List;
 
 /**
  * {@code Server} initialization entrypoint for DillonLib.
  */
-@Dill(DillType.DEDICATED_SERVER)
+@Dill(env = DillEnv.DEDICATED_SERVER)
 public class DillonLibServer {
 
     /**

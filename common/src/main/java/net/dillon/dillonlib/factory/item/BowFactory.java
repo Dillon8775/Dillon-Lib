@@ -8,6 +8,7 @@ import net.minecraft.world.item.Items;
  * @since 1.0
  * @see net.dillon.dillonlib.mixin.client.fix.bow
  */
+@Deprecated(forRemoval = true)
 public class BowFactory extends BowItem {
     public static final ItemFactoryPredicate DEFAULT = stack -> stack.is(Items.BOW) || stack.getItem() instanceof BowFactory;
     public static final ItemFactoryPredicate NEOFORGE = stack -> stack.getItem() instanceof BowItem;

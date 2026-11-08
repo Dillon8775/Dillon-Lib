@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.factory.Factories;
@@ -18,7 +18,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 /**
  * {@code Client-side NeoForge events} for DillonLib.
  */
-@Dill(DillType.CLIENT)
+@Dill(env = DillEnv.CLIENT)
 @EventBusSubscriber(modid = DillonLibMain.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEvents {
 
@@ -47,6 +47,7 @@ public class NeoForgeClientEvents {
         }
     }
 
+    @Deprecated(forRemoval = true)
     @SubscribeEvent
     public static void registerBoatLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         for (BoatData boat : Factories.BOATS) {

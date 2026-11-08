@@ -30,6 +30,7 @@
     "accessor.ScreenInvoker",
     "client.FabricOldSodiumConfigBuilderMixin",
     "client.FabricOptionInstanceMixin",
+    "client.FocusableTextWidgetMixin",
     "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",
     "client.PauseScreenMixin",

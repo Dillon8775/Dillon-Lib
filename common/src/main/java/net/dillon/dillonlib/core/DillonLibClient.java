@@ -1,13 +1,13 @@
 package net.dillon.dillonlib.core;
 
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.client.component.PlatformMenuButton;
+import net.dillon.dillonlib.client.component.UpdatableSpriteButton;
+import net.dillon.dillonlib.client.screen.DillonsModsScreen;
 import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.platform.PlatformLoader;
-import net.dillon.dillonlib.platform.info.PlatformMenuButton;
-import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.screen.DillonsModsScreen;
-import net.dillon.dillonlib.widespread.WidespreadSprites;
+import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
@@ -20,7 +20,7 @@ import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 /**
  * {@code Client} initialization entrypoint for DillonLib.
  */
-@Dill(DillType.CLIENT)
+@Dill(env = DillEnv.CLIENT)
 public class DillonLibClient {
 
     /**
@@ -54,26 +54,11 @@ public class DillonLibClient {
      * Creates the {@code configure mods button}.
      */
     public static UpdatableSpriteButton configureModsButton(Screen parent) {
-        Component[] defaultTooltip = {Component.translatable("dillonlib.mods")};
-        boolean[] anyModHasUpdate = {false};
+        boolean anyModHasUpdate = anyModHasUpdate();
 
-        if (!DillonLibMain.HAS_UPDATE) {
-            PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
-                for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
-                    if (p.button() == null) {
-                        continue;
-                    }
-
-                    if (p.button().shouldRenderUpdateSprite().getAsBoolean()) {
-                        defaultTooltip[0] = Component.translatable("dillonlib.updates_available");
-                        anyModHasUpdate[0] = true;
-                        break;
-                    }
-                }
-            });
-        }
-
-        boolean hasUpdate = DillonLibMain.HAS_UPDATE || anyModHasUpdate[0];
+        Component defaultTooltip = anyModHasUpdate
+                ? Component.translatable("dillonlib.updates_available")
+                : Component.translatable("dillonlib.mods");
 
         return new UpdatableSpriteButton(
                 "Configure Mods",
@@ -81,13 +66,38 @@ public class DillonLibClient {
                 20,
                 16,
                 16,
-                () -> hasUpdate,
+                () -> anyModHasUpdate,
+                new WidgetSprites(DillonsSprites.DILLONLIB_LOGO),
                 DillonLibMain.HAS_UPDATE
-                        ? Component.translatable("dillonlib.update_available", Component.translatable("dillonlib"))
-                        : defaultTooltip[0],
-                new WidgetSprites(WidespreadSprites.MENU_BUTTON),
+                        ? Component.translatable("dillonlib.update_available_message", Component.translatable("dillonlib"))
+                        : defaultTooltip,
                 onPress -> openScreen(new DillonsModsScreen(parent))
         );
+    }
+
+    /**
+     * @return if any mod has an update available.
+     */
+    private static boolean anyModHasUpdate() {
+        if (DillonLibMain.HAS_UPDATE) {
+            return true;
+        }
+
+        boolean[] bl = {false};
+        PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
+            for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
+                if (p.button() == null) {
+                    continue;
+                }
+
+                if (p.button().shouldRenderUpdateSprite().getAsBoolean()) {
+                    bl[0] = true;
+                    return;
+                }
+            }
+        });
+
+        return bl[0];
     }
 
     /**

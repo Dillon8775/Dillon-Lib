@@ -167,7 +167,7 @@ public abstract class BaseOptions<T> {
         if (this.file == null) {
             File baseDir = (this.customDir != null)
                     ? this.customDir
-                    : Platforms.getCommonPlatform().configDir().resolve(this.configDir()).toFile();
+                    : Platforms.getUniversalPlatform().configDir().resolve(this.configDir()).toFile();
 
             baseDir.mkdirs();
             this.file = new File(baseDir, this.fileName);

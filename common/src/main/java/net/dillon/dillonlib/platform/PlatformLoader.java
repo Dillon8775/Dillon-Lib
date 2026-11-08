@@ -1,8 +1,8 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
-import net.dillon.dillonlib.platform.common.CommonModPlatform;
 import net.dillon.dillonlib.platform.mixinsafe.MixinModPlatform;
+import net.dillon.dillonlib.platform.universal.UniversalModPlatform;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -32,7 +32,7 @@ public class PlatformLoader {
                 .stream()
                 .map(ServiceLoader.Provider::get)
                 .filter(platform -> {
-                    if (platform instanceof CommonModPlatform) {
+                    if (platform instanceof UniversalModPlatform) {
                         throw new IllegalStateException("Cannot load duplicate CommonModPlatform! There can only be one CommonModPlatform.");
                     }
                     return platform instanceof Loadable loadable && loadable.modId().equals(modId);

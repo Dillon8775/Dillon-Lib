@@ -57,6 +57,7 @@ import java.util.function.Supplier;
  * @see net.dillon.dillonlib.mixin
  */
 public class Factories {
+    @Deprecated(forRemoval = true)
     public static final Set<BoatData> BOATS = new HashSet<>();
 
     /**
@@ -66,6 +67,7 @@ public class Factories {
      * @param dropItem the item that is dropped from the boat, and also registers dispenser behavior.
      * @return the registered boat entity type
      */
+    @Deprecated(forRemoval = true)
     public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, boolean chest) {
         return chest ?
                 registerBoatFactory(id, EntityTypesInvoker.registerModChestBoatFactory(dropItem), true) :
@@ -77,6 +79,7 @@ public class Factories {
      * @param factory the custom factory for the boat.
      * @return the custom-factory registered boat entity.
      */
+    @Deprecated(forRemoval = true)
     public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, EntityType.EntityFactory<T> factory, boolean chest) {
         EntityType<T> boat = registerEntityType(
                 ResourceKey.create(Registries.ENTITY_TYPE, id),
@@ -97,6 +100,7 @@ public class Factories {
      * Safely registers {@link BoatDispenseItemBehavior} for a list of boats and boat items.
      * @param boats a map of items and entity types to register your dispenser behavior. This should be called after both your entity types and items are initialized.
      */
+    @Deprecated(forRemoval = true)
     public static void registerBoatDispenserBehavior(List<Map<Item, EntityType<? extends AbstractBoat>>> boats) {
         for (Map<Item, EntityType<? extends AbstractBoat>> map : boats) {
             for (Map.Entry<Item, EntityType<? extends AbstractBoat>> entry : map.entrySet()) {
@@ -111,6 +115,7 @@ public class Factories {
      * Safely registers {@link net.minecraft.core.dispenser.ShearsDispenseItemBehavior} for a list of {@link ShearsFactory}s.
      * @param shears a list of ShearFactories to be registered for dispenser behavior.
      */
+    @Deprecated(forRemoval = true)
     public static void registerShearDispenserBehavior(List<Item> shears) {
         for (Item shear : shears) {
             if (!(shear instanceof ShearsFactory)) {
@@ -124,6 +129,7 @@ public class Factories {
      * Safely registers {@link FlintAndSteelDispenseItemBehavior} for a list of {@link IgnitableFactory.FlintAndSteel}s.
      * @param flintAndSteels a list of IgnitableFactories to be registered for dispenser behavior.
      */
+    @Deprecated(forRemoval = true)
     public static void registerFlintAndSteelDispenserBehavior(List<Item> flintAndSteels) {
         for (Item flintAndSteel : flintAndSteels) {
             if (!(flintAndSteel instanceof IgnitableFactory.FlintAndSteel)) {
@@ -136,6 +142,7 @@ public class Factories {
     /**
      * Helper method for registering entity types.
      */
+    @Deprecated(forRemoval = true)
     public static <T extends Entity> EntityType<T> registerEntityType(ResourceKey<EntityType<?>> key, EntityType.Builder<T> type) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type.build(key));
     }
@@ -161,7 +168,7 @@ public class Factories {
      * @param entries the list of items to be in your item group
      */
     public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
-        Platforms.getCommonPlatform().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
+        Platforms.getUniversalPlatform().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
         DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 
@@ -171,7 +178,7 @@ public class Factories {
      * @param item the item you want to add to the tab (as an item stack)
      */
     public static void factorItemStackIntoCreativeTab(ResourceKey<CreativeModeTab> tab, Supplier<ItemStack> item) {
-        Platforms.getCommonPlatform().addItemToGroup(tab, item);
+        Platforms.getUniversalPlatform().addItemToGroup(tab, item);
     }
 
     /**

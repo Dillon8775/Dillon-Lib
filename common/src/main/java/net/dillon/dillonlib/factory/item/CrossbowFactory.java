@@ -11,6 +11,7 @@ import net.minecraft.world.item.component.ChargedProjectiles;
  * @since 1.0
  * @see net.dillon.dillonlib.mixin.client.fix.bow
  */
+@Deprecated
 public class CrossbowFactory extends CrossbowItem {
     public static final ItemFactoryPredicate DEFAULT = stack -> stack.is(Items.CROSSBOW) || stack.getItem() instanceof CrossbowFactory;
 

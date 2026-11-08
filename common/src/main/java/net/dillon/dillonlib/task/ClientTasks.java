@@ -2,19 +2,19 @@ package net.dillon.dillonlib.task;
 
 import com.mojang.blaze3d.Blaze3D;
 import net.dillon.dillonlib.annotation.Dill;
-import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.client.component.TextureBuilder;
+import net.dillon.dillonlib.client.component.UpdatableSpriteButton;
+import net.dillon.dillonlib.client.impl.DebugOptionsScreenImpl;
 import net.dillon.dillonlib.core.DillonLibModConfigLibs;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.ModConfigLib;
-import net.dillon.dillonlib.platform.info.UpdatableSpriteButton;
-import net.dillon.dillonlib.util.DebugOptionsScreenImpl;
-import net.dillon.dillonlib.widespread.WidespreadSprites;
+import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
@@ -22,12 +22,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 
 import java.net.URI;
@@ -38,7 +36,7 @@ import java.util.function.Supplier;
  * Client-side only methods and tasks that can be commonly used throughout your mod.
  * @since 1.0
  */
-@Dill(DillType.CLIENT)
+@Dill(env = DillEnv.CLIENT)
 public class ClientTasks {
 
     /**
@@ -123,17 +121,31 @@ public class ClientTasks {
     }
 
     /**
-     * @return Minecraft's current instance.
+     * @return {@link Minecraft}'s current instance.
      */
     public static Minecraft getMinecraft() {
         return Minecraft.getInstance();
     }
 
     /**
-     * @return the Minecraft's font.
+     * @return Minecraft's {@link Font}.
      */
     public static Font getFont() {
         return getMinecraft().font;
+    }
+
+    /**
+     * @return Minecraft's {@link SoundManager}.
+     */
+    public static SoundManager getSoundManager() {
+        return getMinecraft().getSoundManager();
+    }
+
+    /**
+     * @return the current Minecraft's {@link LocalPlayer}.
+     */
+    public static LocalPlayer getLocalPlayer() {
+        return getMinecraft().player;
     }
 
     /**
@@ -145,94 +157,10 @@ public class ClientTasks {
     }
 
     /**
-     * Blits a texture.
-     */
-    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
-        blitTexture(graphics, sprite, x, y, width, height, 1.0F);
-    }
-
-    /**
-     * Blits a small texture over a button.
-     */
-    public static void blitSmallTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        blitSmallTexture(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Blits a large texture over a button.
-     */
-    public static void blitLargeTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        blitLargeTexture(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Blits a large texture over a button with a custom alpha.
-     */
-    public static void blitLargeTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        blitTexture(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
-    }
-
-    /**
-     * Blits a small texture over a button with a custom alpha.
-     */
-    public static void blitSmallTexture(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        blitTexture(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
-    }
-
-    /**
-     * Blits a texture with a custom alpha value.
-     */
-    public static void blitTexture(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height, float f) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, sprite, x, y, 0.0F, 0.0F, width, height, width, height, ARGB.color(f, CommonColors.WHITE));
-    }
-
-    /**
-     * Draws a small sprite over a button.
-     */
-    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        drawSmallSprite(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Draws a large sprite over a button.
-     */
-    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button) {
-        drawLargeSprite(graphics, sprite, button, 1.0F);
-    }
-
-    /**
-     * Draws a large sprite over a button with a custom alpha.
-     */
-    public static void drawLargeSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        drawSprite(graphics, sprite, button.getX() + 1, button.getY() + 1, 18, 18, f);
-    }
-
-    /**
-     * Draws a small sprite over a button with a custom alpha.
-     */
-    public static void drawSmallSprite(GuiGraphicsExtractor graphics, Identifier sprite, Button button, float f) {
-        drawSprite(graphics, sprite, button.getX() + 2, button.getY() + 2, 16, 16, f);
-    }
-
-    /**
-     * Draws a sprite.
-     */
-    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
-        drawSprite(graphics, sprite, x, y, width, height, 1.0F);
-    }
-
-    /**
-     * Draws a sprite with a custom alpha fade.
-     */
-    public static void drawSprite(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height, float f) {
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, height, ARGB.color(f, CommonColors.WHITE));
-    }
-
-    /**
      * Draws the update icon.
      */
     public static void drawUpdateSprite(GuiGraphicsExtractor graphics, int x, int y) {
-        drawSprite(graphics, WidespreadSprites.UPDATE_AVAILABLE, x, y, 8, 8);
+        TextureBuilder.create(graphics, DillonsSprites.UPDATE_AVAILABLE, x, y, 8, 8).buildAndBlit(true);
     }
 
     /**
@@ -251,7 +179,7 @@ public class ClientTasks {
         int imageY = menuScreen.height - 26;
 
         graphics.text(font, version, textX, textY, CommonColors.WHITE, true);
-        drawSprite(graphics, logo, imageX, imageY, 18, 18);
+        TextureBuilder.create(graphics, logo, imageX, imageY, 18, 18).buildAndBlit(true);
 
         if (hasUpdate) {
             drawUpdateSprite(graphics, imageX - 2, imageY - 2);
@@ -348,20 +276,6 @@ public class ClientTasks {
     }
 
     /**
-     * Plays a sound to the client.
-     */
-    public static void playLocalSound(SoundEvent sound) {
-        playLocalSound(sound, 1.0F, 1.0F);
-    }
-
-    /**
-     * Plays a sound to the client, with a custom volume and pitch.
-     */
-    public static void playLocalSound(SoundEvent sound, float volume, float pitch) {
-        getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(sound, pitch, volume));
-    }
-
-    /**
      * Executes a task for the {@link LocalPlayer} if the player isn't null.
      */
     public static void executeIfClientPlayer(Consumer<LocalPlayer> localPlayer) {
@@ -381,5 +295,12 @@ public class ClientTasks {
         if (level != null) {
             clientLevel.accept(level);
         }
+    }
+
+    /**
+     * @return if the current level is null.
+     */
+    public static boolean isCurrentLevelNull() {
+        return Minecraft.getInstance().level == null;
     }
 }

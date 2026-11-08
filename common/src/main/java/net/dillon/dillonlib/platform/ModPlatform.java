@@ -3,6 +3,7 @@ package net.dillon.dillonlib.platform;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.platform.info.Platform;
 import net.dillon.dillonlib.platform.info.Release;
+import net.dillon.dillonlib.platform.universal.UniversalModPlatform;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 
@@ -23,9 +24,11 @@ public abstract class ModPlatform implements Loadable {
 
     /**
      * @return your mod version.
-     * @see net.dillon.dillonlib.platform.common.CommonModPlatform#commonModVersion(String)
+     * @see UniversalModPlatform#commonModVersion(String)
      */
-    public abstract String modVersion();
+    public String modVersion() {
+        return Platforms.getUniversalPlatform().commonModVersion(modId());
+    }
 
     /**
      * @return the {@link Release} for your mod ({@code stable}, {@code beta}, {@code alpha}).

@@ -76,7 +76,7 @@ public abstract class MixinPluginUtil {
      * Sends a console message to the user, based on the {@link MessageType}.
      */
     public void sendMessage(PredicateEntry entry, String message, Object... arguments) {
-        if (Platforms.getCommonPlatform().isDevelopmentEnvironment()) {
+        if (Platforms.getUniversalPlatform().isDevelopmentEnvironment()) {
             logger().warn(message, arguments);
         } else {
             switch (entry.messageType()) {
