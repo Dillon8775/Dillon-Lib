@@ -1,19 +1,9 @@
 package net.dillon.dillonlib.platform.info;
 
-import net.dillon.dillonlib.client.impl.FocusableTextWidgetImpl;
-import net.dillon.dillonlib.client.impl.WidgetsImpl;
 import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.util.UpdateChecker;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.FocusableTextWidget;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.player.Player;
-
-import java.net.URI;
-
-import static net.dillon.dillonlib.task.ClientTasks.getFont;
-import static net.dillon.dillonlib.task.CommonTasks.sendSystemMessage;
+import net.minecraft.network.chat.Component;
 
 /**
  * Stores mod information
@@ -79,58 +69,6 @@ public class ModInfo {
      */
     public static Component commonVersion(String modId) {
         return Component.literal(Platforms.getUniversalPlatform().commonModVersion(modId));
-    }
-
-    /**
-     * Creates a {@link FocusableTextWidget} with version text for a mod.
-     */
-    public AbstractWidget createVersionLabel(WidgetsImpl widgets) {
-        FocusableTextWidget focusableTextWidget = FocusableTextWidget.builder(
-                Component.translatable("dillonlib.version", version()),
-                getFont()
-        ).build();
-        ((FocusableTextWidgetImpl) focusableTextWidget).setHasUpdate(hasUpdate());
-        ((FocusableTextWidgetImpl) focusableTextWidget).setUpdateLink(link());
-
-        return widgets.createWidget(
-                focusableTextWidget,
-                isActive -> {
-                    if (hasUpdate()) {
-                        return Component.translatable("dillonlib.update_available_message", name());
-                    } else {
-                        return Component.translatable("dillonlib.up_to_date");
-                    }
-                }
-        );
-    }
-
-    /**
-     * Sends a message to the player with white text color.
-     */
-    public void sendUpdateMessage(Player player) {
-        sendUpdateMessage(player, TextColor.WHITE.getValue());
-    }
-
-    /**
-     * Sends a message to the player indicating their mod requires an update.
-     */
-    public void sendUpdateMessage(Player player, int textColor) {
-        if (!hasUpdate()) {
-            return;
-        }
-
-        Component message = Component.translatable("dillonlib.update_available_message", name())
-                .setStyle(
-                        Style.EMPTY
-                                .withHoverEvent(
-                                        new HoverEvent.ShowText(Component.translatable("dillonlib.update_available_tooltip", name()))
-                                )
-                                .withClickEvent(
-                                        new ClickEvent.OpenUrl(URI.create(link()))
-                                ))
-                .withColor(textColor);
-
-        sendSystemMessage(player, message);
     }
 
     public String id() {

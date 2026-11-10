@@ -2,8 +2,11 @@ package net.dillon.dillonlib.widespread;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.client.impl.FocusableTextWidgetImpl;
+import net.dillon.dillonlib.client.impl.WidgetsImpl;
 import net.dillon.dillonlib.client.screen.DillonLibScreen;
 import net.dillon.dillonlib.mixin.accessor.ScreenInvoker;
+import net.dillon.dillonlib.platform.info.ModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.components.*;
@@ -57,6 +60,29 @@ public class DillonsWidgets {
      */
     public static MultiLineTextWidget createMultiLineText(Component text, boolean centered) {
         return new MultiLineTextWidget(text, getFont()).setCentered(centered);
+    }
+
+    /**
+     * Creates a {@link FocusableTextWidget} with version text for a mod.
+     */
+    public static AbstractWidget createVersionLabel(ModInfo info, WidgetsImpl widgets) {
+        FocusableTextWidget focusableTextWidget = FocusableTextWidget.builder(
+                Component.translatable("dillonlib.version", info.version()),
+                getFont()
+        ).build();
+        ((FocusableTextWidgetImpl) focusableTextWidget).setHasUpdate(info.hasUpdate());
+        ((FocusableTextWidgetImpl) focusableTextWidget).setUpdateLink(info.link());
+
+        return widgets.createWidget(
+                focusableTextWidget,
+                isActive -> {
+                    if (info.hasUpdate()) {
+                        return Component.translatable("dillonlib.update_available_message", info.name());
+                    } else {
+                        return Component.translatable("dillonlib.up_to_date");
+                    }
+                }
+        );
     }
 
     /**

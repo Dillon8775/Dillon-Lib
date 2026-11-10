@@ -1,9 +1,10 @@
 package net.dillon.dillonlib.task;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.dillon.dillonlib.platform.info.ModInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -69,6 +71,35 @@ public class CommonTasks {
      */
     public static void sendSystemMessage(Player player, Component message) {
         player.sendSystemMessage(message);
+    }
+
+    /**
+     * Sends a message to the player with white text color.
+     */
+    public static void sendUpdateMessage(ModInfo info, Player player) {
+        sendUpdateMessage(info, player, TextColor.WHITE.getValue());
+    }
+
+    /**
+     * Sends a message to the player indicating their mod requires an update.
+     */
+    public static void sendUpdateMessage(ModInfo info, Player player, int textColor) {
+        if (!info.hasUpdate()) {
+            return;
+        }
+
+        Component message = Component.translatable("dillonlib.update_available_message", info.name())
+                .setStyle(
+                        Style.EMPTY
+                                .withHoverEvent(
+                                        new HoverEvent.ShowText(Component.translatable("dillonlib.update_available_tooltip", info.name()))
+                                )
+                                .withClickEvent(
+                                        new ClickEvent.OpenUrl(URI.create(info.link()))
+                                ))
+                .withColor(textColor);
+
+        sendSystemMessage(player, message);
     }
 
     /**
