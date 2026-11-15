@@ -48,7 +48,18 @@ public class SpriteIconButtonWithSound extends SpriteIconButton {
             Consumer<SoundManager> soundManager,
             Button.OnPress onPress
     ) {
-        return builder(new ScaledWidgetSprites(new WidgetSprites(sprite), 16, 16), soundManager, onPress);
+        return builder(new WidgetSprites(sprite), soundManager, onPress);
+    }
+
+    /**
+     * @return a new {@link Builder}.
+     */
+    public static Builder builder(
+            WidgetSprites widgetSprites,
+            Consumer<SoundManager> soundManager,
+            Button.OnPress onPress
+    ) {
+        return builder(new ScaledWidgetSprites(widgetSprites, 16, 16), soundManager, onPress);
     }
 
     /**

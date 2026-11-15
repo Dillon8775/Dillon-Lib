@@ -67,7 +67,19 @@ public class UpdatableSpriteButton extends SpriteIconButton {
             Identifier sprite,
             Button.OnPress onPress
     ) {
-        return builder(orderName, modName, new ScaledWidgetSprites(new WidgetSprites(sprite), 16, 16), onPress);
+        return builder(orderName, modName, new WidgetSprites(sprite), onPress);
+    }
+
+    /**
+     * @return a new {@link Builder}.
+     */
+    public static Builder builder(
+            String orderName,
+            Component modName,
+            WidgetSprites widgetSprites,
+            Button.OnPress onPress
+    ) {
+        return builder(orderName, modName, new ScaledWidgetSprites(widgetSprites, 16, 16), onPress);
     }
 
     /**
