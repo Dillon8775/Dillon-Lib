@@ -54,11 +54,11 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
 
     @Override
     public void registerCommonCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-        dispatcher.register(QuesoCommand.testCommand());
+        QuesoCommand.register(dispatcher);
     }
 
     @Override
     public void registerServerCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-        dispatcher.register(QuesoServerCommand.serverTestCommand());
+        QuesoServerCommand.register(dispatcher);
     }
 }

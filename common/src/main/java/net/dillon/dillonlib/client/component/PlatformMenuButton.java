@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 /**
  * Stores menu button data.
+ * @since 1.2
  */
 @Dill(env = DillEnv.CLIENT)
 public class PlatformMenuButton {

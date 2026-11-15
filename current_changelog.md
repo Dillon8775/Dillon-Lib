@@ -1,11 +1,15 @@
 # Version 1.3
 
+## Update to Minecraft 26.4.
+
 ## Menu Button Changes
 - `PlatformMenuButton` does not have pause or title conditions anymore.
 - All `PlatformMenuButton`s are now placed inside a new screen called `Dillon's Mods`.
 - The `Dillon's Screen` mod is accessible via the title and pause screen through a button with a purple cape. This button can be disabled via the DillonLib config.
 
 ### Removed ScreenBuilder, use Minecraft's built-in GridLayout.
+### Removed boat factories.
+### Removed SimplePermissions, replaced with new Minecraft Commands.hasPermission & CommandPermissionLevels.
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

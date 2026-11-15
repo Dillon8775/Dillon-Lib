@@ -9,7 +9,7 @@ import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.ScaledWidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -64,10 +64,8 @@ public class DillonLibClient {
                 "Configure Mods",
                 20,
                 20,
-                16,
-                16,
                 () -> anyModHasUpdate,
-                new WidgetSprites(DillonsSprites.DILLONLIB_LOGO),
+                new ScaledWidgetSprites(DillonsSprites.DILLONLIB_LOGO, 16, 16),
                 DillonLibMain.HAS_UPDATE
                         ? Component.translatable("dillonlib.update_available_message", Component.translatable("dillonlib"))
                         : defaultTooltip,

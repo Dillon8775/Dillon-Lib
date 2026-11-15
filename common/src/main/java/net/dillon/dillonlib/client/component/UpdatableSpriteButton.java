@@ -5,10 +5,7 @@ import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.widespread.DillonsTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
@@ -20,7 +17,7 @@ import java.util.function.Supplier;
  * @since 1.2
  */
 @Dill(env = DillEnv.CLIENT)
-public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
+public class UpdatableSpriteButton extends SpriteIconButton {
     private final String orderName;
     private final BooleanSupplier shouldRenderUpdateSprite;
 
@@ -28,14 +25,12 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
             String orderName,
             int width,
             int height,
-            int spriteWidth,
-            int spriteHeight,
             BooleanSupplier shouldRenderUpdateSprite,
-            WidgetSprites sprite,
+            ScaledWidgetSprites scaledWidgetSprites,
             Component tooltip,
             OnPress onPress
     ) {
-        super(width, height, DillonsTexts.BLANK, spriteWidth, spriteHeight, 0, 0, sprite, onPress, null, null, false);
+        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, null, null, false);
         this.orderName = orderName;
         if (!tooltip.equals(Component.empty())) {
             this.setTooltip(Tooltip.create(tooltip));
@@ -44,8 +39,8 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     }
 
     @Override
-    public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        super.extractContents(graphics, mouseX, mouseY, a);
+    public void extractContents(GuiGraphicsExtractor graphics) {
+        super.extractContents(graphics);
         ClientTasks.renderUpdateIconOnButton(graphics, this);
     }
 
@@ -72,7 +67,7 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
             Identifier sprite,
             Button.OnPress onPress
     ) {
-        return builder(orderName, modName, new WidgetSprites(sprite), onPress);
+        return builder(orderName, modName, new ScaledWidgetSprites(new WidgetSprites(sprite), 16, 16), onPress);
     }
 
     /**
@@ -81,10 +76,10 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     public static Builder builder(
             String orderName,
             Component modName,
-            WidgetSprites sprites,
+            ScaledWidgetSprites scaledWidgetSprites,
             Button.OnPress onPress
     ) {
-        return new Builder(orderName, modName, sprites, onPress);
+        return new Builder(orderName, modName, scaledWidgetSprites, onPress);
     }
 
     /**
@@ -93,19 +88,17 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
     public static class Builder implements ComponentBuilder<UpdatableSpriteButton>, TooltipBuilder<Builder> {
         private final String orderName;
         private final Component modName;
-        private final WidgetSprites sprites;
+        private final ScaledWidgetSprites scaledWidgetSprites;
         private final Button.OnPress onPress;
         private Supplier<Component> tooltip = Component::empty;
         private BooleanSupplier hasUpdateSupplier = () -> false;
         private int width = 20;
         private int height = 20;
-        private int spriteWidth = 16;
-        private int spriteHeight = 16;
 
-        private Builder(String orderName, Component modName, WidgetSprites sprites, Button.OnPress onPress) {
+        private Builder(String orderName, Component modName, ScaledWidgetSprites scaledWidgetSprites, Button.OnPress onPress) {
             this.orderName = orderName;
             this.modName = modName;
-            this.sprites = sprites;
+            this.scaledWidgetSprites = scaledWidgetSprites;
             this.onPress = onPress;
         }
 
@@ -135,16 +128,6 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
             return this;
         }
 
-        public Builder spriteWidth(int spriteWidth) {
-            this.spriteWidth = spriteWidth;
-            return this;
-        }
-
-        public Builder spriteHeight(int spriteHeight) {
-            this.spriteHeight = spriteHeight;
-            return this;
-        }
-
         @Override
         public UpdatableSpriteButton build() {
             Component actualTooltip = tooltip.get();
@@ -156,10 +139,8 @@ public class UpdatableSpriteButton extends SpriteIconButton.CenteredIcon {
                     orderName,
                     width,
                     height,
-                    spriteWidth,
-                    spriteHeight,
                     hasUpdateSupplier,
-                    sprites,
+                    scaledWidgetSprites,
                     actualTooltip,
                     onPress
             );

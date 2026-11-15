@@ -62,10 +62,10 @@ public abstract class DillonLibMenuScreen extends OptionsSubScreen implements Wi
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
-        super.extractRenderState(graphics, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor graphics) {
+        super.extractRenderState(graphics);
 
-        drawWidgetData(graphics, mouseX, mouseY);
+        drawWidgetData(graphics);
         renderModInfo(graphics);
     }
 

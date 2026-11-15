@@ -51,7 +51,7 @@ public class FocusableTextWidgetMixin extends MultiLineTextWidget implements Foc
     }
 
     @Inject(method = "extractWidgetRenderState", at = @At("HEAD"))
-    private void requestHandCursor(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+    private void requestHandCursor(GuiGraphicsExtractor graphics, CallbackInfo ci) {
         if (hasUpdate && isHovered()) {
             graphics.requestCursor(CursorTypes.POINTING_HAND);
         }

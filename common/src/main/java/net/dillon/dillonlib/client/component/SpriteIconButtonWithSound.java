@@ -3,9 +3,7 @@ package net.dillon.dillonlib.client.component;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.widespread.DillonsTexts;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -18,20 +16,18 @@ import java.util.function.Supplier;
  * @since 1.3
  */
 @Dill(env = DillEnv.CLIENT)
-public class SpriteIconButtonWithSound extends SpriteIconButton.CenteredIcon {
+public class SpriteIconButtonWithSound extends SpriteIconButton {
     private final Consumer<SoundManager> soundManager;
 
     public SpriteIconButtonWithSound(
             int width,
             int height,
-            int spriteWidth,
-            int spriteHeight,
             Consumer<SoundManager> soundManager,
-            WidgetSprites sprites,
+            ScaledWidgetSprites scaledWidgetSprites,
             Supplier<Component> tooltip,
             OnPress onPress
     ) {
-        super(width, height, DillonsTexts.BLANK, spriteWidth, spriteHeight, 0, 0, sprites, onPress, tooltip.get(), null, false);
+        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, Tooltip.create(tooltip.get()), null, false);
         this.soundManager = soundManager;
     }
 
@@ -52,35 +48,33 @@ public class SpriteIconButtonWithSound extends SpriteIconButton.CenteredIcon {
             Consumer<SoundManager> soundManager,
             Button.OnPress onPress
     ) {
-        return builder(new WidgetSprites(sprite), soundManager, onPress);
+        return builder(new ScaledWidgetSprites(new WidgetSprites(sprite), 16, 16), soundManager, onPress);
     }
 
     /**
      * @return a new {@link Builder}.
      */
     public static Builder builder(
-            WidgetSprites sprites,
+            ScaledWidgetSprites scaledWidgetSprites,
             Consumer<SoundManager> soundManager,
             Button.OnPress onPress
     ) {
-        return new Builder(sprites, soundManager, onPress);
+        return new Builder(scaledWidgetSprites, soundManager, onPress);
     }
 
     /**
      * A builder class for {@link SpriteIconButtonWithSound}.
      */
     public static class Builder implements ComponentBuilder<SpriteIconButtonWithSound>, TooltipBuilder<Builder> {
-        private final WidgetSprites sprites;
+        private final ScaledWidgetSprites scaledWidgetSprites;
         private final Consumer<SoundManager> soundManager;
         private final Button.OnPress onPress;
         private Supplier<Component> tooltip = Component::empty;
         private int width = 20;
         private int height = 20;
-        private int spriteWidth = 16;
-        private int spriteHeight = 16;
 
-        private Builder(WidgetSprites sprites, Consumer<SoundManager> soundManager, Button.OnPress onPress) {
-            this.sprites = sprites;
+        private Builder(ScaledWidgetSprites scaledWidgetSprites, Consumer<SoundManager> soundManager, Button.OnPress onPress) {
+            this.scaledWidgetSprites = scaledWidgetSprites;
             this.soundManager = soundManager;
             this.onPress = onPress;
         }
@@ -106,25 +100,13 @@ public class SpriteIconButtonWithSound extends SpriteIconButton.CenteredIcon {
             return this;
         }
 
-        public Builder spriteWidth(int spriteWidth) {
-            this.spriteWidth = spriteWidth;
-            return this;
-        }
-
-        public Builder spriteHeight(int spriteHeight) {
-            this.spriteHeight = spriteHeight;
-            return this;
-        }
-
         @Override
         public SpriteIconButtonWithSound build() {
             return new SpriteIconButtonWithSound(
                     width,
                     height,
-                    spriteWidth,
-                    spriteHeight,
                     soundManager,
-                    sprites,
+                    scaledWidgetSprites,
                     tooltip,
                     onPress
             );

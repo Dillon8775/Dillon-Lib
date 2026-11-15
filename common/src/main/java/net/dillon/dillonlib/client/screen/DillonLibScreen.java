@@ -53,10 +53,10 @@ public abstract class DillonLibScreen extends Screen implements WidgetsImpl {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
-        super.extractRenderState(graphics, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor graphics) {
+        super.extractRenderState(graphics);
 
-        drawWidgetData(graphics, mouseX, mouseY);
+        drawWidgetData(graphics);
         drawGraphics(graphics);
     }
 

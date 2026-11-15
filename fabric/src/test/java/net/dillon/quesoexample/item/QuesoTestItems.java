@@ -2,12 +2,8 @@ package net.dillon.quesoexample.item;
 
 import net.dillon.dillonlib.factory.item.*;
 import net.dillon.dillonlib.mixin.accessor.ItemsInvoker;
-import net.dillon.quesoexample.entity.QuesoEntityTypes;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ShearsItem;
 
 public class QuesoTestItems {
     public static final Item QUESO_SHIELD = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_SHIELD, properties -> new ShieldFactory(properties
@@ -20,7 +16,6 @@ public class QuesoTestItems {
             .rarity(Rarity.UNCOMMON)
     );
     public static final Item QUESO_SHEARS = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_SHEARS, ShearsFactory::new, new Item.Properties()
-            .component(DataComponents.TOOL, ShearsItem.createToolProperties())
             .rarity(Rarity.UNCOMMON)
             .durability(150)
     );
@@ -31,8 +26,6 @@ public class QuesoTestItems {
             .rarity(Rarity.UNCOMMON)
             .durability(200)
     );
-    public static final Item QUESO_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_BOAT, properties));
-    public static final Item QUESO_CHEST_BOAT = ItemsInvoker.registerModItem(QuesoItemIds.QUESO_CHEST_BOAT, properties -> new BoatItem(QuesoEntityTypes.QUESO_CHEST_BOAT, properties));
 
     /**
      * Initializes this class.

@@ -3,8 +3,8 @@ package net.dillon.dillonlib.client.component;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
@@ -51,9 +51,9 @@ public class TextureBuilder {
 
     public void buildAndBlit(boolean sprite) {
         if (sprite) {
-            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, texture, x, y, width, height, ARGB.color(alpha, CommonColors.WHITE));
+            graphics.blitSprite(GuiPipeline.TEXTURED, texture, x, y, width, height, ARGB.color(alpha, CommonColors.WHITE));
         } else {
-            graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x, y, 0.0F, 0.0F, width, height, width, height, ARGB.color(alpha, CommonColors.WHITE));
+            graphics.blit(GuiPipeline.TEXTURED, texture, x, y, 0.0F, 0.0F, width, height, width, height, ARGB.color(alpha, CommonColors.WHITE));
         }
     }
 }

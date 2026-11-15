@@ -1,11 +1,9 @@
 package net.dillon.dillonlib.factory;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.factory.data.BoatData;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
-import net.dillon.dillonlib.mixin.accessor.EntityTypesInvoker;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
@@ -21,7 +19,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.CreativeModeTab;
@@ -44,10 +41,8 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -57,44 +52,6 @@ import java.util.function.Supplier;
  * @see net.dillon.dillonlib.mixin
  */
 public class Factories {
-    @Deprecated(forRemoval = true)
-    public static final Set<BoatData> BOATS = new HashSet<>();
-
-    /**
-     * Registers a {@code boat entity factory} into the game.
-     * @param id the {@link Identifier} for the boat entity
-     * @param chest determines if the boat is a {@code chest boat}
-     * @param dropItem the item that is dropped from the boat, and also registers dispenser behavior.
-     * @return the registered boat entity type
-     */
-    @Deprecated(forRemoval = true)
-    public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, Supplier<Item> dropItem, boolean chest) {
-        return chest ?
-                registerBoatFactory(id, EntityTypesInvoker.registerModChestBoatFactory(dropItem), true) :
-                registerBoatFactory(id, EntityTypesInvoker.registerModBoatFactory(dropItem), false);
-    }
-
-    /**
-     * Registers a custom-factory boat entity into the game.
-     * @param factory the custom factory for the boat.
-     * @return the custom-factory registered boat entity.
-     */
-    @Deprecated(forRemoval = true)
-    public static <T extends AbstractBoat> EntityType<T> registerBoatFactory(Identifier id, EntityType.EntityFactory<T> factory, boolean chest) {
-        EntityType<T> boat = registerEntityType(
-                ResourceKey.create(Registries.ENTITY_TYPE, id),
-                EntityType.Builder.of(factory, MobCategory.MISC)
-                        .noLootTable()
-                        .sized(1.375F, 0.5625F)
-                        .eyeHeight(0.5625F)
-                        .clientTrackingRange(10)
-        );
-
-        BoatData boatData = new BoatData(boat, id, chest);
-        BOATS.add(boatData);
-        DillonLibMain.LOGGER.debug("Registered {} boat factory {}", chest ? "chest" : "default", id);
-        return boat;
-    }
 
     /**
      * Safely registers {@link BoatDispenseItemBehavior} for a list of boats and boat items.

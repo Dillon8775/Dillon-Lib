@@ -190,9 +190,7 @@ public interface WidgetsImpl {
      * Draws all widget data.
      */
     default void drawWidgetData(
-            GuiGraphicsExtractor graphics,
-            int mouseX,
-            int mouseY
+            GuiGraphicsExtractor graphics
     ) {
         for (WidgetData data : widgetData()) {
             AbstractWidget widget = data.getWidget();
@@ -211,8 +209,8 @@ public interface WidgetsImpl {
                 graphics.setTooltipForNextFrame(
                         getFont(),
                         getFont().split(tooltip, 200),
-                        mouseX,
-                        mouseY
+                        graphics.mouseX(),
+                        graphics.mouseY()
                 );
             }
         }

@@ -213,13 +213,7 @@ public class LevelSelectorScreen extends DillonLibScreen {
             }
 
             @Override
-            public void extractContent(
-                    GuiGraphicsExtractor graphics,
-                    int mouseX,
-                    int mouseY,
-                    boolean hovered,
-                    float partialTick
-            ) {
+            public void extractContent(GuiGraphicsExtractor graphics, boolean hovered) {
                 graphics.text(
                         LevelSelectorScreen.this.font,
                         this.displayName,
