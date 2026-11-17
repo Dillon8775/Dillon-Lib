@@ -10,6 +10,7 @@
 ### Removed ScreenBuilder, use Minecraft's built-in GridLayout.
 ### Removed boat factories.
 ### Removed SimplePermissions, replaced with new Minecraft Commands.hasPermission & CommandPermissionLevels.
+### Removed most factories.
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

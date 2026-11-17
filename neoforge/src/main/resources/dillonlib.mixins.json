@@ -10,13 +10,6 @@
   "mixins": [
     "accessor.EntityTypesInvoker",
     "accessor.ItemsInvoker",
-    "entity.fix.SulfurCubeFix",
-    "ignitable.CandleCakeBlockFix",
-    "ignitable.TntBlockFix",
-    "shear.BeehiveBlockFix",
-    "shear.CopperGolemFix",
-    "shear.MatchToolFix",
-    "shear.MushroomCowFix"
   ],
   "client": [
     "accessor.DebugOptionsScreenAccessor",
@@ -29,8 +22,6 @@
     "client.PauseScreenMixin",
     "client.SpriteIconButtonMixin",
     "client.TitleScreenMixin",
-    "client.fix.bow.AbstractClientPlayerFix",
-    "client.fix.bow.AvatarRendererFix",
     "client.fix.screen.DebugOptionsScreenMixin"
   ],
   "server": [

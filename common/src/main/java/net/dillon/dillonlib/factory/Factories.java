@@ -1,14 +1,9 @@
 package net.dillon.dillonlib.factory;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.factory.item.IgnitableFactory;
-import net.dillon.dillonlib.factory.item.ShearsFactory;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
-import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
-import net.minecraft.core.dispenser.FlintAndSteelDispenseItemBehavior;
-import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -20,7 +15,6 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +26,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -42,7 +35,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -52,49 +44,6 @@ import java.util.function.Supplier;
  * @see net.dillon.dillonlib.mixin
  */
 public class Factories {
-
-    /**
-     * Safely registers {@link BoatDispenseItemBehavior} for a list of boats and boat items.
-     * @param boats a map of items and entity types to register your dispenser behavior. This should be called after both your entity types and items are initialized.
-     */
-    @Deprecated(forRemoval = true)
-    public static void registerBoatDispenserBehavior(List<Map<Item, EntityType<? extends AbstractBoat>>> boats) {
-        for (Map<Item, EntityType<? extends AbstractBoat>> map : boats) {
-            for (Map.Entry<Item, EntityType<? extends AbstractBoat>> entry : map.entrySet()) {
-                Item item = entry.getKey();
-                EntityType<? extends AbstractBoat> boatType = entry.getValue();
-                DispenserBlock.registerBehavior(item, new BoatDispenseItemBehavior(boatType));
-            }
-        }
-    }
-
-    /**
-     * Safely registers {@link net.minecraft.core.dispenser.ShearsDispenseItemBehavior} for a list of {@link ShearsFactory}s.
-     * @param shears a list of ShearFactories to be registered for dispenser behavior.
-     */
-    @Deprecated(forRemoval = true)
-    public static void registerShearDispenserBehavior(List<Item> shears) {
-        for (Item shear : shears) {
-            if (!(shear instanceof ShearsFactory)) {
-                throw new IllegalStateException("Item must be a ShearsFactory to register dispenser behavior!");
-            }
-            DispenserBlock.registerBehavior(shear, new ShearsDispenseItemBehavior());
-        }
-    }
-
-    /**
-     * Safely registers {@link FlintAndSteelDispenseItemBehavior} for a list of {@link IgnitableFactory.FlintAndSteel}s.
-     * @param flintAndSteels a list of IgnitableFactories to be registered for dispenser behavior.
-     */
-    @Deprecated(forRemoval = true)
-    public static void registerFlintAndSteelDispenserBehavior(List<Item> flintAndSteels) {
-        for (Item flintAndSteel : flintAndSteels) {
-            if (!(flintAndSteel instanceof IgnitableFactory.FlintAndSteel)) {
-                throw new IllegalStateException("Item must be a IgnitableFactory.FlintAndSteel to register dispenser behavior!");
-            }
-            DispenserBlock.registerBehavior(flintAndSteel, new FlintAndSteelDispenseItemBehavior());
-        }
-    }
 
     /**
      * Helper method for registering entity types.
