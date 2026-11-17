@@ -9,15 +9,15 @@
   "plugin": "net.dillon.dillonlib.mixin.ConditionalMixinPlugin",
   "mixins": [
     "accessor.EntityTypesInvoker",
-    "accessor.ItemsInvoker",
+    "accessor.ItemsInvoker"
   ],
   "client": [
     "accessor.DebugOptionsScreenAccessor",
-    "accessor.DebugScreenEntriesInvoker",
     "accessor.KeyBindsScreenAccessor",
     "accessor.ScreenInvoker",
     "client.FabricOldSodiumConfigBuilderMixin",
     "client.FabricOptionInstanceMixin",
+    "client.DebugScreenEntriesMixin",
     "client.FocusableTextWidgetMixin",
     "client.KeyBindsScreenMixin",
     "client.MinecraftMixin",

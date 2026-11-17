@@ -6,9 +6,11 @@ import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.client.component.PlatformMenuButton;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
+import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.WritableRegistry;
 
 import java.util.List;
 
@@ -37,8 +39,12 @@ public abstract class ClientModPlatform implements Loadable {
     /**
      * Registers client-side only commands.
      */
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {
-    }
+    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {}
+
+    /**
+     * Registers all debug entries for your mod.
+     */
+    public void registerDebugEntries(WritableRegistry<DebugScreenEntry> registry) {}
 
     /**
      * @return the menu button(s) for your mod, added to the title and pause menu screen, only if the corresponding conditions are true.

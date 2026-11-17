@@ -30,7 +30,7 @@ public class UpdatableSpriteButton extends SpriteIconButton {
             Component tooltip,
             OnPress onPress
     ) {
-        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, null, null, false);
+        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, null, DEFAULT_NARRATION, false);
         this.orderName = orderName;
         if (!tooltip.equals(Component.empty())) {
             this.setTooltip(Tooltip.create(tooltip));
@@ -45,7 +45,7 @@ public class UpdatableSpriteButton extends SpriteIconButton {
     }
 
     /**
-     * @return the button libName, used for correct alphabetical ordering.
+     * @return the button order name, used for correct alphabetical ordering.
      */
     public String getOrderName() {
         return this.orderName;

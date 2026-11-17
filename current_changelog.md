@@ -11,6 +11,7 @@
 ### Removed boat factories.
 ### Removed SimplePermissions, replaced with new Minecraft Commands.hasPermission & CommandPermissionLevels.
 ### Removed most factories.
+### Added ClientModPlatform.registerDebugEntries.
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.
