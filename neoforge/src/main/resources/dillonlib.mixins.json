@@ -12,6 +12,7 @@
     "accessor.ItemsInvoker"
   ],
   "client": [
+    "accessor.DebugGroupBuilderAccessor",
     "accessor.DebugOptionsScreenAccessor",
     "accessor.KeyBindsScreenAccessor",
     "accessor.ScreenInvoker",

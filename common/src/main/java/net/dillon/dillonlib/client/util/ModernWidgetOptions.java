@@ -2,6 +2,7 @@ package net.dillon.dillonlib.client.util;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.annotation.DillType;
 import net.dillon.dillonlib.util.BaseOptions;
 import net.dillon.dillonlib.widespread.DillonsTexts;
 import net.minecraft.client.OptionInstance;
@@ -15,7 +16,7 @@ import java.util.function.BiFunction;
  * Creates modern-like list widgets, with different texts and options.
  * @since 1.0
  */
-@Dill(env = DillEnv.CLIENT)
+@Dill(env = DillEnv.CLIENT, type = DillType.UNIVERSAL)
 public class ModernWidgetOptions {
     public static final OptionInstance.CaptionBasedToString<Boolean> ON_OFF_TEXT = (component, bl) -> bl
             ? DillonsTexts.ON

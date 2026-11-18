@@ -12,6 +12,8 @@
 ### Removed SimplePermissions, replaced with new Minecraft Commands.hasPermission & CommandPermissionLevels.
 ### Removed most factories.
 ### Added ClientModPlatform.registerDebugEntries.
+### Added stuff in ClientFactories.
+### Added debug text alignment & debugtextalignmentbuilder.
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

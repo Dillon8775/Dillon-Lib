@@ -39,6 +39,9 @@
   "dillonlib.gui.config": "Open DillonLib Config...",
   "dillonlib.gui.mods": "Mods...",
 
+  "dillonlib.option.debug_text_alignment": "Debug Text Alignment",
+  "dillonlib.option.debug_text_alignment.description": "Determines the position for the mod's debug text.",
+
   "dillonlib.mod.quality_of_queso": "§6Quality of Queso...",
   "dillonlib.mod.quality_of_queso.tooltip": "A Fabric/(Neo)Forge mod that adds various different QoL features, including container searching, precise inventory management, cool visual effects, and so much more!",
   "dillonlib.mod.survival_fly": "Survival Fly...",
