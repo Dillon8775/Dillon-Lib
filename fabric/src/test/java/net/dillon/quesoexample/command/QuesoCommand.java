@@ -2,7 +2,7 @@ package net.dillon.quesoexample.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.task.CommonTasks;
-import net.dillon.dillonlib.util.Arithmetics;
+import net.dillon.dillonlib.util.TickValue;
 import net.dillon.quesoexample.QuesoExampleMod;
 import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
@@ -18,7 +18,7 @@ public class QuesoCommand {
                         .requires(Commands.hasPermission(CommandPermissionLevels.LEVEL_ADMINS))
                         .executes(
                                 context -> {
-                                    CommonTasks.schedule(Arithmetics.S_asTick(5), () -> {
+                                    CommonTasks.schedule(new TickValue(5).toTicksSeconds(), () -> {
                                         printMessage(context.getSource(), null, "Ran task!");
                                     });
                                     printMessage(context.getSource(), context.getSource().getPlayerOrException(), "Executed common-side command.");

@@ -1,6 +1,5 @@
 package net.dillon.dillonlib.util;
 
-import net.dillon.dillonlib.core.DillonLibMain;
 import net.minecraft.util.RandomSource;
 
 /**
@@ -9,33 +8,6 @@ import net.minecraft.util.RandomSource;
  */
 public class Arithmetics {
     private static final RandomSource RANDOM = RandomSource.create();
-
-    /**
-     * Converts {@code seconds} to ticks.
-     */
-    public static int S_asTick(int secondsAsTicks) {
-        try {
-            int testSeconds = 0;
-            while (testSeconds < 525600) {
-                if (secondsAsTicks == testSeconds) {
-                    throw new NumberFormatException();
-                }
-                testSeconds += 60;
-            }
-            return secondsAsTicks * 20;
-        } catch (NumberFormatException o) {
-            DillonLibMain.LOGGER.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
-            o.printStackTrace();
-            return M_asTick(secondsAsTicks / 60);
-        }
-    }
-
-    /**
-     * Converts {@code minutes} to ticks.
-     */
-    public static int M_asTick(int minutesAsTicks) {
-        return (minutesAsTicks * 60) * 20;
-    }
 
     /**
      * Rounds the value to the nearest tenths place.

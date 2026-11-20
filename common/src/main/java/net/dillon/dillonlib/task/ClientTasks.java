@@ -109,15 +109,15 @@ public class ClientTasks {
     /**
      * @return the GUI width.
      */
-    public static int getGuiWidth(GuiGraphicsExtractor context) {
-        return context.guiWidth() / 2;
+    public static int getGuiWidth(GuiGraphicsExtractor graphics) {
+        return graphics.guiWidth() / 2;
     }
 
     /**
      * @return the GUI height.
      */
-    public static int getGuiHeight(GuiGraphicsExtractor context) {
-        return context.guiHeight() - 20;
+    public static int getGuiHeight(GuiGraphicsExtractor graphics) {
+        return graphics.guiHeight() - 20;
     }
 
     /**
@@ -151,9 +151,9 @@ public class ClientTasks {
     /**
      * Draws a tooltip.
      */
-    public static void drawTooltip(Component text, GuiGraphicsExtractor context, int mouseX, int mouseY) {
+    public static void drawTooltip(Component text, GuiGraphicsExtractor graphics) {
         Font font = getFont();
-        context.setTooltipForNextFrame(font, font.split(text, 200), mouseX, mouseY);
+        graphics.setTooltipForNextFrame(font, font.split(text, 200), graphics.mouseX(), graphics.mouseY());
     }
 
     /**
