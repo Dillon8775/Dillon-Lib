@@ -10,7 +10,7 @@ import net.dillon.dillonlib.client.component.GridBuilder;
 import net.dillon.dillonlib.client.component.PlatformMenuButton;
 import net.dillon.dillonlib.client.component.UpdatableSpriteButton;
 import net.dillon.dillonlib.client.impl.SpriteIconButtonImpl;
-import net.dillon.dillonlib.platform.PlatformLoader;
+import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.widespread.DillonsTexts;
 import net.dillon.dillonlib.widespread.DillonsWidgets;
 import net.minecraft.ChatFormatting;
@@ -122,7 +122,7 @@ public class DillonsModsScreen extends DillonLibScreen {
         List<PlatformMenuButton> orderedButtons = new ArrayList<>();
 
         // Add each platform menu button to the list
-        PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
+        Platforms.forEachClientPlatform(clientModPlatform -> {
             for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
                 if (p == null) {
                     continue;

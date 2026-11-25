@@ -9,6 +9,7 @@ import net.dillon.dillonlib.client.impl.DebugOptionsScreenImpl;
 import net.dillon.dillonlib.core.DillonLibModConfigLibs;
 import net.dillon.dillonlib.mixin.accessor.DebugOptionsScreenAccessor;
 import net.dillon.dillonlib.platform.info.ModConfigLib;
+import net.dillon.dillonlib.util.ScheduledTask;
 import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -21,14 +22,20 @@ import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.CommonColors;
+import net.minecraft.world.level.storage.LevelResource;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -38,6 +45,21 @@ import java.util.function.Supplier;
  */
 @Dill(env = DillEnv.CLIENT)
 public class ClientTasks {
+    private static final List<ScheduledTask> queuedClientTasks = new ArrayList<>();
+
+    /**
+     * Executes something after a set amount of ticks.
+     */
+    public static void createClientScheduledTask(int delayTicks, Runnable runnable) {
+        queuedClientTasks.add(new ScheduledTask(delayTicks, runnable));
+    }
+
+    /**
+     * @return the list of queued client tasks.
+     */
+    public static List<ScheduledTask> getQueuedClientTasks() {
+        return queuedClientTasks;
+    }
 
     /**
      * Stops and closes the game with a consumer.
@@ -149,6 +171,47 @@ public class ClientTasks {
     }
 
     /**
+     * @return the name of the local world's directory name.
+     */
+    public static String getLocalWorldDirName() {
+        IntegratedServer integratedServer = getMinecraft().getSingleplayerServer();
+        if (integratedServer == null) {
+            return "";
+        }
+
+        return integratedServer
+                .getWorldPath(LevelResource.ROOT)
+                .getParent()
+                .getFileName()
+                .toString();
+    }
+
+    /**
+     * @return the current user's server ip.
+     */
+    public static String getCurrentServerIp() {
+        ServerData serverData = getMinecraft().getCurrentServer();
+        if (serverData == null) {
+            return "";
+        }
+
+        return serverData.ip.toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * @return the current level key.
+     */
+    public static String getLevelKey() {
+        if (isOnServer()) {
+            return getCurrentServerIp();
+        } else if (isSingleplayer()) {
+            return getLocalWorldDirName();
+        }
+
+        return "";
+    }
+
+    /**
      * Draws a tooltip.
      */
     public static void drawTooltip(Component text, GuiGraphicsExtractor graphics) {
@@ -255,6 +318,13 @@ public class ClientTasks {
     public static boolean isOnServer() {
         Minecraft minecraft = getMinecraft();
         return !minecraft.isLocalServer() && !(minecraft.getCurrentServer() == null);
+    }
+
+    /**
+     * @return if the current instance of Minecraft is in a singleplayer world.
+     */
+    public static boolean isSingleplayer() {
+        return getMinecraft().getSingleplayerServer() != null;
     }
 
     /**

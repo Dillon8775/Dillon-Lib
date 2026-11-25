@@ -1,26 +1,36 @@
 package net.dillon.dillonlib.core;
 
+import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.annotation.DillType;
+import net.dillon.dillonlib.client.command.ClientCommandFeedback;
+import net.dillon.dillonlib.client.command.ReloadConfigCommand;
 import net.dillon.dillonlib.client.component.PlatformMenuButton;
 import net.dillon.dillonlib.client.component.UpdatableSpriteButton;
 import net.dillon.dillonlib.client.screen.DillonsModsScreen;
 import net.dillon.dillonlib.factory.ClientFactories;
-import net.dillon.dillonlib.platform.PlatformLoader;
+import net.dillon.dillonlib.platform.Platforms;
+import net.dillon.dillonlib.platform.client.ClientModPlatform;
+import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ScaledWidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.function.Function;
 
+import static net.dillon.dillonlib.task.ClientTasks.getMinecraft;
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 
 /**
  * {@code Client} initialization entrypoint for DillonLib.
  */
-@Dill(env = DillEnv.CLIENT)
+@Dill(env = DillEnv.CLIENT, type = DillType.CORE)
 public class DillonLibClient {
 
     /**
@@ -29,7 +39,7 @@ public class DillonLibClient {
     public static void cInitialize() {
         DillonLibClient.clientInitializers().forEach(Runnable::run);
 
-        int clientPlatforms = PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
+        int clientPlatforms = Platforms.forEachClientPlatform(clientModPlatform -> {
             if (!clientModPlatform.modId().equals(DillonLibMain.MOD_ID)) {
                 DillonLibMain.LOGGER.info("ClientModPlatform loaded with mod ID {}",
                         clientModPlatform.modId()
@@ -82,7 +92,7 @@ public class DillonLibClient {
         }
 
         boolean[] bl = {false};
-        PlatformLoader.executeForEachClientPlatform(clientModPlatform -> {
+        Platforms.forEachClientPlatform(clientModPlatform -> {
             for (PlatformMenuButton p : clientModPlatform.menuButtons()) {
                 if (p.button() == null) {
                     continue;
@@ -111,5 +121,42 @@ public class DillonLibClient {
      */
     public static void onValueUpdate(Double brightness) {
         Minecraft.getInstance().options.gamma().set(brightness);
+    }
+
+    /**
+     * Event handling for the client-side of DillonLib.
+     */
+    public static class Events {
+
+        /**
+         * Registers the {@link ReloadConfigCommand}.
+         */
+        public static <S> void registerReloadCommand(CommandDispatcher<S> dispatcher, Function<S, ClientCommandFeedback> feedback) {
+            dispatcher.register(ReloadConfigCommand.i_(feedback));
+        }
+
+        /**
+         * Registers all {@code client} commands.
+         */
+        public static <S> void registerAllClientCommands(CommandDispatcher<S> commandDispatcher, Function<S, ClientCommandFeedback> feedback, CommandBuildContext commandRegistryAccess) {
+            Platforms.forEachClientPlatform(modPlatform -> modPlatform.registerClientCommands(commandDispatcher, feedback, commandRegistryAccess));
+        }
+
+        /**
+         * Runs all client tick events for each platform.
+         */
+        public static void layClientTicking(LocalPlayer localPlayer) {
+            Platforms.forEachClientPlatform(ClientModPlatform::clientRuntimeTick);
+
+            if (localPlayer != null) {
+                Platforms.forEachClientPlatform(clientModPlatform -> {
+                    if (!getMinecraft().isPaused()) {
+                        clientModPlatform.clientGameTick();
+                    }
+                });
+            }
+
+            DillonLibMain.Events.tickTasks(ClientTasks.getQueuedClientTasks());
+        }
     }
 }

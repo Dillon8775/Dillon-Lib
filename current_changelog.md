@@ -14,6 +14,9 @@
 ### Added ClientModPlatform.registerDebugEntries.
 ### Added stuff in ClientFactories.
 ### Added debug text alignment & debugtextalignmentbuilder.
+### Fixed client command registration.
+### added reloadconfig class.
+### safe guard for BaseOptions
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

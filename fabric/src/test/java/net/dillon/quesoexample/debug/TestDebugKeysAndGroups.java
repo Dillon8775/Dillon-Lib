@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.debug;
+package net.dillon.quesoexample.debug;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.core.registries.ClientRegistries;

@@ -2,12 +2,12 @@ package net.dillon.dillonlib.task;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.dillonlib.platform.info.ModInfo;
+import net.dillon.dillonlib.util.ScheduledTask;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,41 +22,30 @@ import net.minecraft.world.level.Level;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
  * Common tasks that can be used in your mod.
+ *
  * @since 1.0
  */
 public class CommonTasks {
-    private static final List<ScheduledTask> TASKS = new ArrayList<>();
+    private static final List<ScheduledTask> queuedCommonTasks = new ArrayList<>();
 
     /**
-     * Schedules a task (executes after {@code delayTicks}).
+     * Executes something on the common-side after a set amount of ticks.
      */
-    public static void schedule(int delayTicks, Runnable task) {
-        TASKS.add(new ScheduledTask(delayTicks, task));
+    public static void createScheduledTask(int delayTicks, Runnable runnable) {
+        queuedCommonTasks.add(new ScheduledTask(delayTicks, runnable));
     }
 
     /**
-     * Tick the task delay, and then execute.
+     * @return the list of queued common tasks.
      */
-    public static void tickTasks(MinecraftServer server) {
-        Iterator<ScheduledTask> iterator = TASKS.iterator();
-
-        while (iterator.hasNext()) {
-            ScheduledTask task = iterator.next();
-            task.ticks--;
-
-            if (task.ticks <= 0) {
-                task.task.run();
-                iterator.remove();
-            }
-        }
+    public static List<ScheduledTask> getQueuedCommonTasks() {
+        return queuedCommonTasks;
     }
 
     /**
@@ -196,11 +185,11 @@ public class CommonTasks {
     }
 
     /**
-     * @return a raw {@link List} of entities (excluding {@code named entities}) within a specified range, and a custom predicate.
-     * @param world level reference
-     * @param entityListOf the list of entities to return, by class
+     * @param world         level reference
+     * @param entityListOf  the list of entities to return, by class
      * @param startingPoint the entity that the game should start searching from
-     * @param xyz an array of the maximum {@code x, y, and z} search radius
+     * @param xyz           an array of the maximum {@code x, y, and z} search radius
+     * @return a raw {@link List} of entities (excluding {@code named entities}) within a specified range, and a custom predicate.
      */
     public static List getEntitiesWithinRange(Level world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz, Predicate<? super LivingEntity> selector) {
         return world.getEntitiesOfClass(entityListOf, startingPoint.getBoundingBox().inflate(
@@ -208,18 +197,5 @@ public class CommonTasks {
                         xyz.get(1),
                         xyz.get(2)),
                 selector);
-    }
-
-    /**
-     * An alternative to {@link TimerTask}, which allows execution of code after a set amount of seconds, running within the Minecraft server tick.
-     */
-    private static class ScheduledTask {
-        int ticks;
-        Runnable task;
-
-        ScheduledTask(int ticks, Runnable task) {
-            this.ticks = ticks;
-            this.task = task;
-        }
     }
 }

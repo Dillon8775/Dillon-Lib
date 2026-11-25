@@ -8,7 +8,7 @@ public class DillonLibFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        FabricCommonEvents.registerFabricCommonCommands();
+        FabricCommonEvents.registerFabricCommonEvents();
 
         DillonLibMain.initialize();
     }

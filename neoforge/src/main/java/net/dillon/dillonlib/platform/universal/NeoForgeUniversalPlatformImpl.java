@@ -2,7 +2,6 @@ package net.dillon.dillonlib.platform.universal;
 
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
-import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -62,7 +61,7 @@ public class NeoForgeUniversalPlatformImpl extends UniversalModPlatform {
     @Override
     public void tickScheduledTasks() {
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> {
-            CommonTasks.tickTasks(event.getServer());
+            DillonLibMain.Events.tickCommonScheduledTasks(event.getServer());
         });
     }
 

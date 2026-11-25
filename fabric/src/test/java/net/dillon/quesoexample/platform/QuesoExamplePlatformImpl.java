@@ -42,7 +42,7 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
     }
 
     @Override
-    public void registerEvents() {
+    public void registerables() {
         Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay"), Items.GOLD_INGOT, () -> {
             ItemStack stack = new ItemStack(Items.ANCIENT_DEBRIS);
             stack.set(DataComponents.CUSTOM_NAME, Component.literal("lol"));

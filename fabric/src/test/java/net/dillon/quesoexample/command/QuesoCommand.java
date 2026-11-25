@@ -10,6 +10,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
+import static net.dillon.dillonlib.task.ClientTasks.getLocalPlayer;
+
 public class QuesoCommand {
 
     public static void register(final CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -18,7 +20,7 @@ public class QuesoCommand {
                         .requires(Commands.hasPermission(CommandPermissionLevels.LEVEL_ADMINS))
                         .executes(
                                 context -> {
-                                    CommonTasks.schedule(new TickValue(5).toTicksSeconds(), () -> {
+                                    CommonTasks.createScheduledTask(new TickValue(5).toTicksSeconds(), () -> {
                                         printMessage(context.getSource(), null, "Ran task!");
                                     });
                                     printMessage(context.getSource(), context.getSource().getPlayerOrException(), "Executed common-side command.");
@@ -26,6 +28,14 @@ public class QuesoCommand {
                                 }
                         )
         );
+    }
+
+    protected static void printLocalMessage(String message) {
+        if (getLocalPlayer() == null) {
+            QuesoExampleMod.LOGGER.info(message);
+        } else {
+            getLocalPlayer().sendSystemMessage(Component.literal(message));
+        }
     }
 
     protected static void printMessage(CommandSourceStack source, ServerPlayer player, String message) {

@@ -27,7 +27,7 @@ public class ModConfigLib {
     }
 
     /**
-     * @return the mod's {@code name}.
+     * @return the mod's {@code argumentName}.
      */
     public Component name() {
         return this.libName;

@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.debug;
+package net.dillon.quesoexample.debug;
 
 import net.minecraft.client.gui.components.debug.DebugScreenDisplayer;
 import net.minecraft.world.level.Level;

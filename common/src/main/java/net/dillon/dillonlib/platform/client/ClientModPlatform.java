@@ -3,16 +3,17 @@ package net.dillon.dillonlib.platform.client;
 import com.mojang.brigadier.CommandDispatcher;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.client.command.ClientCommandFeedback;
 import net.dillon.dillonlib.client.component.PlatformMenuButton;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.WritableRegistry;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * An instance of {@link Loadable}. Similar to {@link ModPlatform}, all methods used inside this class should be {@code client-side} only methods, meaning they should not interfere with the common code.
@@ -37,9 +38,21 @@ public abstract class ClientModPlatform implements Loadable {
     }
 
     /**
+     * Add runtime tick events here. The player does not need to be in a world or server.
+     */
+    public void clientRuntimeTick() {
+    }
+
+    /**
+     * Add game tick events here. The player must be in a world or server (if the game is paused, these events will not run).
+     */
+    public void clientGameTick() {
+    }
+
+    /**
      * Registers client-side only commands.
      */
-    public void registerClientCommands(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandRegistryAccess) {}
+    public <S> void registerClientCommands(CommandDispatcher<S> dispatcher, Function<S, ClientCommandFeedback> feedback, CommandBuildContext commandRegistryAccess) {}
 
     /**
      * Registers all debug entries for your mod.

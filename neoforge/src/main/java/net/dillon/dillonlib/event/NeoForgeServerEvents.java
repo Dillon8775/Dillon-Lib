@@ -6,9 +6,6 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-/**
- * {@code Server-side NeoForge events} for DillonLib.
- */
 @Dill(env = DillEnv.DEDICATED_SERVER)
 @EventBusSubscriber(modid = DillonLibMain.MOD_ID, value = Dist.DEDICATED_SERVER)
 public class NeoForgeServerEvents {

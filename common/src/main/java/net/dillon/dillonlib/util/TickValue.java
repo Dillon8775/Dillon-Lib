@@ -15,67 +15,115 @@ public record TickValue(double value) {
     private static final int MINUTES_PER_HOUR = 60;
     private static final int HOURS_PER_DAY = 24;
 
+    /**
+     * @return the raw int value passed in, could be any value.
+     */
     public int valueInt() {
         return (int) value();
     }
 
+    /**
+     * @return a new value as ticks assuming {@code value} is in milliseconds.
+     */
     public int toTicksMs() {
         return (toMsInt() % 1000) / 10;
     }
 
+    /**
+     * @return a new value as ticks assuming {@code value} is in seconds.
+     */
     public int toTicksSeconds() {
         return (int) (value * TICKS_PER_SECOND);
     }
 
+    /**
+     * @return a new value as ticks assuming {@code value} is in minutes.
+     */
     public int toTicksMinutes() {
         return toTicksSeconds() * SECONDS_PER_MINUTE;
     }
 
+    /**
+     * @return a new value as ticks assuming {@code value} is in hours.
+     */
     public int toTicksHours() {
         return toTicksMinutes() * MINUTES_PER_HOUR;
     }
 
+    /**
+     * @return a new value as ticks assuming {@code value} is in days.
+     */
     public int toTicksDays() {
         return toTicksHours() * HOURS_PER_DAY;
     }
 
+    /**
+     * @return a new value as milliseconds assuming {@code value} are ticks.
+     */
     public int toMsInt() {
         return (int) (value * 50);
     }
 
+    /**
+     * @return a new {@link Double} value as seconds assuming {@code value} are ticks.
+     */
     public double toSeconds() {
         return value / TICKS_PER_SECOND;
     }
 
+    /**
+     * @return a new {@link Double} value as minutes assuming {@code value} are ticks.
+     */
     public double toMinutes() {
         return toSeconds() / SECONDS_PER_MINUTE;
     }
 
+    /**
+     * @return a new {@link Double} value as hours assuming {@code value} are ticks.
+     */
     public double toHours() {
         return toMinutes() / MINUTES_PER_HOUR;
     }
 
+    /**
+     * @return a new {@link Double} value as days assuming {@code value} are ticks.
+     */
     public double toDays() {
         return toHours() / HOURS_PER_DAY;
     }
 
+    /**
+     * @return a new value as seconds assuming {@code value} are ticks.
+     */
     public int toSecondsInt() {
         return (int) toSeconds();
     }
 
+    /**
+     * @return a new value as minutes assuming {@code value} are ticks.
+     */
     public int toMinutesInt() {
         return (int) toMinutes();
     }
 
+    /**
+     * @return a new value as hours assuming {@code value} are ticks.
+     */
     public int toHoursInt() {
         return (int) toHours();
     }
 
+    /**
+     * @return a new value as days assuming {@code value} are ticks.
+     */
     public int toDaysInt() {
         return (int) toDays();
     }
 
-    public String formatted() {
+    /**
+     * @return a time-based formatted string assuming {@code value} are ticks.
+     */
+    public String formattedFromTick() {
         return new TimeFormatter(this).build();
     }
 

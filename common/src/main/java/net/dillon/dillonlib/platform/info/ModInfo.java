@@ -40,7 +40,7 @@ public class ModInfo {
     }
 
     /**
-     * Creates new {@link ModInfo} with the link, name (specific color), version (specific color) and version already specified.
+     * Creates new {@link ModInfo} with the link, argumentName (specific color), version (specific color) and version already specified.
      */
     public static ModInfo create(String id, String modrinthSlug, Component name, ChatFormatting formatting) {
         return create(id, modrinthSlug, name.copy().withStyle(formatting), commonVersion(id).copy().withStyle(formatting));

@@ -4,7 +4,6 @@ import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
-import net.dillon.dillonlib.task.CommonTasks;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -47,12 +46,6 @@ public abstract class UniversalModPlatform {
      * @return the common mod version your mod.
      */
     public abstract String commonModVersion(String modId);
-
-    /**
-     * Ticks all simple scheduled tasks.
-     * @see CommonTasks
-     */
-    public abstract void tickScheduledTasks();
 
     /**
      * Registers an item group when an item group factory is created.

@@ -11,7 +11,7 @@ public class ServerDillonLibFabric implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        FabricServerEvents.registerFabricServerCommands();
+        FabricServerEvents.registerFabricServerEvents();
 
         DillonLibServer.sInitialize();
     }

@@ -1,10 +1,12 @@
 package net.dillon.dillonlib.platform.client;
 
+import com.mojang.brigadier.CommandDispatcher;
+import net.dillon.dillonlib.client.command.ClientCommandFeedback;
+import net.dillon.dillonlib.core.DillonLibClient;
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.debug.*;
-import net.minecraft.client.gui.components.debug.DebugScreenEntry;
-import net.minecraft.core.Registry;
-import net.minecraft.core.WritableRegistry;
+import net.minecraft.commands.CommandBuildContext;
+
+import java.util.function.Function;
 
 public class ClientFabricPlatformImpl extends ClientModPlatform {
 
@@ -14,10 +16,7 @@ public class ClientFabricPlatformImpl extends ClientModPlatform {
     }
 
     @Override
-    public void registerDebugEntries(WritableRegistry<DebugScreenEntry> registry) {
-        Registry.register(registry, TestDebugKeysAndGroups.TEST_ENTRY_ONE, new TestDebugEntry1());
-        Registry.register(registry, TestDebugKeysAndGroups.TEST_ENTRY_TWO, new TestDebugEntry2());
-        Registry.register(registry, TestDebugKeysAndGroups.TEST_ENTRY_THREE, new TestDebugEntry3());
-        Registry.register(registry, TestDebugKeysAndGroups.TEST_ENTRY_FOUR, new TestDebugEntry4());
+    public <S> void registerClientCommands(CommandDispatcher<S> dispatcher, Function<S, ClientCommandFeedback> feedback, CommandBuildContext commandRegistryAccess) {
+        DillonLibClient.Events.registerReloadCommand(dispatcher, feedback);
     }
 }

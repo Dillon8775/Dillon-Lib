@@ -41,9 +41,15 @@ public abstract class ModPlatform implements Loadable {
     public abstract Platform platform();
 
     /**
-     * Registers events, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.
+     * Add registerables, that should be on all environments. Be careful with this method, because you don't want to register events in the wrong place.
      */
-    public void registerEvents() {
+    public void registerables() {
+    }
+
+    /**
+     * Add common game tick events here. The level must be running.
+     */
+    public void gameTick() {
     }
 
     /**

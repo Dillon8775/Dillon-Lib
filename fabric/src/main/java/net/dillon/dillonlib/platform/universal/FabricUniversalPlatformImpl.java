@@ -1,7 +1,7 @@
 package net.dillon.dillonlib.platform.universal;
 
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
-import net.dillon.dillonlib.task.CommonTasks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -46,11 +46,6 @@ public class FabricUniversalPlatformImpl extends UniversalModPlatform {
                 .getModContainer(modId)
                 .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
                 .orElse("unknown");
-    }
-
-    @Override
-    public void tickScheduledTasks() {
-        ServerTickEvents.END_SERVER_TICK.register(CommonTasks::tickTasks);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class DillonLibOptions {
      * @return the DillonLib options instance.
      */
     public static DillonLibOptions getLibInstance() {
-        return DillonLibOptions.INSTANCE.getInstance();
+        return DillonLibOptions.INSTANCE.get();
     }
 
     public static class DillonLibOptionsHandler extends BaseOptions<DillonLibOptions> {

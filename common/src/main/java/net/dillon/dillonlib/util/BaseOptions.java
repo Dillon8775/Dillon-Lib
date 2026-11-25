@@ -12,10 +12,11 @@ import java.util.function.Consumer;
 
 /**
  * A base class for registering options on different multiple environment sides. You can customize this however you'd like, by setting instances of options, a custom {@link Gson} setup, config directory, and a {@code update function} to directly update your options.
- * @since 1.0
+ *
  * @see BaseOptions#update(Consumer)
  * @see BaseOptions#configDir()
  * @see BaseOptions#createGson()
+ * @since 1.0
  */
 public abstract class BaseOptions<T> {
     private final Gson GSON = createGson();
@@ -33,14 +34,30 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * Returns the type to get the options from.
+     * @return the type to get the options from.
      */
     protected abstract T createDefault();
 
     /**
-     * Returns the class to get the options from.
+     * @return the class to get the options from.
      */
     protected abstract Class<T> getConfigClass();
+
+    /**
+     * @return the passed instance as long as it's not broken or null.
+     */
+    public static <T extends BaseOptions<?>> T guardedInstance(T instance) {
+        if (instance == null
+                || instance.getFile() == null
+                || instance.getFileName() == null
+                || instance.getFileName().isBlank()) {
+            throw new IllegalStateException(
+                    "BaseOptions instance is invalid. Please check your config initialization."
+            );
+        }
+
+        return instance;
+    }
 
     /**
      * Creates the {@code GSON reader,} which reads options correctly.
@@ -87,7 +104,7 @@ public abstract class BaseOptions<T> {
     /**
      * Gets the instance of options.
      */
-    public T getInstance() {
+    public T get() {
         return this.instance;
     }
 

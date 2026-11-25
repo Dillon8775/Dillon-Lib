@@ -1,4 +1,3 @@
-
 package net.dillon.dillonlib;
 
 import net.dillon.dillonlib.annotation.Dill;
@@ -12,7 +11,7 @@ public class ClientDillonLibFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        FabricClientEvents.registerFabricClientCommands();
+        FabricClientEvents.registerFabricClientEvents();
 
         DillonLibClient.cInitialize();
     }

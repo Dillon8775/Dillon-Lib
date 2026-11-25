@@ -2,18 +2,15 @@ package net.dillon.dillonlib.event;
 
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
-import net.dillon.dillonlib.core.DillonLibEvents;
+import net.dillon.dillonlib.core.DillonLibServer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
-/**
- * {@code Server-side Fabric events} for DillonLib.
- */
 @Dill(env = DillEnv.DEDICATED_SERVER)
 public class FabricServerEvents {
 
-    public static void registerFabricServerCommands() {
+    public static void registerFabricServerEvents() {
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
-            DillonLibEvents.registerAllServerCommands(commandDispatcher, commandRegistryAccess);
+            DillonLibServer.Events.registerAllServerCommands(commandDispatcher, commandRegistryAccess);
         });
     }
 }

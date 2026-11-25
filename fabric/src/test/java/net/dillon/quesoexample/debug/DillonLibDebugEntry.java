@@ -1,4 +1,4 @@
-package net.dillon.dillonlib.debug;
+package net.dillon.quesoexample.debug;
 
 import net.minecraft.client.gui.components.debug.DebugEntryCategory;
 import net.minecraft.client.gui.components.debug.DebugScreenEntry;

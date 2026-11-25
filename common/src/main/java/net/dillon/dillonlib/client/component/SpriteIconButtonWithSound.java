@@ -27,7 +27,7 @@ public class SpriteIconButtonWithSound extends SpriteIconButton {
             Supplier<Component> tooltip,
             OnPress onPress
     ) {
-        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, Tooltip.create(tooltip.get()), null, false);
+        super(0, 0, width, height, DillonsTexts.BLANK, scaledWidgetSprites, DisplayState.ICON_ONLY, onPress, Tooltip.create(tooltip.get()), DEFAULT_NARRATION, false);
         this.soundManager = soundManager;
     }
 

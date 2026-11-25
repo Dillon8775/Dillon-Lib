@@ -42,7 +42,7 @@ public class ClientFactories {
     /**
      * Registers a {@link DebugScreenEntry} key.
      * @param namespace the mod namespace for your key.
-     * @param path the name for your entry.
+     * @param path the argumentName for your entry.
      * @return the registered entry key.
      */
     public static ResourceKey<DebugScreenEntry> createDebugEntryKey(String namespace, String path) {

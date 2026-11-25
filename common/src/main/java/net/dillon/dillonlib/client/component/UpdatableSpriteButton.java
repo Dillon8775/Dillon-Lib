@@ -45,7 +45,7 @@ public class UpdatableSpriteButton extends SpriteIconButton {
     }
 
     /**
-     * @return the button order name, used for correct alphabetical ordering.
+     * @return the button order argumentName, used for correct alphabetical ordering.
      */
     public String getOrderName() {
         return this.orderName;
