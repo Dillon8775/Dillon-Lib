@@ -3,11 +3,13 @@ package net.dillon.dillonlib.factory;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
+import net.dillon.dillonlib.client.component.LibDebugScreenEntry;
 import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.core.registries.ClientRegistries;
 import net.minecraft.client.gui.components.debug.DebugScreenEntry;
+import net.minecraft.client.gui.components.debug.DebugScreenEntryStatus;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -56,6 +58,24 @@ public class ClientFactories {
      */
     public static ResourceKey<DebugScreenEntry> createDebugEntryKey(Identifier identifier) {
         return ResourceKey.create(ClientRegistries.DEBUG_SCREEN_ENTRY, identifier);
+    }
+
+    /**
+     * Registers a {@link LibDebugScreenEntry} key.
+     * @param identifier the identifier for your key.
+     * @return the registered entry key.
+     */
+    public static LibDebugScreenEntry createLibDebugEntryKey(Identifier identifier, DebugScreenEntryStatus defaultStatus) {
+        return new LibDebugScreenEntry(createDebugEntryKey(identifier), defaultStatus);
+    }
+
+    /**
+     * Registers a {@link LibDebugScreenEntry} key.
+     * @param identifier the identifier for your key.
+     * @return the registered entry key.
+     */
+    public static LibDebugScreenEntry createLibDebugEntryKey(Identifier identifier) {
+        return new LibDebugScreenEntry(createDebugEntryKey(identifier));
     }
 
     /**

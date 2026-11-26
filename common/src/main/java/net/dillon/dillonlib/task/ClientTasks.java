@@ -173,39 +173,41 @@ public class ClientTasks {
     /**
      * @return the name of the local world's directory name.
      */
-    public static String getLocalWorldDirName() {
+    public static String getLocalWorldDirName(boolean singleplayerText) {
         IntegratedServer integratedServer = getMinecraft().getSingleplayerServer();
         if (integratedServer == null) {
             return "";
         }
 
-        return integratedServer
+        String singleplayerFolder = integratedServer
                 .getWorldPath(LevelResource.ROOT)
                 .getParent()
                 .getFileName()
                 .toString();
+        return singleplayerText ? "singleplayer:" + singleplayerFolder : singleplayerFolder;
     }
 
     /**
      * @return the current user's server ip.
      */
-    public static String getCurrentServerIp() {
+    public static String getCurrentServerIp(boolean serverText) {
         ServerData serverData = getMinecraft().getCurrentServer();
         if (serverData == null) {
             return "";
         }
 
-        return serverData.ip.toLowerCase(Locale.ROOT);
+        String serverIp = serverData.ip.toLowerCase(Locale.ROOT);
+        return serverText ? "server:" + serverIp : serverIp;
     }
 
     /**
      * @return the current level key.
      */
-    public static String getLevelKey() {
+    public static String getLevelKey(boolean includeText) {
         if (isOnServer()) {
-            return getCurrentServerIp();
+            return getCurrentServerIp(includeText);
         } else if (isSingleplayer()) {
-            return getLocalWorldDirName();
+            return getLocalWorldDirName(includeText);
         }
 
         return "";

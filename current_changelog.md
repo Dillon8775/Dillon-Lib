@@ -17,6 +17,7 @@
 ### Fixed client command registration.
 ### added reloadconfig class.
 ### safe guard for BaseOptions
+### lib debug screen entry
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

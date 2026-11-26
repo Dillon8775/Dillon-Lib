@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -81,10 +82,30 @@ public class DebugBuilder extends DebugGroup.Builder {
     }
 
     /**
+     * Creates a default profile upon game launch for modded debug huds using a list of {@link LibDebugScreenEntry}.
+     */
+    public static void createCustomProfile(List<LibDebugScreenEntry> debugScreenEntryWithStatuses) {
+        Map<ResourceKey<DebugScreenEntry>, DebugScreenEntryStatus> map = new HashMap<>();
+        debugScreenEntryWithStatuses.forEach(debugScreenEntryWithStatus -> map.put(debugScreenEntryWithStatus.entry(), debugScreenEntryWithStatus.status()));
+        createCustomProfile(map);
+    }
+
+    /**
      * @return the map of custom profiles to be added to the default profile.
      */
     public static Map<ResourceKey<DebugScreenEntry>, DebugScreenEntryStatus> getCustomProfiles() {
         return customProfiles;
+    }
+
+    /**
+     * @return the debug entry status from a formatted value.
+     */
+    public static String debugEntryStatus(DebugScreenEntryStatus status) {
+        return switch (status) {
+            case IN_OVERLAY -> "In Overlay";
+            case ALWAYS_ON -> "Always";
+            default -> "Never";
+        };
     }
 
     /**
