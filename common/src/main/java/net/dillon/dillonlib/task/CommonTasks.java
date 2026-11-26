@@ -3,6 +3,7 @@ package net.dillon.dillonlib.task;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.dillonlib.platform.info.ModInfo;
 import net.dillon.dillonlib.util.ScheduledTask;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
@@ -89,6 +90,14 @@ public class CommonTasks {
                 .withColor(textColor);
 
         sendSystemMessage(player, message);
+    }
+
+    /**
+     * Sends the player a message that they do not have permission to execute the command, and returns 0 for valid {@link CommandSourceStack}s.
+     */
+    public static int sendNoPermissionMessage(CommandSourceStack source) {
+        source.sendFailure(Component.literal("You do not have permission to execute this command."));
+        return 0;
     }
 
     /**
