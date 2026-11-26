@@ -44,19 +44,16 @@ public abstract class BaseOptions<T> {
     protected abstract Class<T> getConfigClass();
 
     /**
-     * @return the passed instance as long as it's not broken or null.
+     * @return the passed instance as long as they are not null.
      */
-    public static <T extends BaseOptions<?>> T guardedInstance(T instance) {
-        if (instance == null
-                || instance.getFile() == null
-                || instance.getFileName() == null
-                || instance.getFileName().isBlank()) {
+    public static <T> T guardedInstance(T options) {
+        if (options == null) {
             throw new IllegalStateException(
-                    "BaseOptions instance is invalid. Please check your config initialization."
+                    "Option instance is invalid. Please check your config initialization and file."
             );
         }
 
-        return instance;
+        return options;
     }
 
     /**

@@ -3,7 +3,9 @@ package net.dillon.dillonlib.client.component;
 import net.dillon.dillonlib.annotation.Dill;
 import net.dillon.dillonlib.annotation.DillEnv;
 import net.dillon.dillonlib.client.util.DebugTextAlignment;
+import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.mixin.accessor.DebugGroupBuilderAccessor;
+import net.dillon.dillonlib.util.BaseOptions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.debug.*;
 import net.minecraft.network.chat.Component;
@@ -12,6 +14,7 @@ import net.minecraft.resources.ResourceKey;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * An instance of {@link DebugGroup.Builder}, with allows for easier column customization with the use of {@link DebugTextAlignment}.
@@ -29,7 +32,7 @@ public class DebugBuilder extends DebugGroup.Builder {
     /**
      * Creates a basic aligned debug group.
      */
-    public static DebugGroup alignedDebugGroup(Component title, DebugTextAlignment debugTextAlignment) {
+    public static DebugGroup alignedDebugGroup(Component title, Supplier<DebugTextAlignment> debugTextAlignment) {
         return DebugBuilder
                 .titled(title)
                 .withAutoColumn(debugTextAlignment)
@@ -39,7 +42,7 @@ public class DebugBuilder extends DebugGroup.Builder {
     /**
      * Creates a left-aligned if auto debug group.
      */
-    public static DebugGroup leftAlignedDebugGroup(Component title, DebugTextAlignment debugTextAlignment) {
+    public static DebugGroup leftAlignedDebugGroup(Component title, Supplier<DebugTextAlignment> debugTextAlignment) {
         return DebugBuilder
                 .titled(title)
                 .leftIfAuto(debugTextAlignment)
@@ -49,7 +52,7 @@ public class DebugBuilder extends DebugGroup.Builder {
     /**
      * Creates a right-aligned if auto debug group.
      */
-    public static DebugGroup rightAlignedDebugGroup(Component title, DebugTextAlignment debugTextAlignment) {
+    public static DebugGroup rightAlignedDebugGroup(Component title, Supplier<DebugTextAlignment> debugTextAlignment) {
         return DebugBuilder
                 .titled(title)
                 .rightIfAuto(debugTextAlignment)
@@ -89,11 +92,11 @@ public class DebugBuilder extends DebugGroup.Builder {
      *
      * @return this builder.
      */
-    public DebugGroup.Builder leftIfAuto(DebugTextAlignment debugTextAlignment) {
-        if (debugTextAlignment.auto()) {
+    public DebugGroup.Builder leftIfAuto(Supplier<DebugTextAlignment> debugTextAlignment) {
+        if (guardedDebugTextAlignment(debugTextAlignment).auto()) {
             return this.withPreferredColumn(DebugColumn.Side.LEFT);
         } else {
-            return this.withPreferredColumn(DebugColumn.Side.RIGHT);
+            return this.withAutoColumn(debugTextAlignment);
         }
     }
 
@@ -102,11 +105,11 @@ public class DebugBuilder extends DebugGroup.Builder {
      *
      * @return this builder.
      */
-    public DebugGroup.Builder rightIfAuto(DebugTextAlignment debugTextAlignment) {
-        if (debugTextAlignment.auto()) {
+    public DebugGroup.Builder rightIfAuto(Supplier<DebugTextAlignment> debugTextAlignment) {
+        if (guardedDebugTextAlignment(debugTextAlignment).auto()) {
             return this.withPreferredColumn(DebugColumn.Side.RIGHT);
         } else {
-            return this.withPreferredColumn(DebugColumn.Side.LEFT);
+            return this.withAutoColumn(debugTextAlignment);
         }
     }
 
@@ -115,8 +118,8 @@ public class DebugBuilder extends DebugGroup.Builder {
      *
      * @return this builder.
      */
-    public DebugGroup.Builder withAutoColumn(DebugTextAlignment debugTextAlignment) {
-        switch (debugTextAlignment) {
+    public DebugGroup.Builder withAutoColumn(Supplier<DebugTextAlignment> debugTextAlignment) {
+        switch (guardedDebugTextAlignment(debugTextAlignment)) {
             case LEFT -> {
                 return this.withPreferredColumn(DebugColumn.Side.LEFT);
             }
@@ -127,6 +130,18 @@ public class DebugBuilder extends DebugGroup.Builder {
                 ((DebugGroupBuilderAccessor) this).setPreferredColumn(Optional.empty());
                 return this;
             }
+        }
+    }
+
+    /**
+     * @return a guarded debug text alignment value for invalid {@link BaseOptions} that do not yet have this value.
+     */
+    private static DebugTextAlignment guardedDebugTextAlignment(Supplier<DebugTextAlignment> debugTextAlignment) {
+        try {
+            return debugTextAlignment.get();
+        } catch (IllegalStateException | NullPointerException n) {
+            DillonLibMain.LOGGER.warn("Detected invalid debug text alignment, defaulting to auto.");
+            return DebugTextAlignment.AUTO;
         }
     }
 }

@@ -23,6 +23,14 @@ public class ReloadConfigCommand {
      * Creates a reloadable config argument.
      * Call this in your mod's main entrypoint, not a loadable instance.
      */
+    public static void createReloadable(String argument, BaseOptions<?> instance) {
+        createReloadable(argument, List.of(instance));
+    }
+
+    /**
+     * Creates a reloadable config argument.
+     * Call this in your mod's main entrypoint, not a loadable instance.
+     */
     public static void createReloadable(String argument, List<BaseOptions<?>> instances) {
         reloadables.add(new Reloadable(argument, instances));
     }
