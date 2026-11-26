@@ -31,6 +31,7 @@ public abstract class BaseOptions<T> {
     public BaseOptions(String fileName) {
         this.fileName = fileName;
         this.instance = createDefault();
+        load(); // Autoload to provide accurate results
     }
 
     /**
