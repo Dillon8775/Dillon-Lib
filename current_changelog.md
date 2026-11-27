@@ -19,6 +19,7 @@
 ### safe guard for BaseOptions
 ### lib debug screen entry
 ### fixed neoforge mixin not loading
+### mixin addition
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.
