@@ -58,7 +58,7 @@ public class FabricUniversalPlatformImpl extends UniversalModPlatform {
 
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key,
                     CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
-                            .title(Component.translatable("itemGroup." + simpleItemGroup.id().getNamespace() + "." + simpleItemGroup.id().getPath()))
+                            .title(simpleItemGroup.title())
                             .icon(() -> new ItemStack(simpleItemGroup.icon()))
                             .displayItems((parameters, output) -> {
                                 simpleItemGroup.entries().get().forEach(output::accept);

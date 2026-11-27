@@ -58,10 +58,20 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * Creates the {@code GSON reader,} which reads options correctly.
+     * Creates the {@link Gson} for this option instance.
      */
     public Gson createGson() {
-        return new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
+        return defaultGsonBuilder().create();
+    }
+
+    /**
+     * @return a default {@link GsonBuilder} for this option instance.
+     */
+    public static GsonBuilder defaultGsonBuilder() {
+        return new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .setPrettyPrinting()
+                .disableHtmlEscaping();
     }
 
     /**

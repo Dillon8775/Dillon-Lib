@@ -6,6 +6,7 @@ import net.dillon.dillonlib.platform.Platforms;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -59,8 +60,8 @@ public class Factories {
      * @param icon the icon for your item group
      * @param entries the list of {@link ItemLike}s to be in your item group
      */
-    public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, List<ItemLike> entries) {
-        registerSimpleItemGroupFactory(id, icon, () ->
+    public static void registerSimpleItemGroupFactory(Identifier id, Component title, ItemLike icon, List<ItemLike> entries) {
+        registerSimpleItemGroupFactory(id, title, icon, () ->
                 entries.stream()
                         .map(itemLike -> itemLike.asItem().getDefaultInstance())
                         .toList()
@@ -73,8 +74,8 @@ public class Factories {
      * @param icon the icon for your item group
      * @param entries the list of items to be in your item group
      */
-    public static void registerSimpleItemGroupFactory(Identifier id, ItemLike icon, Supplier<List<ItemStack>> entries) {
-        Platforms.getUniversalPlatform().registerItemGroup(new SimpleItemGroupFactory(id, icon, entries));
+    public static void registerSimpleItemGroupFactory(Identifier id, Component title, ItemLike icon, Supplier<List<ItemStack>> entries) {
+        Platforms.getUniversalPlatform().registerItemGroup(new SimpleItemGroupFactory(id, title, icon, entries));
         DillonLibMain.LOGGER.debug("Registered item group factory {}", id);
     }
 

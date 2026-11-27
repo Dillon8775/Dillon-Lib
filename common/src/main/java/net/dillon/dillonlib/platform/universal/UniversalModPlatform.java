@@ -4,6 +4,7 @@ import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.factory.item.SimpleItemGroupFactory;
 import net.dillon.dillonlib.platform.Loadable;
 import net.dillon.dillonlib.platform.ModPlatform;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -49,7 +50,7 @@ public abstract class UniversalModPlatform {
 
     /**
      * Registers an item group when an item group factory is created.
-     * @see Factories#registerSimpleItemGroupFactory(Identifier, ItemLike, Supplier) 
+     * @see Factories#registerSimpleItemGroupFactory(Identifier, Component, ItemLike, Supplier)
      */
     public abstract void registerItemGroup(SimpleItemGroupFactory simpleItemGroup);
 
