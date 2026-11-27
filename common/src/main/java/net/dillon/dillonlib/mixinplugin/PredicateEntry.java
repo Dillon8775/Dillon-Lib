@@ -1,5 +1,8 @@
 package net.dillon.dillonlib.mixinplugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A list of mapped {@code mixin class names} with {@code booleans} on whether the mixin should be enabled upon load time.
  * <p>If the mapped boolean returns {@code true}, the every mapped mixin class id should be {@code disabled.}</p>
@@ -68,6 +71,24 @@ public class PredicateEntry {
                 reason,
                 messageType
         );
+    }
+
+    /**
+     * @return a fabric or NeoForge mixin with the same name.
+     */
+    public static String[] fabricAndNeoForge(String... mixins) {
+        List<String> mixinList = new ArrayList<>();
+        for (String mixin : mixins) {
+            String original = mixin;
+
+            mixin = original.replace("%s", "Fabric");
+            mixinList.add(mixin);
+
+            mixin = original.replace("%s", "NeoForge");
+            mixinList.add(mixin);
+        }
+
+        return mixinList.toArray(String[]::new);
     }
 
     /**

@@ -24,9 +24,8 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
     public List<PredicateEntry> entries() {
         return List.of(
                 PredicateEntry.ofDebug(
-                        PredicateEntry.ddouble(
-                                "client.FabricOptionInstanceMixin",
-                                "client.NeoForgeOptionInstanceMixin"
+                        PredicateEntry.fabricAndNeoForge(
+                                "client.%sOptionInstanceMixin"
                         ),
                         !Platforms.shouldApplyFullBright() || !DillonLibOptions.getLibInstance().core().applyFullBrightIfRequired,
                         "FullBright is not enabled."
