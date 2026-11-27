@@ -8,7 +8,7 @@ import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
 
-public class MixinFabricPlatformImpl extends MixinModPlatform {
+public class FabricMixinPlatformImpl extends MixinModPlatform {
 
     @Override
     public String modId() {

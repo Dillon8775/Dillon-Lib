@@ -76,7 +76,7 @@ public class DillonLibClient {
                 20,
                 () -> anyModHasUpdate,
                 new ScaledWidgetSprites(DillonsSprites.DILLONLIB_LOGO, 16, 16),
-                DillonLibMain.HAS_UPDATE
+                DillonLibMain.MOD_INFO.hasUpdate()
                         ? Component.translatable("dillonlib.update_available_message", Component.translatable("dillonlib"))
                         : defaultTooltip,
                 onPress -> openScreen(new DillonsModsScreen(parent))
@@ -87,7 +87,7 @@ public class DillonLibClient {
      * @return if any mod has an update available.
      */
     private static boolean anyModHasUpdate() {
-        if (DillonLibMain.HAS_UPDATE) {
+        if (DillonLibMain.MOD_INFO.hasUpdate()) {
             return true;
         }
 

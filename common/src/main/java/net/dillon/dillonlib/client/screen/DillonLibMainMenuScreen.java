@@ -45,7 +45,7 @@ public class DillonLibMainMenuScreen extends DillonLibMenuScreen {
                 Component.literal(Platforms.getUniversalPlatform().commonModVersion(DillonLibMain.MOD_ID))
                         .withStyle(ChatFormatting.RED),
                 DILLONLIB_LOGO,
-                DillonLibMain.HAS_UPDATE
+                DillonLibMain.MOD_INFO.hasUpdate()
         );
     }
 

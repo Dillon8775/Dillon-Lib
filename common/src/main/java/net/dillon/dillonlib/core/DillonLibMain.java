@@ -5,11 +5,13 @@ import net.dillon.dillonlib.factory.Factories;
 import net.dillon.dillonlib.platform.ModPlatform;
 import net.dillon.dillonlib.platform.PlatformLoader;
 import net.dillon.dillonlib.platform.Platforms;
+import net.dillon.dillonlib.platform.info.ModInfo;
 import net.dillon.dillonlib.task.CommonTasks;
 import net.dillon.dillonlib.util.ScheduledTask;
-import net.dillon.dillonlib.util.UpdateChecker;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +26,11 @@ import java.util.Locale;
 public class DillonLibMain {
     public static final String MOD_ID = "dillonlib";
     public static final Logger LOGGER = LoggerFactory.getLogger("DillonLib/Main");
-    public static boolean HAS_UPDATE = UpdateChecker.hasUpdate(UpdateChecker.checkForUpdate(
+    public static final ModInfo MOD_INFO = ModInfo.create(
+            MOD_ID,
             "dillon-lib",
-            Platforms.getUniversalPlatform().commonModVersion(DillonLibMain.MOD_ID))
+            Component.translatable("dillonlib"),
+            ChatFormatting.RED
     );
 
     /**

@@ -1,21 +1,21 @@
 package net.dillon.dillonlib.platform;
 
 import net.dillon.dillonlib.core.DillonLibMain;
-import net.dillon.dillonlib.platform.client.ClientFabricPlatformImpl;
-import net.dillon.dillonlib.platform.mixinsafe.MixinFabricPlatformImpl;
+import net.dillon.dillonlib.platform.client.FabricClientPlatformImpl;
+import net.dillon.dillonlib.platform.mixinsafe.FabricMixinPlatformImpl;
 
 /**
  * Contains all {@code Fabric-specific} platforms for your convenience.
  */
 public class FabricPlatforms {
-    private static final MixinFabricPlatformImpl MIXIN_FABRIC_PLATFORM = PlatformLoader.load(MixinFabricPlatformImpl.class, DillonLibMain.MOD_ID);
-    private static final ClientFabricPlatformImpl CLIENT_FABRIC_PLATFORM = PlatformLoader.load(ClientFabricPlatformImpl.class, DillonLibMain.MOD_ID);
+    private static final FabricMixinPlatformImpl MIXIN_FABRIC_PLATFORM = PlatformLoader.load(FabricMixinPlatformImpl.class, DillonLibMain.MOD_ID);
+    private static final FabricClientPlatformImpl CLIENT_FABRIC_PLATFORM = PlatformLoader.load(FabricClientPlatformImpl.class, DillonLibMain.MOD_ID);
 
-    public static MixinFabricPlatformImpl getFabricMixinPlatform() {
+    public static FabricMixinPlatformImpl getFabricMixinPlatform() {
         return MIXIN_FABRIC_PLATFORM;
     }
 
-    public static ClientFabricPlatformImpl getFabricClientPlatform() {
+    public static FabricClientPlatformImpl getFabricClientPlatform() {
         return CLIENT_FABRIC_PLATFORM;
     }
 }

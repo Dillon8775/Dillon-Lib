@@ -3,7 +3,9 @@ package net.dillon.dillonlib.task;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.dillonlib.platform.info.ModInfo;
 import net.dillon.dillonlib.util.ScheduledTask;
+import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
@@ -98,6 +100,16 @@ public class CommonTasks {
     public static int sendNoPermissionMessage(CommandSourceStack source) {
         source.sendFailure(Component.literal("You do not have permission to execute this command."));
         return 0;
+    }
+
+    /**
+     * @return if the source has admin permissions, or is a non-player source like a command block.
+     */
+    public static boolean hasAdminPermissionsOrCommandSource(CommandSourceStack source) {
+        return Commands.hasPermission(CommandPermissionLevels.LEVEL_ADMINS)
+                .test()
+                .check(source.permissions())
+                || !source.isPlayer();
     }
 
     /**

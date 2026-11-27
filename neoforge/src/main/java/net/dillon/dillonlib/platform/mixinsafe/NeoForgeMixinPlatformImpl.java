@@ -4,7 +4,7 @@ import net.dillon.dillonlib.core.DillonLibMain;
 import net.dillon.dillonlib.platform.info.ModReference;
 import net.neoforged.fml.loading.FMLLoader;
 
-public class MixinNeoForgePlatformImpl extends MixinModPlatform {
+public class NeoForgeMixinPlatformImpl extends MixinModPlatform {
 
     @Override
     public String modId() {
