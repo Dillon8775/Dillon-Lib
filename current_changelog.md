@@ -18,6 +18,7 @@
 ### added reloadconfig class.
 ### safe guard for BaseOptions
 ### lib debug screen entry
+### fixed neoforge mixin not loading
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

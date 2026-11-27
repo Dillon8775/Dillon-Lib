@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.4"
+  },
+  "compatibilityLevel": "JAVA_25",
+  "package": "net.dillon.dillonlib.mixin",
+  "plugin": "net.dillon.dillonlib.mixin.ConditionalMixinPlugin",
+  "client": [
+    "client.NeoForgeOptionInstanceMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

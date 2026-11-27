@@ -30,7 +30,11 @@
     ]
   },
   "mixins": [
-    "dillonlib.mixins.json"
+    "dillonlib.mixins.json",
+    {
+      "config": "dillonlib.fabric.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

@@ -23,11 +23,6 @@ public class DillonLibOptions {
 
     public static class Factories {
         public boolean applyDebugOptionsScreenFix = true;
-        public boolean applyAbstractClientPlayerFix = true;
-        public boolean applyAvatarRendererFix = true;
-        public boolean applyPersonHandsAndItemsRendererFix = true;
-        public boolean applyShearFactories = true;
-        public boolean applyIgnitableFactories = true;
     }
 
     /**

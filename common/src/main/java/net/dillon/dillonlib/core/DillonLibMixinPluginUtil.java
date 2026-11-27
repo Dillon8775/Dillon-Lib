@@ -42,50 +42,6 @@ public class DillonLibMixinPluginUtil extends MixinPluginUtil {
                                 || !DillonLibModReferences.isModLoaded(DillonLibModReferences.SODIUM)
                                 || DillonLibModReferences.isVersionPresent(DillonLibModReferences.SODIUM),
                         "FullBright is not enabled, or old Sodium is not loaded."
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single("client.fix.bow.AbstractClientPlayerFix"),
-                        !DillonLibOptions.getLibInstance().factories().applyAbstractClientPlayerFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_abstract_client_player_fix is disabled.")
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single("client.fix.bow.AvatarRendererFix"),
-                        !DillonLibOptions.getLibInstance().factories().applyAvatarRendererFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_avatar_renderer_fix is disabled.")
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single("client.fix.bow.FabricPersonHandsAndItemsRendererMixin"),
-                        !DillonLibOptions.getLibInstance().factories().applyPersonHandsAndItemsRendererFix || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_person_hands_and_items_renderer_fix is disabled.")
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.ddouble(
-                                "ignitable.CandleCakeBlockFix",
-                                "ignitable.TntBlockFix"
-                        ),
-                        !DillonLibOptions.getLibInstance().factories().applyIgnitableFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_ignitable_factories is disabled.")
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.multiple(
-                                "shear.BeehiveBlockFix",
-                                "shear.CopperGolemFix",
-                                "shear.MatchToolFix",
-                                "shear.MushroomCowFix",
-                                "shear.FabricBoggedFix",
-                                "shear.FabricLeashFenceKnotEntityFix",
-                                "shear.FabricPumpkinBlockFix",
-                                "shear.FabricSheepFix",
-                                "shear.FabricSnowGolemFix",
-                                "shear.FabricTripWireBlockFix"
-                        ),
-                        !DillonLibOptions.getLibInstance().factories().applyShearFactories || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_shear_factories is disabled.")
-                ),
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single("entity.fix.SulfurCubeFix"),
-                        (!DillonLibOptions.getLibInstance().factories().applyShearFactories && !DillonLibOptions.getLibInstance().factories().applyIgnitableFactories) || !Platforms.shouldApplyFactories(),
-                        ofFactory("apply_shear_factories and apply_ignitable_factories is disabled.")
                 )
         );
     }
