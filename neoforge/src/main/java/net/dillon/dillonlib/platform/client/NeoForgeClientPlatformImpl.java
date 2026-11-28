@@ -22,4 +22,9 @@ public class NeoForgeClientPlatformImpl extends ClientModPlatform {
     public <S> void registerClientCommands(CommandDispatcher<S> dispatcher, Function<S, ClientCommandFeedback> feedback, CommandBuildContext commandRegistryAccess) {
         DillonLibClient.Events.registerReloadCommand(dispatcher, feedback);
     }
+
+    @Override
+    public void clientRuntimeTick() {
+        DillonLibClient.bridgeYacls();
+    }
 }

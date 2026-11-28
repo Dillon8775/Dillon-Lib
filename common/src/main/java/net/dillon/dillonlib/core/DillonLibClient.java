@@ -13,6 +13,7 @@ import net.dillon.dillonlib.factory.ClientFactories;
 import net.dillon.dillonlib.platform.Platforms;
 import net.dillon.dillonlib.platform.client.ClientModPlatform;
 import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.dillonlib.util.YaclOneConfigBridge;
 import net.dillon.dillonlib.widespread.DillonsSprites;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ScaledWidgetSprites;
@@ -22,7 +23,9 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static net.dillon.dillonlib.task.ClientTasks.getMinecraft;
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
@@ -57,6 +60,21 @@ public class DillonLibClient {
     private static List<Runnable> clientInitializers() {
         return List.of(
                 ClientFactories::i_
+        );
+    }
+
+    /**
+     * Bridges all {@code YACL} to parse.
+     */
+    public static void bridgeYacls() {
+        // Stop if not loaded
+        if (!YaclOneConfigBridge.loaded()) {
+            return;
+        }
+
+        Map<String, Supplier<Object>> modsToParse = YaclOneConfigBridge.getModsToParse();
+        modsToParse.entrySet().removeIf(entry ->
+                YaclOneConfigBridge.parse(entry.getKey(), entry.getValue().get())
         );
     }
 
