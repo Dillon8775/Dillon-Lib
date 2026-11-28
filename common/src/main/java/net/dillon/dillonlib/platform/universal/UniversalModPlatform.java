@@ -50,7 +50,7 @@ public abstract class UniversalModPlatform {
 
     /**
      * Registers an item group when an item group factory is created.
-     * @see Factories#registerSimpleItemGroupFactory(Identifier, Component, ItemLike, Supplier)
+     * @see Factories#registerSimpleItemGroupFactory(Identifier, Component, Supplier, Supplier)
      */
     public abstract void registerItemGroup(SimpleItemGroupFactory simpleItemGroup);
 

@@ -6,7 +6,11 @@ import net.dillon.dillonlib.client.screen.DillonLibMenuScreen;
 import net.dillon.dillonlib.client.screen.DillonLibScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.inventory.tooltip.BelowOrAboveWidgetTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.MenuTooltipPositioner;
 import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -14,6 +18,7 @@ import java.util.function.Function;
 import java.util.function.IntSupplier;
 
 import static net.dillon.dillonlib.task.ClientTasks.getFont;
+import static net.dillon.dillonlib.task.ClientTasks.getMinecraft;
 
 /**
  * A common interface for creating basic screens.
@@ -195,25 +200,58 @@ public interface WidgetsImpl {
         for (WidgetData data : widgetData()) {
             AbstractWidget widget = data.getWidget();
 
+            // Continue out if widget is null
             if (widget == null) {
                 continue;
             }
 
+            // Correct widget positions
             setWidgetPositions(data);
 
+            // Set widget active based on tooltip
             widget.active = data.shouldBeActive().getAsBoolean();
 
+            // Get widget tooltip and continue out if shouldn't render
             Component tooltip = data.getTooltip();
-
-            if (widget.isHovered()) {
-                graphics.setTooltipForNextFrame(
-                        getFont(),
-                        getFont().split(tooltip, 200),
-                        graphics.mouseX(),
-                        graphics.mouseY()
-                );
+            if (!widget.isHighlighted()) {
+                continue;
             }
+
+            // Determine if button is hovered or focused
+            ClientTooltipPositioner positioner = getPositioner(widget);
+
+            // Render the tooltip
+            graphics.setTooltipForNextFrame(
+                    getFont(),
+                    getFont().split(tooltip, 200),
+                    positioner,
+                    graphics.mouseX(),
+                    graphics.mouseY(),
+                    true
+            );
         }
+    }
+
+    /**
+     * @return the position to render a tooltip.
+     */
+    private static @NonNull ClientTooltipPositioner getPositioner(AbstractWidget widget) {
+        // Determine if widget is hovered or focused
+        boolean isHovered = widget.isHovered();
+        boolean isFocused = widget.isFocused();
+
+        // Create positioner
+        ClientTooltipPositioner positioner;
+
+        // Calculate the positioner
+        if (!isHovered && isFocused && getMinecraft().getLastInputType().isKeyboard()) {
+            positioner = new BelowOrAboveWidgetTooltipPositioner(widget.getRectangle());
+        } else {
+            positioner = new MenuTooltipPositioner(widget.getRectangle());
+        }
+
+        // Return the positioner
+        return positioner;
     }
 
     /**

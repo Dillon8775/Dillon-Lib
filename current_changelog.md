@@ -20,6 +20,7 @@
 ### lib debug screen entry
 ### fixed neoforge mixin not loading
 ### mixin addition
+### button navigation with tab nwo works
 
 ### New Class Locations and Names
 - *Renamed* Texts class -> `DillonsTexts`, CommonSprites -> `DillonsSprites`.

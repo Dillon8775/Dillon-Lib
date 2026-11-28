@@ -43,12 +43,12 @@ public class QuesoExamplePlatformImpl extends ModPlatform {
 
     @Override
     public void registerables() {
-        Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay"), Component.literal("ok"), Items.GOLD_INGOT, () -> {
+        Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay"), Component.literal("ok"), () -> Items.GOLD_INGOT, () -> {
             ItemStack stack = new ItemStack(Items.ANCIENT_DEBRIS);
             stack.set(DataComponents.CUSTOM_NAME, Component.literal("lol"));
             return List.of(stack);
         });
-        Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay2"), Component.literal("yes"), Items.GOLD_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
+        Factories.registerSimpleItemGroupFactory(Identifier.fromNamespaceAndPath("quesoexample", "yay2"), Component.literal("yes"), () -> Items.GOLD_BLOCK, () -> List.of(Items.OAK_FENCE.getDefaultInstance()));
         Factories.factorItemLikesIntoCreativeTab(CreativeModeTabs.BUILDING_BLOCKS, List.of(Items.FLINT_AND_STEEL, Items.DIAMOND));
     }
 

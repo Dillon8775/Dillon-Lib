@@ -95,24 +95,6 @@ public class CommonTasks {
     }
 
     /**
-     * Sends the player a message that they do not have permission to execute the command, and returns 0 for valid {@link CommandSourceStack}s.
-     */
-    public static int sendNoPermissionMessage(CommandSourceStack source) {
-        source.sendFailure(Component.literal("You do not have permission to execute this command."));
-        return 0;
-    }
-
-    /**
-     * @return if the source has admin permissions, or is a non-player source like a command block.
-     */
-    public static boolean hasAdminPermissionsOrCommandSource(CommandSourceStack source) {
-        return Commands.hasPermission(CommandPermissionLevels.LEVEL_ADMINS)
-                .test()
-                .check(source.permissions())
-                || !source.isPlayer();
-    }
-
-    /**
      * Plays a sound to a {@link LivingEntity}.
      */
     public static void playSoundFromLiving(LivingEntity living, SoundEvent sound, SoundSource source) {

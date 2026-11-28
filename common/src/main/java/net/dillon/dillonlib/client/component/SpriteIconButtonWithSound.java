@@ -7,6 +7,7 @@ import net.minecraft.client.gui.components.*;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -17,12 +18,12 @@ import java.util.function.Supplier;
  */
 @Dill(env = DillEnv.CLIENT)
 public class SpriteIconButtonWithSound extends SpriteIconButton {
-    private final Consumer<SoundManager> soundManager;
+    private final @Nullable Consumer<SoundManager> soundManager;
 
     public SpriteIconButtonWithSound(
             int width,
             int height,
-            Consumer<SoundManager> soundManager,
+            @Nullable Consumer<SoundManager> soundManager,
             ScaledWidgetSprites scaledWidgetSprites,
             Supplier<Component> tooltip,
             OnPress onPress

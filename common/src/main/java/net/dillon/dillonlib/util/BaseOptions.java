@@ -167,6 +167,16 @@ public abstract class BaseOptions<T> {
     }
 
     /**
+     * Handles a loading exception.
+     * @return whether loading should continue.
+     */
+    public boolean handleLoadException(Exception e) {
+        e.printStackTrace();
+        this.instance = createDefault();
+        return true;
+    }
+
+    /**
      * Loads {@code this} config.
      */
     public void load() {
@@ -177,8 +187,9 @@ public abstract class BaseOptions<T> {
             try (FileReader reader = new FileReader(configFile)) {
                 this.instance = GSON.fromJson(reader, getConfigClass());
             } catch (Exception e) {
-                e.printStackTrace();
-                this.instance = createDefault();
+                if (!handleLoadException(e)) {
+                    return;
+                }
             }
         }
         this.safeCheck();

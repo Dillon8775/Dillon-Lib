@@ -59,13 +59,14 @@ public class FabricUniversalPlatformImpl extends UniversalModPlatform {
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key,
                     CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
                             .title(simpleItemGroup.title())
-                            .icon(() -> new ItemStack(simpleItemGroup.icon()))
+                            .icon(() -> new ItemStack(simpleItemGroup.icon().get()))
                             .displayItems((parameters, output) -> {
                                 simpleItemGroup.entries().get().forEach(output::accept);
                             })
                             .build()
             );
         } catch (IllegalArgumentException | IllegalStateException o) { // Stops duplicate groups from being created
+            o.printStackTrace();
         }
     }
 

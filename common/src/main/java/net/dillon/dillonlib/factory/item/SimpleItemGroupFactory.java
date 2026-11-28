@@ -11,4 +11,4 @@ import java.util.function.Supplier;
 /**
  * Holds item group data that is registered when creating an item group factory.
  */
-public record SimpleItemGroupFactory(Identifier id, Component title, ItemLike icon, Supplier<List<ItemStack>> entries) {}
+public record SimpleItemGroupFactory(Identifier id, Component title, Supplier<ItemLike> icon, Supplier<List<ItemStack>> entries) {}

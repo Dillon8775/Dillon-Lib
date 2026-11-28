@@ -100,11 +100,11 @@ public class DebugBuilder extends DebugGroup.Builder {
     /**
      * @return the debug entry status from a formatted value.
      */
-    public static String debugEntryStatus(DebugScreenEntryStatus status) {
+    public static Component debugEntryStatus(DebugScreenEntryStatus status) {
         return switch (status) {
-            case IN_OVERLAY -> "In Overlay";
-            case ALWAYS_ON -> "Always";
-            default -> "Never";
+            case IN_OVERLAY -> Component.translatable("debug.entry.overlay").withStyle(ChatFormatting.YELLOW);
+            case ALWAYS_ON -> Component.translatable("debug.entry.always").withStyle(ChatFormatting.RED);
+            default -> Component.translatable("dillonlib.off");
         };
     }
 

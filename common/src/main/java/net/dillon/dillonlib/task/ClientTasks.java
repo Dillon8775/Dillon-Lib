@@ -351,7 +351,7 @@ public class ClientTasks {
      * Executes a task for the {@link LocalPlayer} if the player isn't null.
      */
     public static void executeIfClientPlayer(Consumer<LocalPlayer> localPlayer) {
-        LocalPlayer player = getMinecraft().player;
+        LocalPlayer player = getLocalPlayer();
 
         if (player != null) {
             localPlayer.accept(player);
